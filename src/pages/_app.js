@@ -1,13 +1,11 @@
 import React from "react";
 import NextApp from "next/app";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import About from "../components/About";
-import Resume from "../components/Resume";
-import Contact from "../components/Contact";
-import Testimonials from "../components/Testimonials";
-import Portfolio from "../components/Portfolio";
+import Header from "../components/Layout/Header";
+import Footer from "../components/Layout/Footer";
+import About from "../containers/About";
+import Resume from "../containers/Resume";
+import Portfolio from "../containers/Portfolio";
 
 import theme from "../theme";
 import { ThemeProvider } from "theme-ui";
@@ -22,8 +20,6 @@ export default class App extends NextApp {
         <About data={resumeData.main} />
         <Resume data={resumeData.resume} />
         <Portfolio data={resumeData.portfolio} />
-        <Testimonials data={resumeData.testimonials} />
-        <Contact data={resumeData.main} />
         <Footer data={resumeData.main} />
         {/*<Component {...pageProps} /> */}
       </ThemeProvider>

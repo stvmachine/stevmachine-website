@@ -4,6 +4,7 @@ export default {
   colors: {
     text: "#000",
     background: "#fff",
+    link: "11abb0",
     primary: "#07c",
     secondary: "#609",
     modes: {
@@ -15,34 +16,29 @@ export default {
       },
     },
   },
-
   fonts: {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
     heading: "inherit",
   },
-  styles: {
-    root: {
-      fontFamily: "body",
-      color: "text",
-      bg: "background",
-    },
-    h1: {
-      fontSize: [4, 5, 6],
-      color: "primary",
-    },
-    a: {
-      color: "primary",
-      textDecoration: "none",
-      ":hover": {
-        color: "secondary",
-        textDecoration: "underline",
+  buttons: {
+    primary: {
+      color: "background",
+      bg: "primary",
+      "&:hover": {
+        bg: "text",
       },
     },
-    pre: {
-      ".comment": {
-        // theme.colors and other values can be referenced
-        color: "gray",
+    secondary: {
+      color: "background",
+      bg: "secondary",
+    },
+    grey: {
+      color: "white",
+      bg: "#444",
+      "&:hover": {
+        color: "black",
+        bg: "white",
       },
     },
   },
