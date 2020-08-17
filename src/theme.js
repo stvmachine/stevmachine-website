@@ -39,4 +39,13 @@ export default {
       objectFit: "cover",
     },
   },
+  links: {
+    underline: {
+      textDecoration: "underline",
+      color: "white",
+      ":hover": {
+        color: "inherit",
+      },
+    },
+  },
 };

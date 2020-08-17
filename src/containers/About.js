@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Styled } from "theme-ui";
+import { jsx, Avatar, Box, Button, Flex, Link, Styled } from "theme-ui";
 import Row from "../components/Row";
 
 const H2 = ({ children }) => (
@@ -42,12 +42,7 @@ const About = ({
             width: [0, "25%"],
           }}
         >
-          <img
-            src={`/images/${image}`}
-            sx={{
-              variant: "images.avatar",
-            }}
-          />
+          <Avatar src={`/images/${image}`} />
         </Box>
         <Box
           sx={{
@@ -72,13 +67,19 @@ const About = ({
                 <br />
                 <span>{phone}</span>
                 <br />
-                <a href={`mailto:${email}`}>{email}</a>
+                <Link
+                  variant="underline"
+                  target="_blank"
+                  href={`mailto:${email}`}
+                >
+                  {email}
+                </Link>
               </p>
             </Box>
             <Box sx={{ pl: 6 }}>
-              <button href={resumeDownload} sx={{ variant: "buttons.grey" }}>
+              <Button href={resumeDownload} variant="grey">
                 <i className="fa fa-download"></i> Download Resume
-              </button>
+              </Button>
             </Box>
           </Flex>
         </Box>

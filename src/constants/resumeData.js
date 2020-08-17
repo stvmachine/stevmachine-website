@@ -22,37 +22,37 @@ export default {
     social: [
       {
         name: "facebook",
-        url: "http://facebook.com/tim.baker.906",
+        // url: "http://facebook.com/<username>",
         className: "fa fa-facebook",
       },
       {
         name: "twitter",
-        url: "http://twitter.com",
+        // url: "http://twitter.com",
         className: "fa fa-twitter",
       },
       {
         name: "google-plus",
-        url: "http://googleplus.com/tbakerx",
+        // url: "http://googleplus.com/<username>",
         className: "fa fa-google-plus",
       },
       {
         name: "linkedin",
-        url: "https://www.linkedin.com/in/tim-baker-8420009a/",
+        url: "https://www.linkedin.com/in/esteban-campos-valenzuela-338235b0/",
         className: "fa fa-linkedin",
       },
       {
         name: "instagram",
-        url: "http://instagram.com/tbaker_x",
+        // url: "http://instagram.com/<username>",
         className: "fa fa-instagram",
       },
       {
         name: "github",
-        url: "http://github.com/tbakerx",
+        url: "https://github.com/stvmachine",
         className: "fa fa-github",
       },
       {
         name: "skype",
-        url: "http://skype.com",
+        // url: "http://skype.com",
         className: "fa fa-skype",
       },
     ],
