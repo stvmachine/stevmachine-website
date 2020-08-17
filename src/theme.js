@@ -7,6 +7,10 @@ export default {
     link: "11abb0",
     primary: "#07c",
     secondary: "#609",
+    white: "#FFF",
+    grey: "#444",
+    onyx: "#0f0f0f",
+    graniteBlack: "#313131",
     modes: {
       dark: {
         text: "#fff",
@@ -17,16 +21,15 @@ export default {
     },
   },
   fonts: {
-    body:
-      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+    body: '"opensans-regular", "sans-serif"',
     heading: "inherit",
   },
   buttons: {
     grey: {
       color: "white",
-      bg: "#444",
+      bg: "grey",
       "&:hover": {
-        color: "black",
+        color: "text",
         bg: "white",
       },
     },
@@ -46,6 +49,23 @@ export default {
       ":hover": {
         color: "inherit",
       },
+    },
+  },
+  styles: {
+    // To add base, top-level styles to the <body>
+    root: {
+      background: "onyx",
+      fontFamily: "body",
+    },
+    a: {
+      textDecoration: "none",
+      outline: 0,
+      color: "link",
+      "-webkit-transition": "color .3s ease-in-out",
+      "-moz-transition": "color .3s ease-in-out",
+      "-o-transition": "color .3s ease-in-out",
+      ":hover": { color: "graniteBlack" },
+      ":focus": { color: "graniteBlack" },
     },
   },
 };
