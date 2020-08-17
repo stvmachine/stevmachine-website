@@ -15,6 +15,7 @@ export default {
       },
     },
   },
+
   fonts: {
     body:
       'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
@@ -36,6 +37,12 @@ export default {
       ":hover": {
         color: "secondary",
         textDecoration: "underline",
+      },
+    },
+    pre: {
+      ".comment": {
+        // theme.colors and other values can be referenced
+        color: "gray",
       },
     },
   },
