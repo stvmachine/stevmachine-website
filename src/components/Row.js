@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Box } from "theme-ui";
 
-export default ({ children, ...props }) => (
+const Row = ({ children, ...props }) => (
   <Box
     sx={{
       width: ["460px", null, "96%"],
@@ -14,3 +14,5 @@ export default ({ children, ...props }) => (
     {children}
   </Box>
 );
+
+export default Row;

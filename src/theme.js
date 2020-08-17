@@ -22,17 +22,6 @@ export default {
     heading: "inherit",
   },
   buttons: {
-    primary: {
-      color: "background",
-      bg: "primary",
-      "&:hover": {
-        bg: "text",
-      },
-    },
-    secondary: {
-      color: "background",
-      bg: "secondary",
-    },
     grey: {
       color: "white",
       bg: "#444",
@@ -40,6 +29,14 @@ export default {
         color: "black",
         bg: "white",
       },
+    },
+  },
+  images: {
+    avatar: {
+      width: 200,
+      height: 200,
+      borderRadius: "25%",
+      objectFit: "cover",
     },
   },
 };
