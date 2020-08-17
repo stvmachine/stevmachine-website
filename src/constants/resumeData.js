@@ -1,21 +1,21 @@
 export default {
   main: {
-    name: "Tim Baker",
-    occupation: "(Your Occupation Here)",
+    name: "Esteban Campos",
+    occupation: "Frontend Developer",
     description:
-      "Here will be your description. Use this to describe what you do or whatever you feel best describes yourself to a potential employer",
+      ", currently employed at Common Code where I work as frontend and hybrid mobile developer.",
     image: "profilepic.jpg",
     bio:
       "Use this bio section as your way of describing yourself and saying what you do, what technologies you like to use or feel most comfortable with, describing your personality, or whatever else you feel like throwing in.",
     contactmessage:
       "Here is where you should write your message to readers to have them get in contact with you.",
-    email: "youremailhere@gmail.com",
-    phone: "555-555-5555",
+    email: "campos.esteban@gmail.com",
+    phone: "+61 0401745732",
     address: {
-      street: "(Your Street)",
-      city: "(Your City)",
-      state: "(Your State)",
-      zip: "(Your Zip/Postal Code)",
+      street: "470 St Kilda Rd",
+      city: "Melbourne",
+      state: "Victoria",
+      zip: "3004",
     },
     website: "http://www.timbakerdev.com",
     resumedownload: "http://timbakerdev.com",

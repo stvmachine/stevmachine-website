@@ -10,11 +10,29 @@ export default class extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <meta charset="utf-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          />
+          <meta name="theme-color" content="#000000" />
+          <link rel="stylesheet" href="/css/default.css" />
+          <link rel="stylesheet" href="/css/layout.css" />
+          <link rel="stylesheet" href="/css/media-queries.css" />
+          <link rel="stylesheet" href="/css/magnific-popup.css" />
+        </Head>
         <body>
           <InitializeColorMode />
           <Main />
           <NextScript />
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" />
+          <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js" />
+          <script src="js/jquery.flexslider.js" />
+          <script src="js/waypoints.js" />
+          <script src="js/jquery.fittext.js" />
+          <script src="js/magnific-popup.js" />
+          <script src="js/init.js" />
         </body>
       </Html>
     );
