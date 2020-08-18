@@ -62,66 +62,56 @@ export default {
       "Here you can create a short write-up of your skills to show off to employers",
     education: [
       {
-        school: "University?",
-        degree: "Masters in Beer tasting",
-        graduated: "April 2007",
-        description:
-          "Describe your experience at school, what you learned, what useful skills you have acquired etc.",
+        school: "Universidad de Santiago de Chile",
+        degree: "Master of Science in engineering",
+        graduated: "2014",
+        description: "",
       },
       {
-        school: "School #1 Maybe College?",
-        degree: "What did you study 101",
-        graduated: "March 2003",
-        description:
-          "Describe your experience at school, what you learned, what useful skills you have acquired etc.",
+        school: "Universidad de Santiago de Chile",
+        degree: "Computer Engineering",
+        graduated: "2014",
+        description: "",
       },
     ],
     work: [
       {
-        company: "Awesome Design Studio",
-        title: "Senior UX God ",
-        years: "March 2010 - Present",
+        company: "Common Code",
+        title: "Frontend Developer",
+        years: "July 2018 - Present",
         description:
-          "Describe work, special projects, notable achievements, what technologies you have been working with, and anything else that would be useful for an employer to know.",
+          "Common Code is a collective of smart and passionate people, they are continously embracing good practices and pushing forward the community. I participated as mentor and atendee to the multiple meetups and events that the company host as MelbDjango, DjangoGirls and NodeGirls. Main stack: Django, React and React Native. ",
       },
       {
-        company: "Super Cool Studio",
-        title: "Junior bug fixer",
-        years: "March 2007 - February 2010",
+        company: "Vicsuper",
+        title: "Angular 2/Ionic 2 Developer",
+        years: "Jan 2018 - July 2018",
         description:
-          "Describe work, special projects, notable achievements, what technologies you have been working with, and anything else that would be useful for an employer to know.",
+          "Superannuation company with more than twenty years. I contribuited with their first app, that allows the clients keep track of their super. The experience is available for Android and iOS.",
+      },
+      {
+        company: "Idea Uno",
+        title: "Senior Frontend Developer",
+        years: "Jun 2016 - Nov 2017",
+        description:
+          "I used multiple hats. Usually took the lead on mobile hybrid projects and educated the team on Angular/Ionic/React/React Native. Great experience that until today makes me spread my love for Ruby On Rails.",
+      },
+      {
+        company: "Kunder",
+        title: "Angular/Ionic Developer",
+        years: "March 2016 - June 2016",
+        description:
+          "First experience as frontend and mobile developer. It was a really intensive experience due I worked with a family of eight Ionic apps. In my short time, i added features and i did maintenance at least 5 of them.",
+      },
+      {
+        company: "Random ERP",
+        title: "Fullstack Developer",
+        years: "March 2015 - March 2016",
+        description:
+          "As a fullstack, i developed desktop apps based on NodeJS and Angular.",
       },
     ],
-    skills: [
-      {
-        name: "Git",
-        level: "60%",
-      },
-      {
-        name: "Illustrator",
-        level: "55%",
-      },
-      {
-        name: "ReactJs",
-        level: "50%",
-      },
-      {
-        name: "CSS",
-        level: "90%",
-      },
-      {
-        name: "HTML5",
-        level: "80%",
-      },
-      {
-        name: "VueJs",
-        level: "50%",
-      },
-      {
-        name: "MongoDB",
-        level: "80%",
-      },
-    ],
+    skills: [],
   },
   portfolio: {
     projects: [
@@ -130,31 +120,6 @@ export default {
         category: "My Travel Blog for my post-university travels",
         image: "canadian-wanderlust.jpg",
         url: "https://www.canadianwanderlust.com",
-      },
-      {
-        title: "Fury Fighting Gear",
-        category: "(offline now) A fighting gear company I started",
-        image: "fury-fighting-gear.jpg",
-        url: "http://www.timbakerdev.com",
-      },
-      {
-        title: "Original Thai Food",
-        category: "Website I built for a restaurant I like in Thailand",
-        image: "original-thai-food.jpg",
-        url: "http://www.timbakerdev.com/originalthaifood.github.io",
-      },
-      {
-        title: "Resume Website",
-        category: "A React based resume website template",
-        image: "resume-website.jpg",
-        url: "http://www.timbakerdev.com",
-      },
-      {
-        title: "Smirkspace",
-        category:
-          "(MVP Only) A React and Meteor based chat University project.",
-        image: "smirkspace.jpg",
-        url: "http://www.smirkspace.com",
       },
     ],
   },

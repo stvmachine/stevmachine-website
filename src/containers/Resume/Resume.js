@@ -10,7 +10,7 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
         {education.degree} <span>&bull;</span>
         <em className="date">{education.graduated}</em>
       </p>
-      <p>{education.description}</p>
+      {education.description && <p>{education.description}</p>}
     </div>
   ));
   const Work = work.map((work) => (
@@ -23,15 +23,15 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
       <p>{work.description}</p>
     </div>
   ));
-  const Skills = skills.map((skills) => {
-    const className = "bar-expand " + skills.name.toLowerCase();
-    return (
-      <li key={skills.name}>
-        <span style={{ width: skills.level }} className={className}></span>
-        <em>{skills.name}</em>
-      </li>
-    );
-  });
+  // const Skills = skills.map((skills) => {
+  //   const className = "bar-expand " + skills.name.toLowerCase();
+  //   return (
+  //     <li key={skills.name}>
+  //       <span style={{ width: skills.level }} className={className}></span>
+  //       <em>{skills.name}</em>
+  //     </li>
+  //   );
+  // });
 
   return (
     <section id="resume" css={ResumeStyles}>
@@ -59,7 +59,7 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
         <div className="nine columns main-col">{Work}</div>
       </div>
 
-      <div className="row skill">
+      {/* <div className="row skill">
         <div className="three columns header-col">
           <h1>
             <span>Skills</span>
@@ -73,7 +73,7 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
             <ul className="skills">{Skills}</ul>
           </div>
         </div>
-      </div>
+  </div> */}
     </section>
   );
 };
