@@ -13,7 +13,6 @@ import resumeData from "../constants/resumeData";
 
 export default class App extends NextApp {
   render() {
-    // const { Component, pageProps } = this.props;
     return (
       <ThemeProvider theme={theme}>
         <Header data={resumeData.main} />
@@ -21,7 +20,6 @@ export default class App extends NextApp {
         <Resume data={resumeData.resume} />
         <Portfolio data={resumeData.portfolio} />
         <Footer data={resumeData.main} />
-        {/*<Component {...pageProps} /> */}
       </ThemeProvider>
     );
   }
