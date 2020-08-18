@@ -22,17 +22,17 @@ export default {
     social: [
       {
         name: "facebook",
-        // url: "http://facebook.com/<username>",
+        url: "",
         className: "fa fa-facebook",
       },
       {
         name: "twitter",
-        // url: "http://twitter.com",
+        url: "",
         className: "fa fa-twitter",
       },
       {
         name: "google-plus",
-        // url: "http://googleplus.com/<username>",
+        url: "",
         className: "fa fa-google-plus",
       },
       {
@@ -42,7 +42,7 @@ export default {
       },
       {
         name: "instagram",
-        // url: "http://instagram.com/<username>",
+        url: "",
         className: "fa fa-instagram",
       },
       {
@@ -52,7 +52,7 @@ export default {
       },
       {
         name: "skype",
-        // url: "http://skype.com",
+        url: "",
         className: "fa fa-skype",
       },
     ],
@@ -116,24 +116,29 @@ export default {
   portfolio: {
     projects: [
       {
-        title: "Canadian Wanderlust",
-        category: "My Travel Blog for my post-university travels",
-        image: "canadian-wanderlust.jpg",
-        url: "https://www.canadianwanderlust.com",
-      },
-    ],
-  },
-  testimonials: {
-    testimonials: [
-      {
-        text:
-          "Here you should write some nice things that someone has said about you. No lies though, employers can tell when you are lying.",
-        user: "Kareem Abdul Jabbar",
+        title: "VicSuper mobile app",
+        category: "Keep track of your super from your phone",
+        image: "vicsuper-mobile-app.png",
+        url: "https://www.vicsuper.com.au/forms-and-resources/mobile-app",
       },
       {
-        text:
-          "That Tim Baker must be one of the most brilliant developers I've ever met! It is amazing that nobody has hired him yet. Hey you, you should hire this guy, he may be fresh out of University and have zero on the job experience but I am confident that he will be one of your best developers in no time!",
-        user: "Steve Wozniak... impersonator",
+        title: "Good on you Brand Directory",
+        category: "Brand directory.",
+        image: "goodonyou-directory.png",
+        url: "https://directory.goodonyou.eco/",
+      },
+      {
+        title: "Good on you mobile app",
+        category: "Mobile version of Good On You",
+        image: "goodonyou-mobile.png",
+        url:
+          "https://apps.apple.com/us/app/good-on-you-ethical-fashion/id1044017998",
+      },
+      {
+        title: "Tugeda Platform",
+        category: "Mobile version of Good On You",
+        image: "tugeda-website.png",
+        url: "https://tugeda.space/",
       },
     ],
   },

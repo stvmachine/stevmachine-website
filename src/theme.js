@@ -41,6 +41,12 @@ export default {
       borderRadius: "25%",
       objectFit: "cover",
     },
+    portfolio: {
+      textAlign: "center",
+      maxWidth: 350,
+      minHeight: 100,
+      maxHeight: 250,
+    },
   },
   links: {
     underline: {
