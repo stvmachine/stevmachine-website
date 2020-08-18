@@ -3,8 +3,8 @@ import { jsx } from "theme-ui";
 import { ResumeStyles } from "./Resume.styles";
 
 const Resume = ({ data: { skillmessage, education, work, skills } }) => {
-  const Education = education.map((education) => (
-    <div key={education.school}>
+  const Education = education.map((education, index) => (
+    <div key={`education-${index}`}>
       <h3>{education.school}</h3>
       <p className="info">
         {education.degree} <span>&bull;</span>
@@ -13,8 +13,8 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
       {education.description && <p>{education.description}</p>}
     </div>
   ));
-  const Work = work.map((work) => (
-    <div key={work.company}>
+  const Work = work.map((work, index) => (
+    <div key={`work-${index}`}>
       <h3>{work.company}</h3>
       <p className="info">
         {work.title}

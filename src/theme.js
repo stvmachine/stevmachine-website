@@ -3,11 +3,12 @@ export default {
   useColorSchemeMediaQuery: true,
   colors: {
     text: "#000",
-    background: "#fff",
+    background: "#0f0f0f",
     link: "11abb0",
     primary: "#07c",
     secondary: "#609",
-    white: "#FFF",
+    white: "#fff",
+    orange: "#f06000",
     grey: "#444",
     onyx: "#0f0f0f",
     graniteBlack: "#313131",
@@ -53,7 +54,7 @@ export default {
       textDecoration: "underline",
       color: "white",
       ":hover": {
-        color: "inherit",
+        color: "orange",
       },
     },
   },

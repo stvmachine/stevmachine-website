@@ -7,8 +7,6 @@ const navItems = [
   { id: "about", name: "About" },
   { id: "resume", name: "Resume" },
   { id: "portfolio", name: "Works" },
-  // { id: "testimonials", name: "Testimonials" },
-  // { id: "contact", name: "Contact" },
 ];
 
 const Header = ({

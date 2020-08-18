@@ -6,7 +6,7 @@ export default {
       ", currently employed at Common Code where I work as frontend and hybrid mobile developer.",
     image: "profilepic.jpg",
     bio:
-      "Use this bio section as your way of describing yourself and saying what you do, what technologies you like to use or feel most comfortable with, describing your personality, or whatever else you feel like throwing in.",
+      "I am usually labeled as a frontend and mobile developer, although I fully agree that I'm good at that, I am continually improving my dev skills in other areas (right now I am learning Rust and Machine Learning). I am interested in board games, choirs and my dog Balu.",
     contactmessage:
       "Here is where you should write your message to readers to have them get in contact with you.",
     email: "campos.esteban@gmail.com",
@@ -80,14 +80,14 @@ export default {
         title: "Frontend Developer",
         years: "July 2018 - Present",
         description:
-          "Common Code is a collective of smart and passionate people, they are continously embracing good practices and pushing forward the community. I participated as mentor and atendee to the multiple meetups and events that the company host as MelbDjango, DjangoGirls and NodeGirls. Main stack: Django, React and React Native. ",
+          "Common Code is a collective of smart and passionate people, who are concerned with adopting good work practices and contributing to the dev community. I regularly participate as a mentor and atendee in the meetups and events that the company organizes such as MelbDjango, DjangoGirls and NodeGirls. The main stack is Django, React, and React Native.",
       },
       {
         company: "Vicsuper",
         title: "Angular 2/Ionic 2 Developer",
         years: "Jan 2018 - July 2018",
         description:
-          "Superannuation company with more than twenty years. I contribuited with their first app, that allows the clients keep track of their super. The experience is available for Android and iOS.",
+          "I contribuited with the development of their first app. The app allows customers keep track of their super. It was my first experience here in Australia and it was a blast.",
       },
       {
         company: "Idea Uno",
@@ -101,20 +101,27 @@ export default {
         title: "Angular/Ionic Developer",
         years: "March 2016 - June 2016",
         description:
-          "First experience as frontend and mobile developer. It was a really intensive experience due I worked with a family of eight Ionic apps. In my short time, i added features and i did maintenance at least 5 of them.",
+          "First experience as frontend and mobile developer. It was a really intensive experience due I worked with a family of eight Ionic apps. In my short time, I added features and I did maintenance at least five of them.",
       },
       {
         company: "Random ERP",
         title: "Fullstack Developer",
         years: "March 2015 - March 2016",
         description:
-          "As a fullstack, i developed desktop apps based on NodeJS and Angular.",
+          "This is my third work experience but my first full time. I was involved in all the levels of the system design and development. I developed desktop apps based on NodeJS and Angular. ",
       },
     ],
     skills: [],
   },
   portfolio: {
     projects: [
+      {
+        title: "Banco de Chile mobile app",
+        category: "Bank account and transactions managment",
+        image: "bancodechile-mobile.png",
+        url:
+          "https://play.google.com/store/apps/details?id=cl.bancochile.mbanking&hl=es_419",
+      },
       {
         title: "VicSuper mobile app",
         category: "Keep track of your super from your phone",
