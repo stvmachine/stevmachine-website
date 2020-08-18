@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { HeaderStyles } from "./Header.styles";
-import Menu from "./Menu";
+import Nav from "./Nav";
 
 const Header = ({
   data: {
@@ -32,16 +32,7 @@ const Header = ({
 
   return (
     <header id="home" css={HeaderStyles}>
-      <nav id="nav-wrap">
-        <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
-          Show navigation
-        </a>
-        <a className="mobile-btn" href="#home" title="Hide navigation">
-          Hide navigation
-        </a>
-
-        <Menu />
-      </nav>
+      <Nav />
 
       <div className="row banner">
         <div className="banner-text">

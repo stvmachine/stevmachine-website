@@ -131,10 +131,6 @@ export const HeaderStyles = css`
     top: 0;
   }
 
-  .opaque {
-    background-color: #333;
-  }
-
   /* hide toggle button */
   #nav-wrap > a.mobile-btn {
     display: none;

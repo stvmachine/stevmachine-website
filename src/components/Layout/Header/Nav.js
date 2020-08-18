@@ -1,9 +1,20 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
 import { useState, useEffect } from "react";
+import styled from "@emotion/styled";
 
 import MenuItem from "./MenuItem";
-import useDebounce from "../../../hooks/useDebounce";
+
+const Wrapper = styled.nav`
+  ${({ opaque }) => opaque && `background-color: #333;`}
+  ${({ show }) =>
+    show
+      ? `visibility: visible;
+  opacity: 1;`
+      : `visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.4s, opacity 0.4s ease-out;`}
+`;
 
 /*
  * The list of our Menu Titles (Sections) as keys, with their
@@ -17,8 +28,10 @@ const menuItems = {
   portfolio: null,
 };
 
-const Menu = () => {
+const Nav = () => {
   const [activeItem, setActiveItem] = useState("home");
+  const [navIsOpaque, setNavOpaque] = useState(false);
+  const [navIsDisplayed, showNav] = useState(true);
 
   /*
    * The MutationObserver allows us to watch for a few different
@@ -71,6 +84,7 @@ const Menu = () => {
      * depth (bottom) section last
      * If your items are out-of-order, this code will not function correctly
      */
+
     if (curPos < menuItems["about"]) {
       curSection = "home";
     } else if (curPos < menuItems["resume"]) {
@@ -81,22 +95,45 @@ const Menu = () => {
       curSection = "portfolio";
     }
     setActiveItem(curSection);
+
+    // Add some animation to hide the nav menu when we scroll a little but appears again in the second section
+    const topSection = menuItems["resume"];
+    if (curPos > topSection * 0.2 && curPos < 768) {
+      showNav(false);
+    } else {
+      if (curPos < topSection * 0.2) {
+        setNavOpaque(false);
+        showNav(true);
+      } else {
+        setNavOpaque(true);
+        showNav(true);
+      }
+    }
   };
 
   /*
    * Create the list of MenuItems based on the sections object we have defined above
    */
   return (
-    <ul id="nav" className="nav">
-      {Object.keys(menuItems).map((item, index) => (
-        <MenuItem
-          itemName={item}
-          key={`menuitem_${index}`}
-          active={item === activeItem}
-        />
-      ))}
-    </ul>
+    <Wrapper id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
+      <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
+        Show navigation
+      </a>
+      <a className="mobile-btn" href="#home" title="Hide navigation">
+        Hide navigation
+      </a>
+
+      <ul id="nav">
+        {Object.keys(menuItems).map((item, index) => (
+          <MenuItem
+            itemName={item}
+            key={`menuitem_${index}`}
+            active={item === activeItem}
+          />
+        ))}
+      </ul>
+    </Wrapper>
   );
 };
 
-export default Menu;
+export default Nav;
