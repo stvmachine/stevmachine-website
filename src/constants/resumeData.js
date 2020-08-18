@@ -108,7 +108,7 @@ export default {
         title: "Fullstack Developer",
         years: "March 2015 - March 2016",
         description:
-          "This is my third work experience but my first full time. I was involved in all the levels of the system design and development. I developed desktop apps based on NodeJS and Angular. ",
+          "I was involved in all the levels of the system design and development of a new product. I developed desktop apps based on NodeJS and Angular. ",
       },
     ],
     skills: [],

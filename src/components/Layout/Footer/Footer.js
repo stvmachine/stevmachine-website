@@ -14,31 +14,39 @@ const Networks = ({ networks }) =>
       )
   );
 
-const Footer = ({ data: { social } }) => (
-  <footer css={FooterStyles}>
-    <div className="row">
-      <div className="twelve columns">
-        <ul className="social-links">
-          <Networks networks={social} />
-        </ul>
+const Footer = ({ data: { social } }) => {
+  const goToHome = (e) => {
+    e.preventDefault();
+    document
+      .getElementById("home")
+      .scrollIntoView({ behaviour: "smooth", block: "start" });
+  };
+  return (
+    <footer css={FooterStyles}>
+      <div className="row">
+        <div className="twelve columns">
+          <ul className="social-links">
+            <Networks networks={social} />
+          </ul>
 
-        <ul className="copyright">
-          <li>&copy; Copyright 2020 Esteban Campos</li>
-          <li>
-            Design by{" "}
-            <a title="Styleshout" href="http://www.styleshout.com/">
-              Styleshout
-            </a>
-          </li>
-        </ul>
+          <ul className="copyright">
+            <li>&copy; Copyright 2020 Esteban Campos</li>
+            <li>
+              Design by{" "}
+              <a title="Styleshout" href="http://www.styleshout.com/">
+                Styleshout
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="go-top">
+          <a title="Back to Top" onClick={goToHome}>
+            <i className="icon-up-open"></i>
+          </a>
+        </div>
       </div>
-      <div id="go-top">
-        <a className="smoothscroll" title="Back to Top" href="#home">
-          <i className="icon-up-open"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
-);
+    </footer>
+  );
+};
 
 export default Footer;

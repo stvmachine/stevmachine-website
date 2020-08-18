@@ -34,6 +34,7 @@ const About = ({
       overflow: "hidden",
       color: "#7a7a7a",
     }}
+    as="section"
   >
     <Row>
       <Flex sx={{ mx: "auto", justifyContent: "center" }}>

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import Link from "next/link";
 import { HeaderStyles } from "./Header.styles";
 import Menu from "./Menu";
 
@@ -23,6 +22,13 @@ const Header = ({
         </li>
       )
   );
+
+  const goToAbout = (e) => {
+    e.preventDefault();
+    document
+      .getElementById("about")
+      .scrollIntoView({ behaviour: "smooth", block: "start" });
+  };
 
   return (
     <header id="home" css={HeaderStyles}>
@@ -49,7 +55,7 @@ const Header = ({
       </div>
 
       <p className="scrolldown">
-        <a href="#about" scroll={false}>
+        <a onClick={goToAbout}>
           <i className="icon-down-circle"></i>
         </a>
       </p>

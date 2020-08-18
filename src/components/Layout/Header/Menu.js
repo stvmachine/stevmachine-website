@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
-import Router from "next/router";
 import { useState, useEffect } from "react";
+
 import MenuItem from "./MenuItem";
+import useDebounce from "../../../hooks/useDebounce";
 
 /*
  * The list of our Menu Titles (Sections) as keys, with their
@@ -28,6 +29,7 @@ const Menu = () => {
    * on our user's scroll depth
    */
   useEffect(() => {
+    getAnchorPoints();
     const observer = new MutationObserver(getAnchorPoints);
     observer.observe(document.getElementById("__next"), {
       childList: true,
@@ -69,21 +71,21 @@ const Menu = () => {
      * depth (bottom) section last
      * If your items are out-of-order, this code will not function correctly
      */
-    for (const section in menuItems) {
-      curSection = menuItems[section] >= curPos ? section : curSection;
-      if (curSection !== section) {
-        break;
-      }
+    if (curPos < menuItems["about"]) {
+      curSection = "home";
+    } else if (curPos < menuItems["resume"]) {
+      curSection = "about";
+    } else if (curPos < menuItems["portfolio"]) {
+      curSection = "resume";
+    } else {
+      curSection = "portfolio";
     }
-    if (curSection !== activeItem) {
-      setActiveItem(curSection);
-    }
+    setActiveItem(curSection);
   };
 
   /*
    * Create the list of MenuItems based on the sections object we have defined above
    */
-
   return (
     <ul id="nav" className="nav">
       {Object.keys(menuItems).map((item, index) => (
