@@ -15,7 +15,7 @@ export const PortfolioStyles = css`
   }
 
   /* Portfolio Content */
-  -wrapper .columns {
+  #portfolio-wrapper .columns {
     margin-bottom: 36px;
   }
 
@@ -111,87 +111,5 @@ export const PortfolioStyles = css`
     opacity: 1;
     -moz-opacity: 1;
     filter: alpha(opacity=100);
-  }
-
-  /* popup modal */
-  .popup-modal {
-    max-width: 550px;
-    background: #fff;
-    position: relative;
-    margin: 0 auto;
-  }
-
-  .popup-modal .description-box {
-    padding: 12px 36px 18px 36px;
-  }
-
-  .popup-modal .description-box h4 {
-    font: 15px/24px "opensans-bold", sans-serif;
-    margin-bottom: 12px;
-    color: #111;
-  }
-
-  .popup-modal .description-box p {
-    font: 14px/24px "opensans-regular", sans-serif;
-    color: #a1a1a1;
-    margin-bottom: 12px;
-  }
-
-  .popup-modal .description-box .categories {
-    font: 11px/21px "opensans-light", sans-serif;
-    color: #a1a1a1;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: block;
-    text-align: left;
-  }
-
-  .popup-modal .description-box .categories i {
-    margin-right: 8px;
-  }
-
-  .popup-modal .link-box {
-    padding: 18px 36px;
-    background: #111;
-    text-align: left;
-  }
-
-  .popup-modal .link-box a {
-    color: #fff;
-    font: 11px/21px "opensans-bold", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    cursor: pointer;
-  }
-
-  .popup-modal a:hover {
-    color: #00cccc;
-  }
-
-  .popup-modal a.popup-modal-dismiss {
-    margin-left: 24px;
-  }
-
-  /* fadein/fadeout effect for modal popup
-  /* ------------------------------------------------------------------ */
-
-  /* content at start */
-  .mfp-fade.mfp-wrap .mfp-content .popup-modal {
-    opacity: 0;
-    -webkit-transition: all 200ms ease-in-out;
-    -moz-transition: all 200ms ease-in-out;
-    -o-transition: all 200ms ease-in-out;
-    -ms-transition: all 200ms ease-in-out;
-    transition: all 200ms ease-in-out;
-  }
-
-  /* content fadein */
-  .mfp-fade.mfp-wrap.mfp-ready .mfp-content .popup-modal {
-    opacity: 1;
-  }
-
-  /* content fadeout */
-  .mfp-fade.mfp-wrap.mfp-removing .mfp-content .popup-modal {
-    opacity: 0;
   }
 `;
