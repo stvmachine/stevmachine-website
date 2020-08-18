@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, Avatar, Box, Button, Flex, Link, Styled } from "theme-ui";
-import Row from "../components/Row";
+import Row from "../../components/Row";
 
 const H2 = ({ children }) => (
   <Styled.h2
