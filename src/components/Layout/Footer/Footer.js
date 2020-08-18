@@ -3,13 +3,16 @@ import { jsx } from "theme-ui";
 import { FooterStyles } from "./Footer.styles";
 
 const Networks = ({ networks }) =>
-  networks.map((network) => (
-    <li key={network.name}>
-      <a href={network.url}>
-        <i className={network.className}></i>
-      </a>
-    </li>
-  ));
+  networks.map(
+    (network) =>
+      network.url && (
+        <li key={network.name}>
+          <a href={network.url}>
+            <i className={network.className}></i>
+          </a>
+        </li>
+      )
+  );
 
 const Footer = ({ data: { social } }) => (
   <footer css={FooterStyles}>
@@ -20,7 +23,7 @@ const Footer = ({ data: { social } }) => (
         </ul>
 
         <ul className="copyright">
-          <li>&copy; Copyright 2017 Tim Baker</li>
+          <li>&copy; Copyright 2020 Esteban Campos</li>
           <li>
             Design by{" "}
             <a title="Styleshout" href="http://www.styleshout.com/">
