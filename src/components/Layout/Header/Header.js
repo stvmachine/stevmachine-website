@@ -1,13 +1,8 @@
 /** @jsx jsx */
 import { jsx } from "theme-ui";
+import Link from "next/link";
 import { HeaderStyles } from "./Header.styles";
-
-const navItems = [
-  { id: "home", name: "Home" },
-  { id: "about", name: "About" },
-  { id: "resume", name: "Resume" },
-  { id: "portfolio", name: "Works" },
-];
+import Menu from "./Menu";
 
 const Header = ({
   data: {
@@ -39,15 +34,7 @@ const Header = ({
           Hide navigation
         </a>
 
-        <ul id="nav" className="nav">
-          {navItems.map((navItem) => (
-            <li className="current" key={navItem.id}>
-              <a className="smoothscroll" href={`#${navItem.id}`}>
-                {navItem.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <Menu />
       </nav>
 
       <div className="row banner">
@@ -62,7 +49,7 @@ const Header = ({
       </div>
 
       <p className="scrolldown">
-        <a className="smoothscroll" href="#about">
+        <a href="#about" scroll={false}>
           <i className="icon-down-circle"></i>
         </a>
       </p>
