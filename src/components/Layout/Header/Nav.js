@@ -116,6 +116,7 @@ const Nav = () => {
    */
   return (
     <Wrapper id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
+      {/* ToDo: Add button on mobile to display the navigation menu */}
       <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
         Show navigation
       </a>

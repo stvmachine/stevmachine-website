@@ -58,7 +58,7 @@ export default {
     ],
   },
   resume: {
-    skillmessage:
+    techMessage:
       "Here you can create a short write-up of your skills to show off to employers",
     education: [
       {
@@ -111,7 +111,43 @@ export default {
           "I was involved in all the levels of the system design and development of a new product. I developed desktop apps based on NodeJS and Angular. ",
       },
     ],
-    skills: [],
+    favoriteTechs: [
+      {
+        name: "React",
+        image: "react.png",
+        description: "",
+      },
+      {
+        name: "Vue",
+        image: "vue.png",
+        description: "",
+      },
+      {
+        name: "NodeJS",
+        image: "node.png",
+        description: "",
+      },
+      {
+        name: "Rails",
+        image: "rails.png",
+        description: "",
+      },
+      {
+        name: "Django",
+        image: "django.png",
+        description: "",
+      },
+      {
+        name: "Typescript",
+        image: "typescript.jpeg",
+        description: "",
+      },
+      {
+        name: "Docker",
+        image: "docker.png",
+        description: "",
+      },
+    ],
   },
   portfolio: {
     projects: [

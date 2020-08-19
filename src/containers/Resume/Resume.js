@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Grid, Card, Text, Image } from "theme-ui";
 import { ResumeStyles } from "./Resume.styles";
 
-const Resume = ({ data: { skillmessage, education, work, skills } }) => {
+const Resume = ({ data: { techMessage, education, work, favoriteTechs } }) => {
   const Education = education.map((education, index) => (
     <div key={`education-${index}`}>
       <h3>{education.school}</h3>
@@ -23,15 +23,17 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
       <p>{work.description}</p>
     </div>
   ));
-  // const Skills = skills.map((skills) => {
-  //   const className = "bar-expand " + skills.name.toLowerCase();
-  //   return (
-  //     <li key={skills.name}>
-  //       <span style={{ width: skills.level }} className={className}></span>
-  //       <em>{skills.name}</em>
-  //     </li>
-  //   );
-  // });
+
+  const FavoriteTechs = (
+    <Grid width={[128, null, 192]}>
+      {favoriteTechs.map((tech) => (
+        <Card>
+          <Image src={`/images/techs/${tech.image}`} />
+          <Text>{tech.name}</Text>
+        </Card>
+      ))}
+    </Grid>
+  );
 
   return (
     <section id="resume" css={ResumeStyles}>
@@ -59,21 +61,18 @@ const Resume = ({ data: { skillmessage, education, work, skills } }) => {
         <div className="nine columns main-col">{Work}</div>
       </div>
 
-      {/* <div className="row skill">
+      <div className="row">
         <div className="three columns header-col">
           <h1>
-            <span>Skills</span>
+            <span>Favorite Tech</span>
           </h1>
         </div>
 
         <div className="nine columns main-col">
-          <p>{skillmessage}</p>
-
-          <div className="bars">
-            <ul className="skills">{Skills}</ul>
-          </div>
+          <p>{techMessage}</p>
+          {FavoriteTechs}
         </div>
-  </div> */}
+      </div>
     </section>
   );
 };

@@ -4,14 +4,16 @@ export default {
   colors: {
     text: "#000",
     background: "#0f0f0f",
-    link: "11abb0",
+    link: "#11abb0",
     primary: "#07c",
     secondary: "#609",
     white: "#fff",
     orange: "#f06000",
     grey: "#444",
+    grey2: "#313131",
+    grey3: "#3d4145",
+    grey4: "#303030",
     onyx: "#0f0f0f",
-    graniteBlack: "#313131",
     modes: {
       dark: {
         text: "#fff",
@@ -28,10 +30,10 @@ export default {
   buttons: {
     grey: {
       color: "white",
-      bg: "grey",
+      bg: "link",
       "&:hover": {
-        color: "text",
-        bg: "white",
+        color: "white",
+        bg: "grey3",
       },
     },
   },
@@ -57,6 +59,13 @@ export default {
         color: "orange",
       },
     },
+    nav: {
+      color: "white",
+      bg: "grey4",
+      "&:hover": {
+        bg: "link",
+      },
+    },
   },
   styles: {
     // To add base, top-level styles to the <body>
@@ -68,11 +77,19 @@ export default {
       textDecoration: "none",
       outline: 0,
       color: "link",
-      "-webkit-transition": "color .3s ease-in-out",
-      "-moz-transition": "color .3s ease-in-out",
-      "-o-transition": "color .3s ease-in-out",
-      ":hover": { color: "graniteBlack" },
-      ":focus": { color: "graniteBlack" },
+      "-webkit-transition": "color .2s ease-in-out",
+      "-moz-transition": "color .2s ease-in-out",
+      "-o-transition": "color .2s ease-in-out",
+      "-ms-transition": "color 0.2s ease-in-out",
+      transition: "color .2s ease-in-out",
+      ":active,:hover": {
+        background: "gray3",
+        color: "white",
+      },
+      "::-moz-focus-inner": {
+        border: 0,
+        padding: 0,
+      },
     },
   },
 };
