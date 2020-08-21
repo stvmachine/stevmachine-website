@@ -94,4 +94,55 @@ export const FooterStyles = css`
   #go-top a:hover {
     background-color: #0f9095;
   }
+
+  /* mobile wide/smaller tablets
+---------------------------------------------------------------------- */
+  @media only screen and (max-width: 767px) {
+    /* footer
+   ------------------------------------------------------------------------ */
+
+    /* copyright */
+    .copyright li:before {
+      content: none;
+    }
+    .copyright li {
+      margin-right: 12px;
+    }
+
+    /* social links */
+    .social-links {
+      font-size: 22px;
+    }
+    .social-links li {
+      margin-left: 18px;
+    }
+
+    /* Go To Top Button */
+    #go-top {
+      margin-left: -22px;
+    }
+    #go-top a {
+      width: 54px;
+      height: 54px;
+      font-size: 18px;
+      line-height: 54px;
+    }
+  }
+
+  /* mobile narrow
+  -------------------------------------------------------------------------- */
+
+  @media only screen and (max-width: 480px) {
+    /* footer
+   ------------------------------------------------------------------------ */
+
+    /* social links */
+    .social-links {
+      font-size: 20px;
+    }
+
+    .social-links li {
+      margin-left: 14px;
+    }
+  }
 `;

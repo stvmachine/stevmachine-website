@@ -62,4 +62,24 @@ export const ResumeStyles = css`
     font: 15px/24px "opensans-regular", sans-serif;
     margin-top: 6px;
   }
+
+  @media only screen and (max-width: 767px) {
+    /* Resume Section
+  --------------------------------------------------------------------- */
+    #resume .header-col {
+      padding-top: 0;
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    #resume h1 {
+      letter-spacing: 3px;
+    }
+    #resume .main-col {
+      padding-right: 30px;
+    }
+    #resume h3,
+    #resume .info {
+      text-align: center;
+    }
+  }
 `;

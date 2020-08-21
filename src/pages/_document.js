@@ -12,7 +12,6 @@ export default class extends Document {
       <Html>
         <Head>
           <link rel="stylesheet" href="/css/default.css" />
-          <link rel="stylesheet" href="/css/media-queries.css" />
         </Head>
         <body>
           <InitializeColorMode />

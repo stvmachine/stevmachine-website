@@ -112,4 +112,15 @@ export const PortfolioStyles = css`
     -moz-opacity: 1;
     filter: alpha(opacity=100);
   }
+
+  @media only screen and (max-width: 767px) {
+    /* Portfolio Section
+    /* ----------------------------------------------------------------- */
+    #portfolio-wrapper .columns {
+      margin-bottom: 40px;
+    }
+    .popup-modal {
+      max-width: 85%;
+    }
+  }
 `;
