@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 
@@ -117,12 +117,12 @@ const Nav = () => {
   return (
     <Wrapper id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
       {/* ToDo: Add button on mobile to display the navigation menu */}
-      <a className="mobile-btn" href="#nav-wrap" title="Show navigation">
+      <Styled.a className="mobile-btn" href="#nav-wrap" title="Show navigation">
         Show navigation
-      </a>
-      <a className="mobile-btn" href="#home" title="Hide navigation">
+      </Styled.a>
+      <Styled.a className="mobile-btn" href="#home" title="Hide navigation">
         Hide navigation
-      </a>
+      </Styled.a>
 
       <ul id="nav">
         {Object.keys(menuItems).map((item, index) => (

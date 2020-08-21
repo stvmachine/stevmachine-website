@@ -53,19 +53,19 @@ const About = ({
         >
           <H2>About Me</H2>
 
-          <p>{bio}</p>
+          <Styled.p>{bio}</Styled.p>
 
-          <p>
+          <Styled.p>
             You can follow my{" "}
             <Link href="/blog" target="_blank">
               blog
             </Link>
             .
-          </p>
+          </Styled.p>
           <Flex sx={{ alignItems: "flex-start" }}>
             <Box>
               <H2>Contact Details</H2>
-              <p>
+              <Styled.p>
                 <span>{name}</span>
                 <br />
                 <span>
@@ -83,10 +83,10 @@ const About = ({
                 >
                   {email}
                 </Link>
-              </p>
+              </Styled.p>
             </Box>
             <Box sx={{ pl: 6 }}>
-              <Button href={resumeDownload} variant="grey">
+              <Button href={resumeDownload}>
                 <i className="fa fa-download"></i> Download Resume
               </Button>
             </Box>

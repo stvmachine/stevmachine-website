@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import { HeaderStyles } from "./Header.styles";
 import Nav from "./Nav";
 
@@ -16,9 +16,9 @@ const Header = ({
     (network) =>
       network.url && (
         <li key={network.name}>
-          <a href={network.url} target="_blank">
+          <Styled.a href={network.url} target="_blank">
             <i className={network.className}></i>
-          </a>
+          </Styled.a>
         </li>
       )
   );
@@ -36,20 +36,20 @@ const Header = ({
 
       <div className="row banner">
         <div className="banner-text">
-          <h1 className="responsive-headline">I'm {name}.</h1>
-          <h3>
+          <Styled.h1 className="responsive-headline">I'm {name}.</Styled.h1>
+          <Styled.h3>
             I'm a {city} based <span>{occupation}</span> {description}.
-          </h3>
-          <hr />
+          </Styled.h3>
+          <Styled.hr />
           <ul className="social">{networks}</ul>
         </div>
       </div>
 
-      <p className="scrolldown">
-        <a onClick={goToAbout}>
+      <Styled.p className="scrolldown">
+        <Styled.a onClick={goToAbout}>
           <i className="icon-down-circle"></i>
-        </a>
-      </p>
+        </Styled.a>
+      </Styled.p>
     </header>
   );
 };

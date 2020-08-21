@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Image } from "theme-ui";
+import { jsx, Image, Styled } from "theme-ui";
 import { PortfolioStyles } from "./Portfolio.styles";
 
 const Projects = ({ projects }) =>
@@ -10,7 +10,7 @@ const Projects = ({ projects }) =>
     return (
       <div key={project.title} className="columns portfolio-item">
         <div className="item-wrap">
-          <a
+          <Styled.a
             target="_blank"
             href={project.url}
             title={project.title}
@@ -19,14 +19,14 @@ const Projects = ({ projects }) =>
             <Image src={projectImage} variant="portfolio" />
             <div className="overlay">
               <div className="portfolio-item-meta">
-                <h5>{project.title}</h5>
-                <p>{project.category}</p>
+                <Styled.h5>{project.title}</Styled.h5>
+                <Styled.p>{project.category}</Styled.p>
               </div>
             </div>
             <div className="link-icon">
               <i className="fa fa-link"></i>
             </div>
-          </a>
+          </Styled.a>
         </div>
       </div>
     );
@@ -36,8 +36,7 @@ const Portfolio = ({ data: { projects } }) => (
   <section id="portfolio" css={PortfolioStyles}>
     <div className="row">
       <div className="twelve columns collapsed">
-        <h1>Check Out Some of My Works.</h1>
-
+        <Styled.h1>Check Out Some of My Works.</Styled.h1>
         <div
           id="portfolio-wrapper"
           className="bgrid-quarters s-bgrid-thirds cf"

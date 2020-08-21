@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import { FooterStyles } from "./Footer.styles";
 
 const Networks = ({ networks }) =>
@@ -7,9 +7,9 @@ const Networks = ({ networks }) =>
     (network) =>
       network.url && (
         <li key={network.name}>
-          <a href={network.url}>
+          <Styled.a href={network.url}>
             <i className={network.className}></i>
-          </a>
+          </Styled.a>
         </li>
       )
   );
@@ -33,16 +33,16 @@ const Footer = ({ data: { social } }) => {
             <li>&copy; Copyright 2020 Esteban Campos</li>
             <li>
               Design by{" "}
-              <a title="Styleshout" href="http://www.styleshout.com/">
+              <Styled.a title="Styleshout" href="http://www.styleshout.com/">
                 Styleshout
-              </a>
+              </Styled.a>
             </li>
           </ul>
         </div>
         <div id="go-top">
-          <a title="Back to Top" onClick={goToHome}>
+          <Styled.a title="Back to Top" onClick={goToHome}>
             <i className="icon-up-open"></i>
-          </a>
+          </Styled.a>
         </div>
       </div>
     </footer>

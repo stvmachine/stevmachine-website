@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import { useState, useEffect } from "react";
 
 const MenuItem = ({ itemName, active }) => {
@@ -25,14 +25,14 @@ const MenuItem = ({ itemName, active }) => {
 
   return (
     <li className={active ? "current" : ""}>
-      <a
+      <Styled.a
         href={`#${itemName}`}
         onClick={handleClick}
         ariaLabel={`${itemName}`}
         variant="menuItem"
       >
         {itemName}
-      </a>
+      </Styled.a>
     </li>
   );
 };

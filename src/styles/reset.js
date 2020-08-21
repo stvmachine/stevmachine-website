@@ -10,6 +10,11 @@ const resetCss = css`
     cursor: pointer;
   }
 
+  a {
+    text-decoration: none;
+    outline: 0;
+  }
+
   button:focus,
   button:active,
   canvas:focus,
@@ -18,14 +23,4 @@ const resetCss = css`
   }
 `;
 
-const defaultStyles = ({ theme }) => css`
-  html {
-    font-size: 62.5%; // --> 1rem ≙ 10px
-    -webkit-font-smoothing: antialiased;
-  }
-`;
-
-export default css`
-  ${resetCss}
-  ${defaultStyles}
-`;
+export default resetCss;
