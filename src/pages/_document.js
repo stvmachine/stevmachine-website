@@ -11,7 +11,7 @@ export default class extends Document {
     return (
       <Html>
         <Head>
-          <link rel="stylesheet" href="/css/default.css" />
+          <link rel="stylesheet" href="/css/onlyFonts.css" />
         </Head>
         <body>
           <InitializeColorMode />
