@@ -1,3 +1,120 @@
 # My own website
 
 I created this website, because i always desire to have a portfolio but also a way to display the code that i normally work. That code usually just hit my github account. But i really want to keep working on my own stuff and feel rewarded with my progress.
+
+## Nav menu
+
+The list of our Menu Titles (Sections) as keys, with their _Y-pixel_ position on the page as the values 'home' generically references the top of the page.
+
+```js
+const menuItems = {
+  home: 0,
+  about: null,
+  resume: null,
+  portfolio: null,
+};
+```
+
+The next step is determine where to set _Anchor Points_ for each section included on the `menuItems`. The process is basically look for the IDs that match the items on menu. The website contains a layout similar to:
+
+```js
+<header id="home" />
+<div id="about" />
+<div id="resume" />
+<div id="portfolio" />
+```
+
+The next function scroll down to find each _id_ and it updates `menuItems` with the `Y-pixel`.
+
+```js
+const getAnchorPoints = () => {
+  const curScroll = window.scrollY - 100;
+  for (const key in menuItems) {
+    menuItems[key] =
+      document.getElementById(key).getBoundingClientRect().top + curScroll;
+  }
+};
+```
+
+Now, we need to add a hook to trigger `getAnchorPoints` when it's necessary. The MutationObserver allows us to watch for a few different events, including page resizing when new elements might be added to the page, potentially changing the location of our anchor points.
+We also listen to the scroll event in order to update based on our user's scroll depth.
+
+```js
+useEffect(() => {
+  // initial run
+  getAnchorPoints();
+
+  // run on page resizing
+  const observer = new MutationObserver(getAnchorPoints);
+  observer.observe(document.getElementById("__next"), {
+    childList: true,
+    subtree: true,
+  });
+}, []);
+```
+
+## Some extra sugar
+
+To add the active class, I'm using _reactState_.
+
+![alt](/images/blog/website/nav-menu.png)
+
+```js
+const [activeItem, setActiveItem] = useState("home");
+```
+
+Then, we can define the function `handleScroll`. Iterate through our sections object to find which section matches with the current scrollDepth of the user.
+
+_NOTE_: This code assumes that the sections object is built with an 'ordered' list of sections, with the lowest depth (top) section first and greatest depth (bottom) section last. If your items are out-of-order, this code will not function correctly.
+
+```js
+const handleScroll = () => {
+    const curPos = window.scrollY;
+    let curSection = null;
+
+    if (curPos < menuItems["about"]) {
+      curSection = "home";
+    } else if (curPos < menuItems["resume"]) {
+      curSection = "about";
+    } else if (curPos < menuItems["portfolio"]) {
+      curSection = "resume";
+    } else {
+      curSection = "portfolio";
+    }
+    setActiveItem(curSection);
+```
+
+We need to add a hook to detect `scroll`:
+
+```js
+useEffect(() => {
+  window.addEventListener("scroll", handleScroll);
+}, []);
+```
+
+## Fade animation
+
+Add some animation to hide the nav menu when we scroll a little but appears again in the second section
+
+```js
+const handleScroll = () => {
+  const curPos = window.scrollY;
+  // other code
+
+  const topSection = menuItems["resume"];
+  if (curPos > topSection * 0.2 && curPos < 768) {
+    showNav(false);
+  } else {
+    if (curPos < topSection * 0.2) {
+      setNavOpaque(false);
+      showNav(true);
+    } else {
+      setNavOpaque(true);
+      showNav(true);
+    }
+  }
+};
+```
+
+Result:
+![alt](/images/blog/website/animation-nav-menu.gif)
