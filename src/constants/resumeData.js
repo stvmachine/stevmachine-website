@@ -188,6 +188,12 @@ export default {
         image: "tugeda-website.png",
         url: "https://tugeda.space/",
       },
+      {
+        title: "My portfolio & Blog",
+        category: "Done with React, NextJS and MDX",
+        image: "myportfolio.png",
+        url: "https://stevmachine-website.vercel.app/",
+      },
     ],
   },
 };
