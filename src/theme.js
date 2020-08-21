@@ -50,6 +50,10 @@ export default {
       minHeight: 100,
       maxHeight: 250,
     },
+    resumeTech: {
+      width: 150,
+      height: 150,
+    },
   },
   links: {
     underline: {

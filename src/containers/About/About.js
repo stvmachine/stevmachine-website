@@ -54,6 +54,14 @@ const About = ({
           <H2>About Me</H2>
 
           <p>{bio}</p>
+
+          <p>
+            You can follow my{" "}
+            <Link href="/blog" target="_blank">
+              blog
+            </Link>
+            .
+          </p>
           <Flex sx={{ alignItems: "flex-start" }}>
             <Box>
               <H2>Contact Details</H2>

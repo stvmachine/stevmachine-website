@@ -58,8 +58,6 @@ export default {
     ],
   },
   resume: {
-    techMessage:
-      "Here you can create a short write-up of your skills to show off to employers",
     education: [
       {
         school: "Universidad de Santiago de Chile",
@@ -113,13 +111,8 @@ export default {
     ],
     favoriteTechs: [
       {
-        name: "React",
+        name: "React/React Native",
         image: "react.png",
-        description: "",
-      },
-      {
-        name: "Vue",
-        image: "vue.png",
         description: "",
       },
       {
@@ -132,9 +125,11 @@ export default {
         image: "rails.png",
         description: "",
       },
+    ],
+    languages: [
       {
-        name: "Django",
-        image: "django.png",
+        name: "Javascript",
+        image: "javascript.png",
         description: "",
       },
       {
@@ -143,8 +138,18 @@ export default {
         description: "",
       },
       {
-        name: "Docker",
-        image: "docker.png",
+        name: "Ruby",
+        image: "ruby.png",
+        description: "",
+      },
+      {
+        name: "Python",
+        image: "python.png",
+        description: "",
+      },
+      {
+        name: "Rust",
+        image: "rust.png",
         description: "",
       },
     ],

@@ -2,7 +2,7 @@
 import { jsx, Grid, Card, Text, Image } from "theme-ui";
 import { ResumeStyles } from "./Resume.styles";
 
-const Resume = ({ data: { techMessage, education, work, favoriteTechs } }) => {
+const Resume = ({ data: { languages, education, work, favoriteTechs } }) => {
   const Education = education.map((education, index) => (
     <div key={`education-${index}`}>
       <h3>{education.school}</h3>
@@ -28,8 +28,22 @@ const Resume = ({ data: { techMessage, education, work, favoriteTechs } }) => {
     <Grid width={[128, null, 192]}>
       {favoriteTechs.map((tech) => (
         <Card>
-          <Image src={`/images/techs/${tech.image}`} />
-          <Text>{tech.name}</Text>
+          <Image src={`/images/techs/${tech.image}`} variant="resumeTech" />
+          <Text sx={{ fontWeight: "bold" }}>{tech.name}</Text>
+        </Card>
+      ))}
+    </Grid>
+  );
+
+  const Languages = (
+    <Grid width={[128, null, 192]}>
+      {languages.map((language) => (
+        <Card>
+          <Image
+            src={`/images/languages/${language.image}`}
+            variant="resumeTech"
+          />
+          <Text sx={{ fontWeight: "bold" }}>{language.name}</Text>
         </Card>
       ))}
     </Grid>
@@ -61,17 +75,24 @@ const Resume = ({ data: { techMessage, education, work, favoriteTechs } }) => {
         <div className="nine columns main-col">{Work}</div>
       </div>
 
-      <div className="row">
+      <div className="row" sx={{ mb: 100 }}>
         <div className="three columns header-col">
           <h1>
-            <span>Favorite Tech</span>
+            <span>Favorites Tech</span>
           </h1>
         </div>
 
-        <div className="nine columns main-col">
-          <p>{techMessage}</p>
-          {FavoriteTechs}
+        <div className="nine columns main-col">{FavoriteTechs}</div>
+      </div>
+
+      <div className="row">
+        <div className="three columns header-col">
+          <h1>
+            <span sx={{ lineHeight: "36px" }}>Favorites Languages</span>
+          </h1>
         </div>
+
+        <div className="nine columns main-col">{Languages}</div>
       </div>
     </section>
   );
