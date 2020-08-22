@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
 import {
-  HeaderStyles,
   Wrapper,
   Banner,
   BannerText,
   SocialList,
+  ScrollDown,
 } from "./Header.styles";
 import Nav from "./Nav";
 
@@ -37,7 +37,7 @@ const Header = ({
   };
 
   return (
-    <Wrapper id="home" css={HeaderStyles}>
+    <Wrapper id="home">
       <Nav />
 
       <Banner className="row">
@@ -51,10 +51,10 @@ const Header = ({
         </BannerText>
       </Banner>
 
-      <Styled.p className="scrolldown">
-        <Styled.a onClick={goToAbout}>
+      <Styled.p>
+        <ScrollDown onClick={goToAbout}>
           <i className="icon-down-circle"></i>
-        </Styled.a>
+        </ScrollDown>
       </Styled.p>
     </Wrapper>
   );

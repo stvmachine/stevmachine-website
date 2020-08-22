@@ -1,20 +1,9 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
 import { useState, useEffect } from "react";
-import styled from "@emotion/styled";
 
+import { NavWrap } from "./Nav.styles";
 import MenuItem from "./MenuItem";
-
-const Wrapper = styled.nav`
-  ${({ opaque }) => opaque && `background-color: #333;`}
-  ${({ show }) =>
-    show
-      ? `visibility: visible;
-  opacity: 1;`
-      : `visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.4s, opacity 0.4s ease-out;`}
-`;
 
 /*
  * The list of our Menu Titles (Sections) as keys, with their
@@ -115,7 +104,7 @@ const Nav = () => {
    * Create the list of MenuItems based on the sections object we have defined above
    */
   return (
-    <Wrapper id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
+    <NavWrap id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
       {/* ToDo: Add button on mobile to display the navigation menu */}
       <Styled.a className="mobile-btn" href="#nav-wrap" title="Show navigation">
         Show navigation
@@ -133,7 +122,7 @@ const Nav = () => {
           />
         ))}
       </ul>
-    </Wrapper>
+    </NavWrap>
   );
 };
 
