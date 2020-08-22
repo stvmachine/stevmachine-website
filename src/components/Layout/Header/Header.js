@@ -1,6 +1,12 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
-import { HeaderStyles } from "./Header.styles";
+import {
+  HeaderStyles,
+  Wrapper,
+  Banner,
+  BannerText,
+  SocialList,
+} from "./Header.styles";
 import Nav from "./Nav";
 
 const Header = ({
@@ -31,26 +37,26 @@ const Header = ({
   };
 
   return (
-    <header id="home" css={HeaderStyles}>
+    <Wrapper id="home" css={HeaderStyles}>
       <Nav />
 
-      <div className="row banner">
-        <div className="banner-text">
+      <Banner className="row">
+        <BannerText>
           <Styled.h1 className="responsive-headline">I'm {name}.</Styled.h1>
           <Styled.h3>
             I'm a {city} based <span>{occupation}</span> {description}.
           </Styled.h3>
           <Styled.hr />
-          <ul className="social">{networks}</ul>
-        </div>
-      </div>
+          <SocialList>{networks}</SocialList>
+        </BannerText>
+      </Banner>
 
       <Styled.p className="scrolldown">
         <Styled.a onClick={goToAbout}>
           <i className="icon-down-circle"></i>
         </Styled.a>
       </Styled.p>
-    </header>
+    </Wrapper>
   );
 };
 

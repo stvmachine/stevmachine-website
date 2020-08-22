@@ -1,11 +1,12 @@
 import { css } from "@emotion/core";
+import styled from "@emotion/styled";
 
-export const HeaderStyles = css`
+export const Wrapper = styled.header`
   position: relative;
   height: 800px;
   min-height: 500px;
   width: 100%;
-  background: #161415 url(../images/header-background.jpg) no-repeat top center;
+  background: #161415 url(/images/header-background.jpg) no-repeat top center;
   background-size: cover !important;
   -webkit-background-size: cover !important;
   text-align: center;
@@ -18,21 +19,32 @@ export const HeaderStyles = css`
     vertical-align: middle;
     height: 100%;
   }
+`;
 
-  .banner {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0 auto;
-    width: 85%;
-    padding-bottom: 30px;
-    text-align: center;
+export const Banner = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 auto;
+  width: 85%;
+  padding-bottom: 30px;
+  text-align: center;
+
+  @media only screen and (max-width: 900px) {
+    padding-bottom: 12px;
+  }
+  @media only screen and (max-width: 767px) {
+    padding-bottom: 12px;
+    padding-top: 6px;
   }
 
-  .banner-text {
-    width: 100%;
+  @media only screen and (max-width: 480px) {
+    padding-top: 24px;
   }
+`;
 
-  .banner-text h1 {
+export const BannerText = styled.div`
+  width: 100%;
+  h1 {
     font: 90px/1.1em "opensans-bold", sans-serif;
     color: #fff;
     letter-spacing: -2px;
@@ -40,7 +52,7 @@ export const HeaderStyles = css`
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
   }
 
-  .banner-text h3 {
+  h3 {
     font: 18px/1.9em "librebaskerville-regular", serif;
     color: #a8a8a8;
     margin: 0 auto;
@@ -48,40 +60,112 @@ export const HeaderStyles = css`
     text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
   }
 
-  .banner-text h3 span,
-  .banner-text h3 a {
+  h3 span,
+  h3 a {
     color: #fff;
   }
 
-  .banner-text hr {
+  hr {
     width: 60%;
     margin: 18px auto 24px auto;
     border-color: #2f2d2e;
     border-color: rgba(150, 150, 150, 0.1);
   }
 
-  /* header social links */
-  .social {
-    margin: 24px 0;
-    padding: 0;
-    font-size: 30px;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+  @media only screen and (max-width: 1024px) {
+    h1 {
+      font: 80px/1.1em "opensans-bold", sans-serif;
+      letter-spacing: -1px;
+      margin: 0 auto 12px auto;
+    }
   }
 
-  .social li {
+  /* screenwidth less than 900px
+--------------------------------------------------------------------- */
+  @media only screen and (max-width: 900px) {
+    /* header styles
+   ------------------------------------------------------------------ */
+    h1 {
+      font: 78px/1.1em "opensans-bold", sans-serif;
+      letter-spacing: -1px;
+    }
+    h3 {
+      font: 17px/1.9em "librebaskerville-regular", serif;
+      width: 80%;
+    }
+    hr {
+      width: 65%;
+      margin: 12px auto;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
+    h1 {
+      font: 68px/1.1em "opensans-bold", sans-serif;
+    }
+    h3 {
+      font: 16px/1.9em "librebaskerville-regular", serif;
+      width: 85%;
+    }
+    hr {
+      width: 80%;
+      margin: 18px auto;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    h1 {
+      font: 40px/1.1em "opensans-bold", sans-serif;
+      margin: 0 auto 24px auto;
+    }
+
+    h3 {
+      font: 14px/1.9em "librebaskerville-regular", sans-serif;
+      width: 90%;
+    }
+  }
+`;
+
+export const SocialList = styled.ul`
+  /* header social links */
+  margin: 24px 0;
+  padding: 0;
+  font-size: 30px;
+  text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+
+  li {
     display: inline-block;
     margin: 0 15px;
     padding: 0;
   }
 
-  .social li a {
+  li a {
     color: #fff;
   }
 
-  .social li a:hover {
+  li a:hover {
     color: #11abb0;
   }
 
+  @media only screen and (max-width: 767px) {
+    margin: 18px 0 24px 0;
+    font-size: 24px;
+    line-height: 36px;
+    li {
+      margin: 0 10px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    font-size: 20px;
+
+    li {
+      margin: 0 6px;
+    }
+  }
+`;
+
+export const HeaderStyles = css`
   /* scrolldown link */
   .scrolldown a {
     position: absolute;
@@ -107,8 +191,6 @@ export const HeaderStyles = css`
     color: #11abb0;
   }
 
-  /* primary navigation
---------------------------------------------------------------------- */
   #nav-wrap ul,
   #nav-wrap li,
   #nav-wrap a {
@@ -177,38 +259,13 @@ export const HeaderStyles = css`
     color: #f06000;
   }
 
-  /* screenwidth less than 1024px
---------------------------------------------------------------------- */
-  @media only screen and (max-width: 1024px) {
-    /* header styles
-   ------------------------------------------------------------------ */
-    .banner-text h1 {
-      font: 80px/1.1em "opensans-bold", sans-serif;
-      letter-spacing: -1px;
-      margin: 0 auto 12px auto;
-    }
-  }
 
   /* screenwidth less than 900px
 --------------------------------------------------------------------- */
   @media only screen and (max-width: 900px) {
     /* header styles
    ------------------------------------------------------------------ */
-    .banner {
-      padding-bottom: 12px;
-    }
-    .banner-text h1 {
-      font: 78px/1.1em "opensans-bold", sans-serif;
-      letter-spacing: -1px;
-    }
-    .banner-text h3 {
-      font: 17px/1.9em "librebaskerville-regular", serif;
-      width: 80%;
-    }
-    .banner-text hr {
-      width: 65%;
-      margin: 12px auto;
-    }
+   
     /* nav-wrap */
     #nav-wrap {
       font: 11px "opensans-bold", sans-serif;
@@ -225,7 +282,8 @@ export const HeaderStyles = css`
     #nav-wrap {
       font: 12px "opensans-bold", sans-serif;
       background: transparent !important;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.5px;import { styled } from '@emotion/styled';
+
       width: auto;
       position: fixed;
       top: 0;
@@ -311,32 +369,7 @@ export const HeaderStyles = css`
 
     /* Header Styles
    -------------------------------------------------------------------- */
-    .banner {
-      padding-bottom: 12px;
-      padding-top: 6px;
-    }
-    .banner-text h1 {
-      font: 68px/1.1em "opensans-bold", sans-serif;
-    }
-    .banner-text h3 {
-      font: 16px/1.9em "librebaskerville-regular", serif;
-      width: 85%;
-    }
-    .banner-text hr {
-      width: 80%;
-      margin: 18px auto;
-    }
-
-    /* header social links */
-    .social {
-      margin: 18px 0 24px 0;
-      font-size: 24px;
-      line-height: 36px;
-    }
-    .social li {
-      margin: 0 10px;
-    }
-
+    
     /* scrolldown link */
     .scrolldown {
       display: none;
@@ -352,31 +385,6 @@ export const HeaderStyles = css`
     #nav-wrap ul#nav {
       width: auto;
       float: none;
-    }
-
-    /* header styles
-   -------------------------------------------------------------------- */
-    .banner {
-      padding-top: 24px;
-    }
-
-    .banner-text h1 {
-      font: 40px/1.1em "opensans-bold", sans-serif;
-      margin: 0 auto 24px auto;
-    }
-
-    .banner-text h3 {
-      font: 14px/1.9em "librebaskerville-regular", sans-serif;
-      width: 90%;
-    }
-
-    /* header social links */
-    .social {
-      font-size: 20px;
-    }
-
-    .social li {
-      margin: 0 6px;
     }
   }
 `;
