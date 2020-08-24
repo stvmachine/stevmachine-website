@@ -1,3 +1,4 @@
+import { Styled } from "theme-ui";
 import styled from "@emotion/styled";
 
 export const NavWrap = styled.nav`
@@ -29,20 +30,65 @@ export const NavWrap = styled.nav`
     outline: none;
   }
 
-  /* hide toggle button */
-  & > a.mobile-btn {
-    display: none;
+  @media only screen and (max-width: 900px) {
+    font: 11px "opensans-bold", sans-serif;
+    letter-spacing: 1.5px;
   }
 
-  ul#nav {
-    min-height: 48px;
+  @media only screen and (max-width: 767px) {
+    font: 12px "opensans-bold", sans-serif;
+    background: transparent !important;
+    letter-spacing: 1.5px;
+
     width: auto;
-
-    /* center align the menu */
-    text-align: center;
+    position: fixed;
+    top: 0;
+    right: 0;
   }
+`;
 
-  ul#nav li {
+export const MobileMenuBtn = styled(Styled.a)`
+  display: none;
+
+  @media only screen and (max-width: 767px) {
+    width: 48px;
+    height: 48px;
+    text-align: left;
+    background-color: #cc5200;
+    position: relative;
+    border: none;
+    float: right;
+    display: block;
+
+    font: 0/0 a;
+    text-shadow: none;
+    color: transparent;
+
+    position: relative;
+    top: 0px;
+    right: 30px;
+
+    &:before,
+    &:after {
+      position: absolute;
+      border: 2px solid #fff;
+      top: 35%;
+      left: 25%;
+      right: 25%;
+      content: "";
+    }
+    &:after {
+      top: 60%;
+    }
+  }
+`;
+
+export const NavMenu = styled.ul`
+  min-height: 48px;
+  width: auto;
+  text-align: center;
+
+  li {
     position: relative;
     list-style: none;
     height: 48px;
@@ -50,7 +96,7 @@ export const NavWrap = styled.nav`
   }
 
   /* Links */
-  ul#nav li a {
+  li a {
     /* 8px padding top + 8px padding bottom + 32px line-height = 48px */
 
     display: inline-block;
@@ -67,112 +113,48 @@ export const NavWrap = styled.nav`
     transition: color 0.2s ease-in-out;
   }
 
-  ul#nav li a:active {
+  li a:active {
     background-color: transparent !important;
   }
 
-  ul#nav li.current a {
+  li.current a {
     color: #f06000;
   }
 
-  @media only screen and (max-width: 900px) {
-    font: 11px "opensans-bold", sans-serif;
-    letter-spacing: 1.5px;
-  }
-
   @media only screen and (max-width: 767px) {
-    font: 12px "opensans-bold", sans-serif;
-    background: transparent !important;
-    letter-spacing: 1.5px;
-
+    height: auto;
+    display: none;
+    clear: both;
     width: auto;
-    position: fixed;
-    top: 0;
+    float: right;
+
+    position: relative;
+    top: 12px;
     right: 0;
 
-    & > a {
-      width: 48px;
-      height: 48px;
-      text-align: left;
-      background-color: #cc5200;
-      position: relative;
-      border: none;
-      float: right;
-
-      font: 0/0 a;
-      text-shadow: none;
-      color: transparent;
-
-      position: relative;
-      top: 0px;
-      right: 30px;
-    }
-
-    & > a:before,
-    & > a:after {
-      position: absolute;
-      border: 2px solid #fff;
-      top: 35%;
-      left: 25%;
-      right: 25%;
-      content: "";
-    }
-    & > a:after {
-      top: 60%;
-    }
-
-    /* toggle buttons */
-    &:not(:target) > a:first-of-type,
-    &:target > a:last-of-type {
-      display: block;
-    }
-
-    /* hide menu panel */
-    ul#nav {
-      height: auto;
-      display: none;
-      clear: both;
-      width: auto;
-      float: right;
-
-      position: relative;
-      top: 12px;
-      right: 0;
-    }
-
     /* display menu panels */
-    &:target > ul#nav {
-      display: block;
-      padding: 30px 20px 48px 20px;
+    ${({ show }) =>
+      show &&
+      `
+      display: flex;
+      flex-direction: column;
+      padding: 30px 20px 48px 20px !important;
       background: #1f2024;
-      margin: 0 30px;
-      clear: both;
-    }
+      margin: 0 30px !important;
+  `}
 
-    ul#nav li {
+    li {
       display: block;
       height: auto;
-      margin: 0 auto;
       padding: 0 4%;
       text-align: left;
       border-bottom: 1px solid #2d2e34;
       border-bottom-style: dotted;
     }
-
-    ul#nav li a {
-      display: block;
-      margin: 0;
-      padding: 0;
-      margin: 12px 0;
-      line-height: 16px; /* reset line-height from 48px */
-      border: none;
-    }
   }
 
   @media only screen and (max-width: 480px) {
-    ul#nav {
-      width: auto;
-      float: none;
-    }
+    width: auto;
+    float: none;
   }
 `;

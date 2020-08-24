@@ -1,8 +1,8 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { jsx } from "theme-ui";
 import { useState, useEffect } from "react";
 
-import { NavWrap } from "./Nav.styles";
+import { NavWrap, MobileMenuBtn, NavMenu } from "./Nav.styles";
 import MenuItem from "./MenuItem";
 
 /*
@@ -21,6 +21,9 @@ const Nav = () => {
   const [activeItem, setActiveItem] = useState("home");
   const [navIsOpaque, setNavOpaque] = useState(false);
   const [navIsDisplayed, showNav] = useState(true);
+  const [navMobileMenuIsDisplayed, showMobileMenu] = useState(false);
+
+  const toggleMobileMenu = () => showMobileMenu(!navMobileMenuIsDisplayed);
 
   /*
    * The MutationObserver allows us to watch for a few different
@@ -104,16 +107,10 @@ const Nav = () => {
    * Create the list of MenuItems based on the sections object we have defined above
    */
   return (
-    <NavWrap id="nav-wrap" opaque={navIsOpaque} show={navIsDisplayed}>
-      {/* ToDo: Add button on mobile to display the navigation menu */}
-      <Styled.a className="mobile-btn" href="#nav-wrap" title="Show navigation">
-        Show navigation
-      </Styled.a>
-      <Styled.a className="mobile-btn" href="#home" title="Hide navigation">
-        Hide navigation
-      </Styled.a>
+    <NavWrap opaque={navIsOpaque} show={navIsDisplayed}>
+      <MobileMenuBtn onClick={toggleMobileMenu} />
 
-      <ul id="nav">
+      <NavMenu show={navMobileMenuIsDisplayed}>
         {Object.keys(menuItems).map((item, index) => (
           <MenuItem
             itemName={item}
@@ -121,7 +118,7 @@ const Nav = () => {
             active={item === activeItem}
           />
         ))}
-      </ul>
+      </NavMenu>
     </NavWrap>
   );
 };
