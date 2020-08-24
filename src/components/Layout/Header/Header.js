@@ -40,7 +40,7 @@ const Header = ({
     <Wrapper id="home">
       <Nav />
 
-      <Banner className="row">
+      <Banner>
         <BannerText>
           <Styled.h1 className="responsive-headline">I'm {name}.</Styled.h1>
           <Styled.h3>

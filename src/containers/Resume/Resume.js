@@ -13,6 +13,7 @@ const ResumeH1 = ({ children, sx, ...props }) => (
       textTransform: "uppercase",
       letterSpacing: ["3px", "1px"],
       textAlign: ["center", null, "inherit"],
+      padding: "0 20px",
       ...sx,
     }}
     {...props}
@@ -38,12 +39,14 @@ const ResumeH3 = ({ children, sx, ...props }) => (
 const SubSection = ({ title, children }) => (
   <Row
     sx={{
-      mb: 48,
-      pb: 24,
-      p: ["0 30px", null, null, null],
-      borderBottom: "1px solid #E8E8E8",
       display: "flex",
       flexDirection: ["column", null, "row"],
+      pb: "24px !important",
+      p: ["0 30px", null, null, null],
+      ":not(:last-of-type)": {
+        mb: "48px !important",
+        borderBottom: "1px solid #E8E8E8",
+      },
     }}
   >
     <Box

@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
 import { FooterStyles } from "./Footer.styles";
+import Row from "../../Row";
 
 const Networks = ({ networks }) =>
   networks.map(
@@ -23,8 +24,8 @@ const Footer = ({ data: { social } }) => {
   };
   return (
     <footer css={FooterStyles}>
-      <div className="row">
-        <div className="twelve columns">
+      <Row>
+        <div>
           <ul className="social-links">
             <Networks networks={social} />
           </ul>
@@ -44,7 +45,7 @@ const Footer = ({ data: { social } }) => {
             <i className="icon-up-open"></i>
           </Styled.a>
         </div>
-      </div>
+      </Row>
     </footer>
   );
 };

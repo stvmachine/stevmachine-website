@@ -1,6 +1,12 @@
 /** @jsx jsx */
-import { jsx, Image, Styled } from "theme-ui";
-import { PortfolioStyles } from "./Portfolio.styles";
+import { jsx, Image, Styled, Grid, Flex } from "theme-ui";
+import {
+  PortfolioSection,
+  PortfolioItem,
+  PortfolioItemMeta,
+  ItemWrap,
+} from "./Portfolio.styles";
+import Row from "../../components/Row";
 
 const Projects = ({ projects }) =>
   projects &&
@@ -8,8 +14,8 @@ const Projects = ({ projects }) =>
     const projectImage = "/images/portfolio/" + project.image;
 
     return (
-      <div key={project.title} className="columns portfolio-item">
-        <div className="item-wrap">
+      <PortfolioItem key={project.title} sx={{ mb: [36, null, 40] }}>
+        <ItemWrap>
           <Styled.a
             target="_blank"
             href={project.url}
@@ -18,34 +24,40 @@ const Projects = ({ projects }) =>
           >
             <Image src={projectImage} variant="portfolio" />
             <div className="overlay">
-              <div className="portfolio-item-meta">
+              <PortfolioItemMeta>
                 <Styled.h5>{project.title}</Styled.h5>
                 <Styled.p>{project.category}</Styled.p>
-              </div>
+              </PortfolioItemMeta>
             </div>
             <div className="link-icon">
               <i className="fa fa-link"></i>
             </div>
           </Styled.a>
-        </div>
-      </div>
+        </ItemWrap>
+      </PortfolioItem>
     );
   });
 
 const Portfolio = ({ data: { projects } }) => (
-  <section id="portfolio" css={PortfolioStyles}>
-    <div className="row">
-      <div className="twelve columns collapsed">
-        <Styled.h1>Check Out Some of My Works.</Styled.h1>
-        <div
-          id="portfolio-wrapper"
-          className="bgrid-quarters s-bgrid-thirds cf"
-        >
-          <Projects projects={projects} />
-        </div>
-      </div>
-    </div>
-  </section>
+  <PortfolioSection id="portfolio">
+    <Row>
+      <Styled.h1
+        sx={{
+          font: '15px/24px "opensans-semibold", sans-serif',
+          textTransform: "uppercase",
+          letterSpacing: "1px",
+          textAlign: "center",
+          mb: 48,
+          color: "#95a3a3",
+        }}
+      >
+        Check Out Some of My Works.
+      </Styled.h1>
+      <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
+        <Projects projects={projects} />
+      </Grid>
+    </Row>
+  </PortfolioSection>
 );
 
 export default Portfolio;

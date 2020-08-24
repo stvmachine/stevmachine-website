@@ -1,6 +1,6 @@
-import { css } from "@emotion/core";
 import { Styled } from "theme-ui";
 import styled from "@emotion/styled";
+import Row from "../../Row";
 
 export const Wrapper = styled.header`
   position: relative;
@@ -11,6 +11,7 @@ export const Wrapper = styled.header`
   background-size: cover !important;
   -webkit-background-size: cover !important;
   text-align: center;
+
   overflow: hidden;
 
   /* vertically center banner section */
@@ -22,7 +23,7 @@ export const Wrapper = styled.header`
   }
 `;
 
-export const Banner = styled.div`
+export const Banner = styled(Row)`
   display: inline-block;
   vertical-align: middle;
   margin: 0 auto;

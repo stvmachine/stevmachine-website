@@ -1,43 +1,62 @@
-import { css } from "@emotion/core";
+import styled from "@emotion/styled";
+import { Card } from "theme-ui";
 
-export const PortfolioStyles = css`
+export const PortfolioSection = styled.section`
   background: #ebeeee;
   padding-top: 90px;
   padding-bottom: 60px;
+`;
 
-  h1 {
-    font: 15px/24px "opensans-semibold", sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-bottom: 48px;
-    color: #95a3a3;
+export const PortfolioItem = styled(Card)`
+  flex: 1 1 200px;
+
+  &:hover .overlay {
+    opacity: 1;
+    -moz-opacity: 1;
+    filter: alpha(opacity=100);
   }
 
-  /* Portfolio Content */
-  #portfolio-wrapper .columns {
-    margin-bottom: 36px;
+  &:hover .link-icon {
+    opacity: 1;
+    -moz-opacity: 1;
+    filter: alpha(opacity=100);
   }
 
-  .portfolio-item .item-wrap {
-    background: #fff;
-    overflow: hidden;
-    position: relative;
+  @media only screen and (min-width: 1024px) {
+    flex: 1 1 250px;
+  }
+`;
 
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+export const PortfolioItemMeta = styled.div`
+  padding: 18px;
+
+  h5 {
+    font: 14px/21px "opensans-bold", sans-serif;
+    color: #fff;
   }
 
-  .portfolio-item .item-wrap a {
-    display: block;
-    cursor: pointer;
+  p {
+    font: 12px/18px "opensans-light", sans-serif;
+    color: #c6c7c7;
+    margin-bottom: 0;
   }
+`;
+
+export const ItemWrap = styled.div`
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   /* overlay */
-  .portfolio-item .item-wrap .overlay {
+  .overlay {
     position: absolute;
     left: 0;
     top: 0;
@@ -56,7 +75,7 @@ export const PortfolioStyles = css`
     background: url(../images/overlay-bg.png) repeat;
   }
 
-  .portfolio-item .item-wrap .link-icon {
+  .link-icon {
     display: block;
     color: #fff;
     height: 30px;
@@ -81,46 +100,7 @@ export const PortfolioStyles = css`
     margin-top: -15px;
   }
 
-  .portfolio-item .item-wrap img {
+  img {
     vertical-align: bottom;
-  }
-
-  .portfolio-item .portfolio-item-meta {
-    padding: 18px;
-  }
-
-  .portfolio-item .portfolio-item-meta h5 {
-    font: 14px/21px "opensans-bold", sans-serif;
-    color: #fff;
-  }
-
-  .portfolio-item .portfolio-item-meta p {
-    font: 12px/18px "opensans-light", sans-serif;
-    color: #c6c7c7;
-    margin-bottom: 0;
-  }
-
-  /* on hover */
-  .portfolio-item:hover .overlay {
-    opacity: 1;
-    -moz-opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  .portfolio-item:hover .link-icon {
-    opacity: 1;
-    -moz-opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  @media only screen and (max-width: 767px) {
-    /* Portfolio Section
-    /* ----------------------------------------------------------------- */
-    #portfolio-wrapper .columns {
-      margin-bottom: 40px;
-    }
-    .popup-modal {
-      max-width: 85%;
-    }
   }
 `;

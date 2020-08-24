@@ -95,12 +95,7 @@ export const FooterStyles = css`
     background-color: #0f9095;
   }
 
-  /* mobile wide/smaller tablets
----------------------------------------------------------------------- */
   @media only screen and (max-width: 767px) {
-    /* footer
-   ------------------------------------------------------------------------ */
-
     /* copyright */
     .copyright li:before {
       content: none;
@@ -129,13 +124,7 @@ export const FooterStyles = css`
     }
   }
 
-  /* mobile narrow
-  -------------------------------------------------------------------------- */
-
   @media only screen and (max-width: 480px) {
-    /* footer
-   ------------------------------------------------------------------------ */
-
     /* social links */
     .social-links {
       font-size: 20px;

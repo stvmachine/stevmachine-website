@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx, Box } from "theme-ui";
 
-const Row = ({ children, ...props }) => (
+const Row = ({ children, sx, ...props }) => (
   <Box
     sx={{
-      width: ["460px", null, "96%"],
+      width: ["auto", "460px", "96%"],
       maxWidth: "1020px",
-      margin: "0 auto",
-      p: [0, null],
+      margin: [null, "0 auto"],
+      p: [null, 0],
+      ...sx,
     }}
     {...props}
   >
