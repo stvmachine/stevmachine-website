@@ -24,6 +24,7 @@ export default {
       },
     },
   },
+  breakpoints: ["480px", "767px", "900px", "1024px"],
   // Typography
   fonts: {
     body: '"opensans-regular", "sans-serif"',

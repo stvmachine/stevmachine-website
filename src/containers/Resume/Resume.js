@@ -1,101 +1,139 @@
 /** @jsx jsx */
-import { jsx, Grid, Card, Text, Image, Styled } from "theme-ui";
-import { ResumeStyles } from "./Resume.styles";
+import { jsx, Grid, Card, Text, Image, Styled, Flex, Box } from "theme-ui";
+import { Info, Date } from "./Resume.styles";
+import Row from "../../components/Row";
 
-const Resume = ({ data: { languages, education, work, favoriteTechs } }) => {
-  const Education = education.map((education, index) => (
-    <div key={`education-${index}`}>
-      <Styled.h3>{education.school}</Styled.h3>
-      <Styled.p className="info">
-        {education.degree} <span>&bull;</span>
-        <Styled.em className="date">{education.graduated}</Styled.em>
-      </Styled.p>
-      {education.description && <Styled.p>{education.description}</Styled.p>}
-    </div>
-  ));
-  const Work = work.map((work, index) => (
-    <div key={`work-${index}`}>
-      <Styled.h3>{work.company}</Styled.h3>
-      <Styled.p className="info">
-        {work.title}
-        <span>&bull;</span> <Styled.em className="date">{work.years}</Styled.em>
-      </Styled.p>
-      <Styled.p>{work.description}</Styled.p>
-    </div>
-  ));
+const ResumeH1 = ({ children, sx, ...props }) => (
+  <Styled.h1
+    sx={{
+      mt: 0,
+      pr: [null, null, "20%"],
+      lineHeight: "36px",
+      font: '18px/24px "opensans-bold", sans-serif',
+      textTransform: "uppercase",
+      letterSpacing: ["3px", "1px"],
+      textAlign: ["center", null, "inherit"],
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Styled.h1>
+);
 
-  const FavoriteTechs = (
-    <Grid width={[128, null, 192]}>
-      {favoriteTechs.map((tech) => (
-        <Card>
-          <Image src={`/images/techs/${tech.image}`} variant="resumeTech" />
-          <Text sx={{ fontWeight: "bold" }}>{tech.name}</Text>
-        </Card>
+const ResumeH3 = ({ children, sx, ...props }) => (
+  <Styled.h3
+    sx={{
+      mt: 0,
+      font: '25px/30px "opensans-bold", sans-serif',
+      textAlign: ["center", null, "inherit"],
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Styled.h3>
+);
+
+const SubSection = ({ title, children }) => (
+  <Row
+    sx={{
+      mb: 48,
+      pb: 24,
+      p: ["0 30px", null, null, null],
+      borderBottom: "1px solid #E8E8E8",
+      display: "flex",
+      flexDirection: ["column", null, "row"],
+    }}
+  >
+    <Box
+      sx={{
+        width: [null, null, "25%"],
+        pt: [0, null],
+        mb: [48, null],
+        textAlign: ["center", null, "inherit"],
+      }}
+    >
+      <ResumeH1>
+        <span
+          sx={{
+            borderBottom: "3px solid #11abb0",
+          }}
+        >
+          {title}
+        </span>
+      </ResumeH1>
+    </Box>
+    <Box sx={{ width: [null, null, "75%"] }}>{children}</Box>
+  </Row>
+);
+
+const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
+  <section
+    id="resume"
+    sx={{ background: "#fff", pt: 90, pb: 72, overflow: "hidden" }}
+  >
+    <SubSection title="Education">
+      {education.map((education, index) => (
+        <Flex key={`education-${index}`} sx={{ flexDirection: "column" }}>
+          <ResumeH3>{education.school}</ResumeH3>
+          <Info
+            sx={{
+              textAlign: ["center", null, "inherit"],
+            }}
+          >
+            {education.degree} <span>&bull;</span>
+            <Date>{education.graduated}</Date>
+          </Info>
+          {education.description && (
+            <Styled.p>{education.description}</Styled.p>
+          )}
+        </Flex>
       ))}
-    </Grid>
-  );
+    </SubSection>
 
-  const Languages = (
-    <Grid width={[128, null, 192]}>
-      {languages.map((language) => (
-        <Card>
-          <Image
-            src={`/images/languages/${language.image}`}
-            variant="resumeTech"
-          />
-          <Text sx={{ fontWeight: "bold" }}>{language.name}</Text>
-        </Card>
+    <SubSection title="Work">
+      {work.map((work, index) => (
+        <Flex key={`work-${index}`} sx={{ flexDirection: "column" }}>
+          <ResumeH3>{work.company}</ResumeH3>
+          <Info
+            sx={{
+              textAlign: ["center", null, "inherit"],
+            }}
+          >
+            {work.title}
+            <span>&bull;</span> <Date>{work.years}</Date>
+          </Info>
+          <Styled.p>{work.description}</Styled.p>
+        </Flex>
       ))}
-    </Grid>
-  );
+    </SubSection>
 
-  return (
-    <section id="resume" css={ResumeStyles}>
-      <div className="row education">
-        <div className="three columns header-col">
-          <Styled.h1>
-            <span>Education</span>
-          </Styled.h1>
-        </div>
+    <SubSection title="Favorites Tech">
+      <Grid width={[128, null, 192]}>
+        {favoriteTechs.map((tech) => (
+          <Card>
+            <Image src={`/images/techs/${tech.image}`} variant="resumeTech" />
+            <Text sx={{ fontWeight: "bold" }}>{tech.name}</Text>
+          </Card>
+        ))}
+      </Grid>
+    </SubSection>
 
-        <div className="nine columns main-col">
-          <div className="row item">
-            <div className="twelve columns">{Education}</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="row work">
-        <div className="three columns header-col">
-          <Styled.h1>
-            <span>Work</span>
-          </Styled.h1>
-        </div>
-
-        <div className="nine columns main-col">{Work}</div>
-      </div>
-
-      <div className="row" sx={{ mb: 100 }}>
-        <div className="three columns header-col">
-          <Styled.h1>
-            <span>Favorites Tech</span>
-          </Styled.h1>
-        </div>
-
-        <div className="nine columns main-col">{FavoriteTechs}</div>
-      </div>
-
-      <div className="row">
-        <div className="three columns header-col">
-          <Styled.h1>
-            <span sx={{ lineHeight: "36px" }}>Favorites Languages</span>
-          </Styled.h1>
-        </div>
-
-        <div className="nine columns main-col">{Languages}</div>
-      </div>
-    </section>
-  );
-};
+    <SubSection title="Favorites Languages">
+      <Grid width={[128, null, 192]}>
+        {languages.map((language) => (
+          <Card>
+            <Image
+              src={`/images/languages/${language.image}`}
+              variant="resumeTech"
+            />
+            <Text sx={{ fontWeight: "bold" }}>{language.name}</Text>
+          </Card>
+        ))}
+      </Grid>
+    </SubSection>
+  </section>
+);
 
 export default Resume;
