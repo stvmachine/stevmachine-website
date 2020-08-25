@@ -99,8 +99,8 @@ export default {
       fontSize: "15px",
       lineHeight: "30px",
       color: "text",
-      "-webkit-font-smoothing": "antialiased",
-      "-webkit-text-size-adjust": "100%",
+      WebkitFontSmoothing: "antialiased",
+      WebkitTextSizeAdjust: "100%",
     },
     h1: {
       variant: "text.heading",
@@ -139,10 +139,10 @@ export default {
     },
     a: {
       color: "link",
-      "-webkit-transition": "color .3s ease-in-out",
-      "-moz-transition": "color .3s ease-in-out",
-      "-o-transition": "color .3s ease-in-out",
-      "-ms-transition": "color .3s ease-in-out",
+      WebkitTransition: "color .3s ease-in-out",
+      MozTransition: "color .3s ease-in-out",
+      OTransition: "color .3s ease-in-out",
+      msTransition: "color .3s ease-in-out",
       transition: "color .3s ease-in-out",
       ":active,:hover": {
         background: "gray3",
