@@ -1,6 +1,47 @@
-# My own website
+---
+title: "Website"
+---
 
 I created this website, because i always desire to have a portfolio but also a way to display the code that i normally work. That code usually just hit my github account. But i really want to keep working on my own stuff and feel rewarded with my progress.
+
+I used this free template: https://github.com/tbakerx/react-resume-template. But, i decided from the beginning that i want to use some techs on top and remove CSS and jQuery completely. My selected technologies:
+
+- NextJS
+- Theme-ui
+- Emotion
+- MDX
+
+# MDX Support
+
+The MDX support is essential to me because i decided to start a blog too and i did some research and with that format, it will allow me to create and publish new articles easily, as well as improve maintainability over time. I decide to add some plugins that would allow me to add some extra info like `next-mdx-enhanced`. So, some info date or title can be added as:
+
+```
+---
+layout: 'docs-page'
+title: '2019 Year in Review'
+publishedAt: '2019-12-26'
+summary: 'Highlights and reflections on 2019 and a look forward to 2020.'
+image: '/static/images/2019/banner.jpg'
+---
+```
+
+And later, that data can be easily tracked:
+
+```js
+import React from "react";
+
+export default (frontMatter) => {
+  return ({ children }) => (
+      <>
+        <h1>{frontMatter.title}</h1>
+        {children}
+      </>
+    );
+  };
+};
+```
+
+# Particular challengues
 
 ## Nav menu
 

@@ -1,5 +1,8 @@
 import React from "react";
 import NextApp from "next/app";
+import { MDXProvider } from "@mdx-js/react";
+import MDXComponents from "../components/MDXComponents";
+
 import { ThemeProvider } from "theme-ui";
 import { Global, css } from "@emotion/core";
 
@@ -11,17 +14,17 @@ export default class App extends NextApp {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <>
-        <Global
-          styles={css`
-            ${resetStyles}
-            ${defaultStyles}
-          `}
-        />
-        <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <MDXProvider components={MDXComponents}>
+          <Global
+            styles={css`
+              ${resetStyles}
+              ${defaultStyles}
+            `}
+          />
           <Component {...pageProps} />
-        </ThemeProvider>
-      </>
+        </MDXProvider>
+      </ThemeProvider>
     );
   }
 }
