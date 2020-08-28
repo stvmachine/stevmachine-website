@@ -4,6 +4,8 @@ const defaultStyles = css`
   html {
     font-size: 62.5%; // --> 1rem ≙ 10px
     -webkit-font-smoothing: antialiased;
+    min-width: 360px;
+    scroll-behavior: smooth;
   }
 
   /* Links */

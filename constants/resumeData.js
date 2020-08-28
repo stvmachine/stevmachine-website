@@ -17,8 +17,8 @@ export default {
       state: "Victoria",
       zip: "3004",
     },
-    website: "http://www.timbakerdev.com",
-    resumedownload: "http://timbakerdev.com",
+    website: "https://stevmachine-website.vercel.app/",
+    resumedownload: "https://stevmachine-website.vercel.app/",
     social: [
       {
         name: "facebook",

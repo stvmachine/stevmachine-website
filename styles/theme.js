@@ -1,47 +1,30 @@
-export default {
-  initialColorModeName: "light",
-  useColorSchemeMediaQuery: true,
-  // Colors
+import { theme as chakraTheme } from "@chakra-ui/core";
+
+const theme = {
   colors: {
-    text: "#000",
-    background: "#0f0f0f",
+    ...chakraTheme.colors,
     link: "#11abb0",
     primary: "#07c",
     secondary: "#609",
-    white: "#fff",
-    orange: "#f06000",
-    grey: "#444",
-    grey2: "#313131",
-    grey3: "#3d4145",
-    grey4: "#303030",
-    onyx: "#0f0f0f",
-    modes: {
-      dark: {
-        text: "#fff",
-        background: "#222",
-        primary: "#0cf",
-        secondary: "#90c",
-      },
-    },
   },
-  breakpoints: ["480px", "767px", "900px", "1024px"],
-  // Typography
   fonts: {
     body: '"opensans-regular", "sans-serif"',
     heading: "inherit",
   },
+  // Typography
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
     body: 400,
     heading: 700,
     bold: 700,
   },
+  breakpoints: ["480px", "767px", "900px", "1024px"],
   // Variants
   text: {
     heading: {
       fontFamily: "'opensans-bold', sans-serif",
       fontWeight: "normal",
-      color: "grey2",
+      color: "gray.800",
     },
   },
   links: {
@@ -54,7 +37,7 @@ export default {
     },
     nav: {
       color: "white",
-      bg: "grey4",
+      bg: "gray600",
       "&:hover": {
         bg: "link",
       },
@@ -68,7 +51,7 @@ export default {
       bg: "link",
       "&:hover": {
         color: "white",
-        bg: "grey3",
+        bg: "gray600",
       },
     },
   },
@@ -94,13 +77,11 @@ export default {
   styles: {
     // To add base, top-level styles to the <body>
     root: {
-      background: "onyx",
       fontFamily: "body",
       fontSize: "15px",
       lineHeight: "30px",
-      color: "text",
-      WebkitFontSmoothing: "antialiased",
-      WebkitTextSizeAdjust: "100%",
+      color: "black",
+      background: "#0f0f0f",
     },
     h1: {
       variant: "text.heading",
@@ -145,7 +126,7 @@ export default {
       msTransition: "color .3s ease-in-out",
       transition: "color .3s ease-in-out",
       ":active,:hover": {
-        background: "gray3",
+        background: "gray300",
         color: "white",
       },
       "::-moz-focus-inner": {
@@ -168,3 +149,5 @@ export default {
     },
   },
 };
+
+export default theme;

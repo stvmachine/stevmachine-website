@@ -1,25 +1,113 @@
-/** @jsx jsx */
-import { jsx } from "theme-ui";
-import Link from "next/link";
-import { frontMatter as blogPosts } from "./blog/*.mdx";
+import React, { useState } from "react";
+import {
+  useColorMode,
+  Heading,
+  Text,
+  Flex,
+  Stack,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Icon,
+} from "@chakra-ui/core";
 
-function formatPath(p) {
-  return p.replace(/\.mdx$/, "");
-}
+import BlogContainer from "../components/BlogContainer";
+import BlogPost from "../components/BlogPost";
 
-export default function Blog() {
+// eslint-disable-next-line import/no-unresolved, import/extensions
+import { frontMatter as blogPosts } from "./blog/**/*.mdx";
+
+const url = "https://leerob.io/blog";
+const title = "Blog – Lee Robinson";
+const description =
+  "Thoughts on the software industry, programming, tech, videography, music, and my personal life.";
+
+const Blog = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const { colorMode } = useColorMode();
+  const secondaryTextColor = {
+    light: "gray.700",
+    dark: "gray.400",
+  };
+
+  const filteredBlogPosts = blogPosts
+    .sort(
+      (a, b) =>
+        Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
+    )
+    .filter((frontMatter) =>
+      frontMatter.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
   return (
     <>
-      <h1>Docs Index</h1>
-      <ul>
-        {blogPosts.map((page) => (
-          <li key={page.__resourcePath}>
-            <Link href={formatPath(page.__resourcePath)}>
-              <a>{page.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <BlogContainer>
+        <Stack
+          as="main"
+          spacing={8}
+          justifyContent="center"
+          alignItems="flex-start"
+          m="0 auto 4rem auto"
+          maxWidth="700px"
+        >
+          <Flex
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            maxWidth="700px"
+          >
+            <Heading letterSpacing="tight" mb={2} as="h1" size="2xl">
+              Blog
+            </Heading>
+            <Text color={secondaryTextColor[colorMode]}>
+              {`I've been writing online since 2014, mostly about web development and tech careers.
+                In total, I've written ${blogPosts.length} articles on this site.
+                Use the search below to filter by title.`}
+            </Text>
+            <InputGroup my={4} mr={4} w="100%">
+              <Input
+                aria-label="Search articles"
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search articles"
+              />
+              <InputRightElement>
+                <Icon name="search" color="gray.300" />
+              </InputRightElement>
+            </InputGroup>
+          </Flex>
+          {!searchValue && (
+            <Flex
+              flexDirection="column"
+              justifyContent="flex-start"
+              alignItems="flex-start"
+              maxWidth="700px"
+              mt={8}
+            >
+              <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
+                Most Popular
+              </Heading>
+              {/* Add some highlighted posts */}
+            </Flex>
+          )}
+          <Flex
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            maxWidth="700px"
+            mt={8}
+          >
+            <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
+              All Posts
+            </Heading>
+            {!filteredBlogPosts.length && "No posts found."}
+            {filteredBlogPosts.map((frontMatter) => (
+              <BlogPost key={frontMatter.title} {...frontMatter} />
+            ))}
+          </Flex>
+        </Stack>
+      </BlogContainer>
     </>
   );
-}
+};
+
+export default Blog;
