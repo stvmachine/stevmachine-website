@@ -17,11 +17,6 @@ import BlogPost from "../components/BlogPost";
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { frontMatter as blogPosts } from "./blog/**/*.mdx";
 
-const url = "https://leerob.io/blog";
-const title = "Blog – Lee Robinson";
-const description =
-  "Thoughts on the software industry, programming, tech, videography, music, and my personal life.";
-
 const Blog = () => {
   const [searchValue, setSearchValue] = useState("");
   const { colorMode } = useColorMode();
@@ -60,7 +55,7 @@ const Blog = () => {
               Blog
             </Heading>
             <Text color={secondaryTextColor[colorMode]}>
-              {`I've been writing online since 2014, mostly about web development and tech careers.
+              {`I have started to write at mid of 2020 during the COVID-19 outbreak, mostly about web development and tech conferences.
                 In total, I've written ${blogPosts.length} articles on this site.
                 Use the search below to filter by title.`}
             </Text>
@@ -83,10 +78,11 @@ const Blog = () => {
               maxWidth="700px"
               mt={8}
             >
+              {/*
               <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
                 Most Popular
               </Heading>
-              {/* Add some highlighted posts */}
+               Add some highlighted posts */}
             </Flex>
           )}
           <Flex

@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Styled } from "theme-ui";
 import { useState, useEffect } from "react";
+import NextLink from "next/link";
 
 import { NavWrap, MobileMenuBtn, NavMenu } from "./Nav.styles";
 import MenuItem from "./MenuItem";
@@ -41,6 +42,11 @@ const Nav = () => {
       subtree: true,
     });
     window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.addEventListener("scroll", handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   /*
@@ -118,6 +124,12 @@ const Nav = () => {
             active={item === activeItem}
           />
         ))}
+
+        <li>
+          <NextLink href="/blog" passHref>
+            <Styled.a variant="menuItem">Blog</Styled.a>
+          </NextLink>
+        </li>
       </NavMenu>
     </NavWrap>
   );

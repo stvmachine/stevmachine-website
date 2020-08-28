@@ -6,12 +6,15 @@ summary: "I create my own website using Next.js + MDX blogging experience."
 
 I created this website, because i always desire to have a portfolio but also a way to display the code that i normally work. That code usually just hit my github account. But i really want to keep working on my own stuff and feel rewarded with my progress.
 
-I used this free template: https://github.com/tbakerx/react-resume-template. But, i decided from the beginning that i want to use some techs on top and remove CSS and jQuery completely. My selected technologies:
+I used a [free template](https://github.com/tbakerx/react-resume-template). But, i decided from the beginning that i want to use some techs on top and remove CSS and jQuery completely. My selected technologies:
 
-- NextJS
-- Theme-ui
-- Emotion
-- MDX
+- [NextJS][next-js]
+- [Theme-ui][theme-ui]
+- [Chakra-ui][chakra-ui]
+- [Emotion][emotion]
+- [MDX][mdx]
+
+I initially did it with `theme-ui` but later i found `chakra-ui` that has some components that i prefered. So, for the moment, i have two themes to handle both website and the blog part. My plan is to migrate completely to `chakra-ui` but keep two themes anyways.
 
 # MDX Support
 
@@ -23,7 +26,6 @@ layout: 'docs-page'
 title: '2019 Year in Review'
 publishedAt: '2019-12-26'
 summary: 'Highlights and reflections on 2019 and a look forward to 2020.'
-image: '/static/images/2019/banner.jpg'
 ---
 ```
 
@@ -159,5 +161,8 @@ const handleScroll = () => {
 };
 ```
 
-Result:
-![alt](/images/blog/website/animation-nav-menu.gif)
+[next-js]: https://nextjs.org/
+[theme-ui]: https://theme-ui.com
+[chakra-ui]: https://chakra-ui.com/
+[mdx]: https://mdxjs.com/
+[emotion]: https://github.com/emotion-js/emotion
