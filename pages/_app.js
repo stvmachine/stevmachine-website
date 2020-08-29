@@ -69,17 +69,13 @@ const App = ({ Component, pageProps }) => {
       ) : (
         <>
           <ThemeProviderThemeUI theme={theme}>
-            <MDXProvider components={MDXComponents}>
-              <ColorModeProvider value="light">
-                <Global
-                  styles={css`
-                    ${resetStyles}
-                    ${defaultStyles}
-                  `}
-                />
-                <Component {...pageProps} />
-              </ColorModeProvider>
-            </MDXProvider>
+            <Global
+              styles={css`
+                ${resetStyles}
+                ${defaultStyles}
+              `}
+            />
+            <Component {...pageProps} />
           </ThemeProviderThemeUI>
         </>
       )}

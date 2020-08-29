@@ -4,9 +4,11 @@ publishedAt: "2020-08-28"
 summary: "I create my own website using Next.js + MDX blogging experience."
 ---
 
-I created this website, because i always desire to have a portfolio but also a way to display the code that i normally work. That code usually just hit my github account. But i really want to keep working on my own stuff and feel rewarded with my progress.
+I created this website, because i always desire to have a portfolio but also a way to display the code that I normally work. That code usually just hit my github account. But i really want to keep working on my own stuff and feel rewarded with my progress.
 
-I used a [free template](https://github.com/tbakerx/react-resume-template). But, i decided from the beginning that i want to use some techs on top and remove CSS and jQuery completely. My selected technologies:
+I used a [free template](https://github.com/tbakerx/react-resume-template) for the website part. For the blog, I based my efforts on the excelent portfolio of [leerob][leerob].
+
+I used some techs on top and remove vanilla CSS and jQuery completely. My selected technologies:
 
 - [NextJS][next-js]
 - [Theme-ui][theme-ui]
@@ -14,24 +16,25 @@ I used a [free template](https://github.com/tbakerx/react-resume-template). But,
 - [Emotion][emotion]
 - [MDX][mdx]
 
-I initially did it with `theme-ui` but later i found `chakra-ui` that has some components that i prefered. So, for the moment, i have two themes to handle both website and the blog part. My plan is to migrate completely to `chakra-ui` but keep two themes anyways.
+At the moment the website has been done with `theme-ui` and the blog part with `chakra-ui` due my heritage of the [leerob][leerob] work. So, for the moment, the website have two themes to support website and the blog part. My plan is to migrate completely to `theme-ui` but keep both themes.
+
+[leerob]: https://github.com/leerob/leerob.io.git
 
 # MDX Support
 
-The MDX support is essential to me because i decided to start a blog too and i did some research and with that format, it will allow me to create and publish new articles easily, as well as improve maintainability over time. I decide to add some plugins that would allow me to add some extra info like `next-mdx-enhanced`. So, some info date or title can be added as:
+The MDX support is essential to me because I decided to start a blog too. `MDX` allows me to create and publish new articles easily, as well as improve maintainability over time. I decide to add some plugins that would allow me to add some extra info like [next-mdx-enhanced][next-mdx-enhanced]. So, some info date or title can be added as:
 
 ```
 ---
-layout: 'docs-page'
-title: '2019 Year in Review'
-publishedAt: '2019-12-26'
-summary: 'Highlights and reflections on 2019 and a look forward to 2020.'
+title: 'Rails Conf 2020'
+publishedAt: '2020-28-01'
+summary: 'Overview of the Rails Conf 2020 version 2'
 ---
 ```
 
 And later, that data can be easily tracked:
 
-```js
+```js:layout/index.js
 import React from "react";
 
 export default (frontMatter) => {
@@ -45,7 +48,73 @@ export default (frontMatter) => {
 };
 ```
 
-# Particular challengues
+Thanks to [babel-plugin-import-glob-array][babel-plugin-import-glob-array], I can make the file system
+the source of truth.
+
+```js:pages/blog.js
+import { frontMatter as blogPosts } from './blog/**/*.mdx';
+
+const Blog = () => (
+    blogPosts.map((frontMatter) => (
+        <BlogPost key={frontMatter.title} {...frontMatter} />
+    ))}
+);
+```
+
+## MDX Plugins
+
+MDX uses [remark][remark] and [rehype][rehype] under the hood and allows you to provide external plugins to hook into the compilation process.
+Some of the plugins that i'm using:
+
+- [remark-autolink-headings][remark-autolink-headings]: Add a link to the headings. It works in conjuntion with `remark-slug`.
+- [remark-slug][remark-slug]: Add anchors headings based on the titles.
+- [remark-code-titles][remark-code-titles]: Allows to add titles to the code blocks: `js:hello.js`
+- [reading-time][reading-time]: One of my favorites. Add an estimation of the reading time of the content.
+
+## Syntax Highlighting and dark/light mode
+
+Using [mdx-prism][mdx-prism] and two prism themes for dark/light mode, I got two different ways to display the blog.
+
+```js:styles/prism.js
+import { css } from "@emotion/core";
+import { theme } from "@chakra-ui/core";
+
+const prismBaseTheme = css`
+  // Base styling
+`;
+
+export const prismLightTheme = css`
+  // Light mode
+`;
+
+export const prismDarkTheme = css`
+  // Dark mode
+`;
+```
+
+```js:_app.js
+const { colorMode } = useColorMode();
+const prismTheme = colorMode === "light" ? prismLightTheme : prismDarkTheme;
+```
+
+# Website challengues
+
+# Resume data
+
+Almost all the static data of the website is contained in a JSON structure. So, each section it's straighlty easy to add new info. Let's check for example `Favorites Tech` section.
+
+```js:constants/resumeData.js
+favoriteTechs: [
+  {
+    name: "React/React Native",
+    image: "react.png",
+    description: "",
+  },
+];
+```
+
+That will be rendered as:
+![Favorites tech](/images/blog/website/fav-tech-section.png)
 
 ## Nav menu
 
@@ -139,21 +208,35 @@ useEffect(() => {
 
 ## Fade animation
 
-Add some animation to hide the nav menu when we scroll a little but appears again in the second section
+The original version of the template change the opacity of the header when the scrolling pass from the first to the second section. Also, in some moment on that transition add some animation to hide the nav menu when we scroll a little but appears again in the second section. It's just a silly but nice animation that i want to keep.
+
+![alt](/images/blog/website/animation-nav-menu.gif)
+
+The important is to check the current position:
+
+1. If the current position is still in the first section but it's kinda close to the second section then hide the nav menu.
+2. If the current position is currently on the first section, display the menu but with transparency.
+3. Otherwise change the opacity to opaque and always display the nav menu.
 
 ```js
 const handleScroll = () => {
   const curPos = window.scrollY;
-  // other code
 
+  // menuItems store the Y-position of each section. So, topSection store the position until the second section.
+  // menuItems can be recalculated if the screen dimensions change, so it uses a percentage of the distance between sections
+  // is not a bad approach.
   const topSection = menuItems["resume"];
+
+  // 1. First section but approaching the second section
   if (curPos > topSection * 0.2 && curPos < 768) {
     showNav(false);
   } else {
+    // 2. On the top of the first section
     if (curPos < topSection * 0.2) {
       setNavOpaque(false);
       showNav(true);
     } else {
+      // 3. Second section and below
       setNavOpaque(true);
       showNav(true);
     }
@@ -166,3 +249,12 @@ const handleScroll = () => {
 [chakra-ui]: https://chakra-ui.com/
 [mdx]: https://mdxjs.com/
 [emotion]: https://github.com/emotion-js/emotion
+[next-mdx-enhanced]: https://github.com/hashicorp/next-mdx-enhanced
+[babel-plugin-import-glob-array]: https://github.com/jescalan/babel-plugin-import-glob-array
+[remark]: https://github.com/remarkjs/remark
+[rehype]: https://github.com/rehypejs/rehype
+[remark-autolink-headings]: https://github.com/remarkjs/remark-autolink-headings
+[remark-slug]: https://github.com/remarkjs/remark-slug
+[remark-code-titles]: https://github.com/mottox2/remark-code-titles
+[reading-time]: https://www.npmjs.com/package/reading-time
+[mdx-prism]: https://github.com/j0lv3r4/mdx-prism
