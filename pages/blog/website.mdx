@@ -1,6 +1,6 @@
 ---
 title: "Website"
-publishedAt: "2020-08-28"
+publishedAt: "2020-08-20"
 summary: "I create my own website using Next.js + MDX blogging experience."
 ---
 
@@ -164,6 +164,10 @@ useEffect(() => {
     childList: true,
     subtree: true,
   });
+
+  return () => {
+    observer.disconnect();
+  };
 }, []);
 ```
 
@@ -177,9 +181,9 @@ To add the active class, I'm using _reactState_.
 const [activeItem, setActiveItem] = useState("home");
 ```
 
-Then, we can define the function `handleScroll`. Iterate through our sections object to find which section matches with the current scrollDepth of the user.
+Then, we can define the function _handleScroll_. Iterate through our sections object to find which section matches with the current scrollDepth of the user.
 
-_NOTE_: This code assumes that the sections object is built with an 'ordered' list of sections, with the lowest depth (top) section first and greatest depth (bottom) section last. If your items are out-of-order, this code will not function correctly.
+**NOTE**: This code assumes that the sections object is built with an 'ordered' list of sections, with the lowest depth (top) section first and greatest depth (bottom) section last.
 
 ```js
 const handleScroll = () => {
@@ -203,6 +207,10 @@ We need to add a hook to detect `scroll`:
 ```js
 useEffect(() => {
   window.addEventListener("scroll", handleScroll);
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
 }, []);
 ```
 
@@ -222,11 +230,9 @@ The important is to check the current position:
 const handleScroll = () => {
   const curPos = window.scrollY;
 
-  // menuItems store the Y-position of each section. So, topSection store the position until the second section.
-  // menuItems can be recalculated if the screen dimensions change, so it uses a percentage of the distance between sections
-  // is not a bad approach.
+  // menuItems store the Y-position of each section and it is recalculated on screen dimension change.
+  // So it uses a percentage of the size of the sections not a bad approach.
   const topSection = menuItems["resume"];
-
   // 1. First section but approaching the second section
   if (curPos > topSection * 0.2 && curPos < 768) {
     showNav(false);
