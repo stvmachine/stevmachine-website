@@ -11,11 +11,11 @@ const BlogPost = (frontMatter) => {
   };
 
   const slug = frontMatter.__resourcePath
-    .replace("blog/", "")
+    .replace("blog\\", "")
     .replace(".mdx", "");
 
   return (
-    <NextLink href={`${slug}`} passHref>
+    <NextLink href={`blog/${slug}`} passHref>
       <Link w="100%" _hover={{ textDecoration: "none" }}>
         <Box mb={8} display="block" width="100%">
           <Flex
