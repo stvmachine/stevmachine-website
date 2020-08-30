@@ -11,7 +11,7 @@ const BlogPost = (frontMatter) => {
   };
 
   const slug = frontMatter.__resourcePath
-    .replace("blog\\", "")
+    .replace("blog(\\)*(\/)*", "")
     .replace(".mdx", "");
 
   return (
