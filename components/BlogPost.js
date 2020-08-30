@@ -15,7 +15,7 @@ const BlogPost = (frontMatter) => {
     .replace(".mdx", "");
 
   return (
-    <NextLink href={`blog/${slug}`} passHref>
+    <NextLink href={`${slug}`} passHref>
       <Link w="100%" _hover={{ textDecoration: "none" }}>
         <Box mb={8} display="block" width="100%">
           <Flex

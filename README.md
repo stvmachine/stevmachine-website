@@ -9,9 +9,6 @@ $ yarn
 $ yarn dev
 ```
 
-## Roadmap
-On construction
-
 ## Built Using
 
 - [Next.js](https://nextjs.org/)
