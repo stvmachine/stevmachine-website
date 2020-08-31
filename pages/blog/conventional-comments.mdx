@@ -6,10 +6,11 @@ tags: "code review, good practices"
 ---
 
 import { Box } from "@chakra-ui/core";
+import CommitCard from "../../components/CommitCard";
 
 # TL;DR
 
-The importance of leaving meaningful comments that can be applicable inmediately. On this post, you will learn about the standard **Conventional Comments** and how to improve the quality code of your projects.
+The importance of leaving meaningful comments that can be applied immediately without a second reading.
 
 # Code review
 
@@ -21,13 +22,66 @@ A **secondary** purpose is teaching developers something new about a language, a
 
 # Conventional Comments
 
-An attempt to address meaningful comments that are informative but also relevant appears the standard of Conventional Comments that are inspired by [conventional commits][conventional-commits].
+An attempt to address meaningful comments that are informative and relevant; conventional comments is inspired by [conventional commits][conventional-commits] and [semantic versioning][semantic-versioning].
 
-The overall idea is inform from the beginning about the intention of the comment with "prefixes". Different elements of the comment can also add extra info in a standard way that can be tracked and procesed if it's required.
+Comments like this are not helpful:
+
+<CommitCard
+  username="miso"
+  subject="Can you improve the wording"
+  avatar="/images/blog/conventional-comments/miso.png"
+/>
+
+By simply prefixing the comment with a label, the intention is clear and the tone dramatically changes.
+
+<CommitCard
+  username="miso"
+  label="suggestion"
+  subject="Can you improve the wording"
+  avatar="/images/blog/conventional-comments/miso.png"
+/>
+
+<CommitCard
+  username="miso"
+  label="nitpick"
+  subject="This is not worded correctly. "
+  decoration="non-blocking"
+  avatar="/images/blog/conventional-comments/miso.png"
+/>
+
+Labels also prompt the reviewer to give more **actionable** comments.
+
+<CommitCard
+  username="miso"
+  label="nitpick"
+  subject="This is not worded correctly. "
+  decoration="non-blocking"
+  discussion="Can we change this to match the wording of the marketing page?"
+  avatar="/images/blog/conventional-comments/miso.png"
+/>
+
+Labeling comments saves hours of undercommunication and misunderstandings. They are also parseable by machines!
+
+### Examples
+
+<CommitCard
+  username="daisy"
+  label="suggestion"
+  subject="Let's avoid using this specific function…"
+  discussion="If we reference much of a function marked “Deprecated”, it is almost certain to disagree with us, sooner or later."
+  avatar="/images/blog/conventional-comments/daisy.webp"
+/>
+<CommitCard
+  username="jungle"
+  label="issue"
+  subject="These buttons should be red, but let's handle this in a follow-up. "
+  decoration="ux,non-blocking"
+  avatar="/images/blog/conventional-comments/jungle.png"
+/>
 
 ## Format
 
-The format of the comments is something like:
+Adhering to a consistent format improves reader's expectations and machine readability. The format proposed is:
 
 ```js
 <label> [decorations]: <subject>
@@ -39,23 +93,63 @@ The format of the comments is something like:
 - decorations (optional) - These are extra decorating labels for the comment. They are surrounded by parentheses and comma-separated.
 - discussion (optional) - This contains supporting statements, context, reasoning, and anything else to help communicate the “why” and “next steps” for resolving the comment.
 
-## Label
+For example:
 
-| Label      | Description                                                                                                                                                                                                                                         |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| praise     | Praises highlight something positive. Try to leave at least one of these comments per review. Do not leave false praise (which can actually be damaging). Do look for something to sincerely praise.                                                |
-| nitpick    | Nitpicks are small, trivial, but necessary changes. Distinguishing nitpick comments significantly helps direct the reader's attention to comments requiring more involvement.                                                                       |
-| suggestion | Suggestions are specific requests to improve the subject under review. It is assumed that we all want to do what's best, so these comments are never dismissed as “mere suggestions”, but are taken seriously.                                      |
-| issue      | Issues represent user-facing problems. If possible, it's great to follow this kind of comment with a suggestion.                                                                                                                                    |
-| question   | Questions are appropriate if you have a potential concern but are not quite sure if it's relevant or not. Asking the author for clarification or investigation can lead to a quick resolution.                                                      |
-| thought    | Thoughts represent an idea that popped up from reviewing. These comments are non-blocking by nature, but they are extremely valuable and can lead to more focused initiatives and mentoring opportunities.                                          |
-| chore      | Chores are simple tasks that must be done before the subject can be “officially” accepted. Usually, these comments reference some common process. Try to leave a link to the process description so that the reader knows how to resolve the chore. |
+<CommitCard
+  username="kinoko"
+  label="question"
+  subject="At this point, does it matter which thread has won?"
+  decoration="non-blocking"
+  discussion="Maybe to prevent a race condition we should keep looping until they've all won?"
+  avatar="/images/blog/conventional-comments/kinoko.png"
+/>
+
+Can be automatically parsed into:
+
+```json
+{
+  "label": "question",
+  "subject": "At this point, does it matter which thread has won?",
+  "decorations": ["non-blocking"],
+  "discussion": "Maybe to prevent a race condition we should keep looping until they've all won?"
+}
+```
+
+## Labels
+
+Some suggested labels:
+
+| Label          | Description                                                                                                                                                                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **praise**     | Praises highlight something positive. Try to leave at least one of these comments per review. Do not leave false praise (which can actually be damaging). Do look for something to sincerely praise.                                                |
+| **nitpick**    | Nitpicks are small, trivial, but necessary changes. Distinguishing nitpick comments significantly helps direct the reader's attention to comments requiring more involvement.                                                                       |
+| **suggestion** | Suggestions are specific requests to improve the subject under review. It is assumed that we all want to do what's best, so these comments are never dismissed as “mere suggestions”, but are taken seriously.                                      |
+| **issue**      | Issues represent user-facing problems. If possible, it's great to follow this kind of comment with a suggestion.                                                                                                                                    |
+| **question**   | Questions are appropriate if you have a potential concern but are not quite sure if it's relevant or not. Asking the author for clarification or investigation can lead to a quick resolution.                                                      |
+| **thought**    | Thoughts represent an idea that popped up from reviewing. These comments are non-blocking by nature, but they are extremely valuable and can lead to more focused initiatives and mentoring opportunities.                                          |
+| **chore**      | Chores are simple tasks that must be done before the subject can be “officially” accepted. Usually, these comments reference some common process. Try to leave a link to the process description so that the reader knows how to resolve the chore. |
 
 ## Decorations
 
 Decorations give additional context for a comment. They help further classify comments which have the same label (for example, a security suggestion as opposed to a test suggestion).
 
-Decorations may be specific to each organization. If needed, we recommend establishing a minimal set of decorations (leaving room for discretion) with no ambiguity.
+<CommitCard
+  username="marcy"
+  label="suggestion"
+  subject="I'm a bit concerned that we are implementing our own DOM purifying function here…"
+  decoration="security"
+  discussion="Could we consider using the framework instead?"
+  avatar="/images/blog/conventional-comments/marcy.png"
+/>
+<CommitCard
+  username="ichigo"
+  label="suggestion"
+  subject="It looks like we're missing some unit test coverage that the cat disappears completely. "
+  decoration="test,if-minor"
+  avatar="/images/blog/conventional-comments/ichigo.png"
+/>
+
+Decorations may be specific to each organization. The recommended is establishing a minimal set of decorations (leaving room for discretion) with no ambiguity.
 
 Possible decorations include:
 
@@ -65,11 +159,27 @@ Possible decorations include:
 | (blocking)     | A comment with this decoration should prevent the subject under review from being accepted, until it is resolved. This is helpful for organizations that consider comments non-blocking by default. |
 | (if-minor)     | This decoration gives some freedom to the author that they should resolve the comment only if the changes ends up being minor or trivial.                                                           |
 
+## More Examples
+
+<CommitCard
+  username="jungle"
+  label="nitpick"
+  subject="Run the prettier command. There are some tweaks that need to be done."
+  avatar="/images/blog/conventional-comments/jungle.png"
+/>
+
+<CommitCard
+  username="marcy"
+  label="praise"
+  subject="Awesome! You did a really job good!"
+  avatar="/images/blog/conventional-comments/marcy.png"
+/>
+
 # References
 
 - [Conventional Comments][conventional-comment]
-- [Conventional Commits][conventional-commits]
 - [Google Engineering Practices](https://github.com/google/eng-practices/blob/57c895ad4b09c8941288c04e44a08797b76b4d4d/review/reviewer/standard.md#mentoring)
 
 [conventional-comment]: https://conventionalcomments.org/
 [conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
+[semantic-versioning]: https://semver.org/
