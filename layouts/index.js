@@ -28,7 +28,7 @@ export default (frontMatter) => {
       <BlogContainer>
         <Stack
           as="article"
-          spacing={8}
+          spacing={6}
           justifyContent="center"
           alignItems="flex-start"
           m="0 auto 4rem auto"

@@ -1,0 +1,75 @@
+---
+title: "Conventional Comments"
+publishedAt: "2020-08-31"
+summary: "Contentful comments"
+tags: "code review, good practices"
+---
+
+import { Box } from "@chakra-ui/core";
+
+# TL;DR
+
+The importance of leaving meaningful comments that can be applicable inmediately. On this post, you will learn about the standard **Conventional Comments** and how to improve the quality code of your projects.
+
+# Code review
+
+The **primary** purpose of code review is to make sure that the overall code health of the code base is improving over time. In order to accomplish this, a series of trade-offs have to be balanced. A key point here is that there is no such thing as "perfect" code—there is only better code. Reviewers should not require the author to polish every tiny piece before granting approval. Rather, the reviewer should balance out the need to make forward progress compared to the importance of the changes they are suggesting. Instead of seeking perfection, what a reviewer should seek is continuous improvement.
+
+> A pull request, intends to improves the maintainability, readability, and understandability of the system and it shouldn't be delayed for days or weeks because it isn't "perfect."
+
+A **secondary** purpose is teaching developers something new about a language, a framework, or general software design principles. It's always fine to leave comments that help a developer learn something new. Sharing knowledge is part of improving the code health of a system over time.
+
+# Conventional Comments
+
+An attempt to address meaningful comments that are informative but also relevant appears the standard of Conventional Comments that are inspired by [conventional commits][conventional-commits].
+
+The overall idea is inform from the beginning about the intention of the comment with "prefixes". Different elements of the comment can also add extra info in a standard way that can be tracked and procesed if it's required.
+
+## Format
+
+The format of the comments is something like:
+
+```js
+<label> [decorations]: <subject>
+[discussion]
+```
+
+- label - This is a single label that signifies what kind of comment is being left.
+- subject - This is the main message of the comment.
+- decorations (optional) - These are extra decorating labels for the comment. They are surrounded by parentheses and comma-separated.
+- discussion (optional) - This contains supporting statements, context, reasoning, and anything else to help communicate the “why” and “next steps” for resolving the comment.
+
+## Label
+
+| Label      | Description                                                                                                                                                                                                                                         |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| praise     | Praises highlight something positive. Try to leave at least one of these comments per review. Do not leave false praise (which can actually be damaging). Do look for something to sincerely praise.                                                |
+| nitpick    | Nitpicks are small, trivial, but necessary changes. Distinguishing nitpick comments significantly helps direct the reader's attention to comments requiring more involvement.                                                                       |
+| suggestion | Suggestions are specific requests to improve the subject under review. It is assumed that we all want to do what's best, so these comments are never dismissed as “mere suggestions”, but are taken seriously.                                      |
+| issue      | Issues represent user-facing problems. If possible, it's great to follow this kind of comment with a suggestion.                                                                                                                                    |
+| question   | Questions are appropriate if you have a potential concern but are not quite sure if it's relevant or not. Asking the author for clarification or investigation can lead to a quick resolution.                                                      |
+| thought    | Thoughts represent an idea that popped up from reviewing. These comments are non-blocking by nature, but they are extremely valuable and can lead to more focused initiatives and mentoring opportunities.                                          |
+| chore      | Chores are simple tasks that must be done before the subject can be “officially” accepted. Usually, these comments reference some common process. Try to leave a link to the process description so that the reader knows how to resolve the chore. |
+
+## Decorations
+
+Decorations give additional context for a comment. They help further classify comments which have the same label (for example, a security suggestion as opposed to a test suggestion).
+
+Decorations may be specific to each organization. If needed, we recommend establishing a minimal set of decorations (leaving room for discretion) with no ambiguity.
+
+Possible decorations include:
+
+| Decoration     | Description                                                                                                                                                                                         |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| (non-blocking) | A comment with this decoration should not prevent the subject under review from being accepted. This is helpful for organizations that consider comments blocking by default.                       |
+| (blocking)     | A comment with this decoration should prevent the subject under review from being accepted, until it is resolved. This is helpful for organizations that consider comments non-blocking by default. |
+| (if-minor)     | This decoration gives some freedom to the author that they should resolve the comment only if the changes ends up being minor or trivial.                                                           |
+
+# References
+
+- [Conventional Comments][conventional-comment]
+- [Conventional Commits][conventional-commits]
+- [Google Engineering Practices](https://github.com/google/eng-practices/blob/57c895ad4b09c8941288c04e44a08797b76b4d4d/review/reviewer/standard.md#mentoring)
+
+[conventional-comment]: https://conventionalcomments.org/
+[conventional-commits]: https://www.conventionalcommits.org/en/v1.0.0/
