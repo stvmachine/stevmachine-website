@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import {
   Box,
+  AspectRatioBox,
   Callout,
   Code,
   Heading,
@@ -152,6 +153,12 @@ const Hr = () => {
   return <Divider borderColor={borderColor[colorMode]} my={4} w="100%" />;
 };
 
+const CustomVideo = ({ url }) => (
+  <AspectRatioBox ratio={16 / 9} maxW="700px" w="100%">
+    <Box as="iframe" src={url} allowFullScreen />
+  </AspectRatioBox>
+);
+
 const MDXComponents = {
   h1: (props) => <Heading as="h1" size="xl" my={4} {...props} />,
   h2: (props) => <DocsHeading as="h2" fontWeight="bold" size="lg" {...props} />,
@@ -174,4 +181,5 @@ const MDXComponents = {
 };
 
 export { CustomLink };
+export { CustomVideo };
 export default MDXComponents;
