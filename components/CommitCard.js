@@ -39,7 +39,7 @@ const CommitCard = ({
     dark: "white",
   };
   const textColor = {
-    light: "black",
+    light: "gray.800",
     dark: "gray.600",
   };
 

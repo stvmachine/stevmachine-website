@@ -1,0 +1,100 @@
+---
+title: "PyCon AU 2020"
+publishedAt: "2020-09-10"
+summary: "Overview of my experience of PyCon AU 2020"
+---
+
+import { CustomVideo } from "../../components/MDXComponents";
+
+## Overview
+
+For this conference due my company works with Django, a bunch of people of my work hang out together. We did a table where we shared all the talks that we were interested to assist and we commented about them. The group was diverse with people with a lot of experience on Django. Considering my low experience, I picked the talks based on other people opinnions and if the description of the talks convinced me. Personally, I was interested on motivational talks, technological discussions and the educational impact of Python with kids and communities.
+
+## Selected Friday Talks
+
+### Technosolutionism and human rights
+
+> Governments around the globe accept technology as a one-stop-shop solution promising the future socially, economically... nothing that can't be improved or solved with a tech unicorn! But what are the costs that come with embracing technology as the solution to every analogue issue? The COVID19 crisis has laid bare the challenges of public trust, confidence and expectations that individuals have of technology. In this session we will look at how a perfectly tailored technical solution can impact individual's rights and liberties; and discuss the design parameters to mitigate such impacts.
+
+<CustomVideo url="https://www.youtube.com/embed/2PRSEOJlWVg" />
+
+### Walled gardens for growing students
+
+> How can we create environments for students to learn programming skills that allow them to thrive without overwhelming them?
+
+<CustomVideo url="https://www.youtube.com/embed/BiMC10Cm_vA" />
+
+### Taking Django's ORM Async
+
+> Django 3.1 has asynchronous views - but the next step is to put asynchronous support right into the beating heart of Django, its ORM. Learn the challenges of asynchronous API design in Python, how threading is crucial even in an async world, and what it takes to teach this ORM dog new tricks.
+
+The quest to add "hybrid" asynchronous support to Django - where it can run both synchronous and asynchronous code - is a long one. Django 3.1 reached an important milestone with synchronous and asynchronous views, and now the next big step is to take a long, hard look at the thing that makes up over half the Django codebase: the ORM.
+
+The ORM is gigantic, old, and complex - and has an API designed and tweaked over many years. We'll look at some of those design decisions and how they reflect in the world of async, the challenges that underlie a hybrid API, as well as how the safety-first nature of the ORM has to evolve to deal with new and exciting async ways of breaking things.
+
+We'll also dive into what it means to have asynchronous database backends, and how support for those are progressing in the Python world - and how we're trying to ship something that's useful before fully asynchronous database APIs are done.
+
+<CustomVideo url="https://www.youtube.com/embed/ibAmA4QQDhs" />
+
+## Selected Saturday Talks
+
+### I don't need friends, I can build my own
+
+> It’s a Friday night and you’re really hitting it off with the customer service assistant that has popped up in the right hand corner chat window of your web browser. But are they real, or a chatbot? How do you tell?
+
+The core library that present this presentation is [Rasa](https://rasa.com)
+
+<CustomVideo url="https://www.youtube.com/embed/fooDYx8oIHw" />
+
+### A Reflection on Software Testing
+
+> Software testing can be difficult, complicated and frustrating. In this presentation I will talk about some of the reasons why, and more importantly what we might do to make it easier, simpler and perhaps even satisfying. This talk is for beginners and experienced developers.
+
+<CustomVideo url="https://www.youtube.com/embed/rY45dmzrCu4" />
+
+### Wearing Your Python, and Making It Sing Too!
+
+> Wearable technology isn't all fancy smart devices with AR and IoT, come learn how you can transform own garments into an eTextiles project with the Circuit Playground Express and Circuit Python.
+
+The Circuit Playground Express (cpx) is a palm-sized programmable electronics board packed full of sensors and 10 Neopixel LEDs. It also has a speaker and 7 capacitative touch pads making it perfect for sewing onto fabrics. .
+
+In this talk, I will be giving an overview of everything you need to know to get started on your own eTextiles project by taking you through one of my own projects: making a singing curlyboi tote bag.
+
+<CustomVideo url="https://www.youtube.com/embed/bm8Jqlhe3lc" />
+
+### Graph Databases will change your (freakin') life
+
+> This talk will be an introduction and overview of these Graph databases that are so hot right now, and how you can drive them using python.
+> Relational and NoSQL DBs have ruled the roost for a couple of decades now, but in real life there's more to data than just tables or key-pairs. Graph DBMS technology has been coming along for the last decade-or-so and is now quite mature. Everyone wants one, just ask a Fortune 500 company.
+
+I mean: why have a table when you can have a knowledge graph? Why not be able to whip up a recommendations engine (or indeed a fraud detector) in a few minutes?
+
+Graph databases store data in Graphs -- that is NOT chart-visualisation nor syntax standard on API layers (NOT a GraphQL talk), but per the paper written by the mathematician Euler in 1736: those data structures which are "nodes" connected by "relationships".
+
+This talk will be a primer on what this all means, how they work and when they're a good idea to use. There will also be a demonstration and discussion about how to kick off with graph DBs driven by python, specifically for people who are familiar with conventional databases, but have never used Graph databases before, but might be curious.
+
+<CustomVideo url="https://www.youtube.com/embed/h8cyPIEfxQY" />
+
+### The Art of Micropython- using Python to create award winning art
+
+> This talk will focus on the MicroPython code that synchronises electro-mechanical aspects of the project and how I overcame the specific challenges of keeping a ‘hobby’ servo in sync with the LED light sequencing.
+
+<CustomVideo url="https://www.youtube.com/embed/xw5rNDPIt14" />
+
+### How a major museum runs on Python
+
+> We built a system for deploying, managing and monitoring hundreds of Internet-of-Things devices in a museum; let us show you why & how.
+
+ACMI, the Australian Centre for the Moving Image, is the most visited museum of the moving image in the world. In 2019 we closed our doors, to reshape our Federation Square building in order to become more public-facing, and to house a major new permanent exhibition, The Story of the Moving Image.
+
+As you might imagine, we have a lot of moving image to show, and a lot of fascinating objects to tell people about, all of which can be overwhelming to some audiences. That's why we designed and built a system called The Lens. Every visitor to the museum can pick up a Lens, which they use to collect objects and media to watch and explore in their own time. The Lens depends on a network of hundreds of Raspberry Pi devices to display media and interact with visitors, all running Opensourced Python code. All these devices need to be robust and maintainable in order to survive the 10-year lifespan of the exhibition.
+
+In this talk, we'll give you a tour of the technology at ACMI, including our Internet-of-Things fleet and management tools, and XOS, the eXperience Operating System, which provides content and configuration to the devices.
+
+<CustomVideo url="https://www.youtube.com/embed/krqWafKEaDI" />
+
+### Using Jupyter Notebooks to Empower the Public with Environmental Data
+
+> Attendees will learn how to use Jupyter Notebooks and other Python tools to engage the public to create meaningful outcomes and positive social change. The Notebooks we’ve created serve to empower interested members of the public in participatory learning about industry-related pollution that is meaningful to them and their networks, as well as creating strategic, compelling, and informative reports of environmental injustices to inform community action. Our goal is to create a future in which justice and equity are at the center of environmental, climate, and data governance. No environmental justice knowledge required to attend.
+
+<CustomVideo url="https://www.youtube.com/embed/nWHX3_1_xOg" />
