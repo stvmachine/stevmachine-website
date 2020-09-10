@@ -29,7 +29,12 @@ const Blog = () => {
     keys: ["title", "tags"],
   });
 
-  const filteredBlogPosts = result.map((post) => post.item || post);
+  const filteredBlogPosts = result
+    .map((post) => post.item || post)
+    .sort(
+      (a, b) =>
+        Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
+    );
 
   return (
     <>
@@ -94,15 +99,9 @@ const Blog = () => {
               All Posts
             </Heading>
             {!filteredBlogPosts.length && "No posts found."}
-            {filteredBlogPosts
-              .sort(
-                (a, b) =>
-                  Number(new Date(b.publishedAt)) -
-                  Number(new Date(a.publishedAt))
-              )
-              .map((frontMatter) => (
-                <BlogPost key={frontMatter.title} {...frontMatter} />
-              ))}
+            {filteredBlogPosts.map((frontMatter) => (
+              <BlogPost key={frontMatter.title} {...frontMatter} />
+            ))}
           </Flex>
         </Stack>
       </BlogContainer>
