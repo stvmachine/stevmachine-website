@@ -29,14 +29,7 @@ const Blog = () => {
     keys: ["title", "tags"],
   });
 
-  const filteredBlogPosts = result.reduce((accum, post) => {
-    if (post.item) {
-      accum.push(post.item);
-    } else {
-      accum.push(post);
-    }
-    return accum;
-  }, []);
+  const filteredBlogPosts = result.map((post) => post.item || post);
 
   return (
     <>
