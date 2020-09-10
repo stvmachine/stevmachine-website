@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useFuzzy } from "react-use-fuzzy";
 import {
   useColorMode,
   Heading,
@@ -18,21 +19,24 @@ import BlogPost from "../components/BlogPost";
 import { frontMatter as blogPosts } from "./blog/**/*.mdx";
 
 const Blog = () => {
-  const [searchValue, setSearchValue] = useState("");
   const { colorMode } = useColorMode();
   const secondaryTextColor = {
     light: "gray.700",
     dark: "gray.400",
   };
 
-  const filteredBlogPosts = blogPosts
-    .sort(
-      (a, b) =>
-        Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
-    )
-    .filter((frontMatter) =>
-      frontMatter.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
+  const { result, keyword, search } = useFuzzy(blogPosts, {
+    keys: ["title", "tags"],
+  });
+
+  const filteredBlogPosts = result.reduce((accum, post) => {
+    if (post.item) {
+      accum.push(post.item);
+    } else {
+      accum.push(post);
+    }
+    return accum;
+  }, []);
 
   return (
     <>
@@ -62,15 +66,16 @@ const Blog = () => {
             <InputGroup my={4} mr={4} w="100%">
               <Input
                 aria-label="Search articles"
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => search(e.target.value)}
                 placeholder="Search articles"
+                value={keyword}
               />
               <InputRightElement>
                 <Icon name="search" color="gray.300" />
               </InputRightElement>
             </InputGroup>
           </Flex>
-          {!searchValue && (
+          {/*{!filteredBlogPosts && (
             <Flex
               flexDirection="column"
               justifyContent="flex-start"
@@ -78,13 +83,13 @@ const Blog = () => {
               maxWidth="700px"
               mt={8}
             >
-              {/*
+             
               <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
                 Most Popular
               </Heading>
-               Add some highlighted posts */}
+               Add some highlighted posts 
             </Flex>
-          )}
+          )}*/}
           <Flex
             flexDirection="column"
             justifyContent="flex-start"
@@ -96,9 +101,15 @@ const Blog = () => {
               All Posts
             </Heading>
             {!filteredBlogPosts.length && "No posts found."}
-            {filteredBlogPosts.map((frontMatter) => (
-              <BlogPost key={frontMatter.title} {...frontMatter} />
-            ))}
+            {filteredBlogPosts
+              .sort(
+                (a, b) =>
+                  Number(new Date(b.publishedAt)) -
+                  Number(new Date(a.publishedAt))
+              )
+              .map((frontMatter) => (
+                <BlogPost key={frontMatter.title} {...frontMatter} />
+              ))}
           </Flex>
         </Stack>
       </BlogContainer>

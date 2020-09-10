@@ -3447,6 +3447,11 @@ function-bind@^1.1.1:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
+fuse.js@^6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.4.1.tgz#76f1b4ab9cd021b854a68381b35628033d27507e"
+  integrity sha512-+hAS7KYgLXontDh/vqffs7wIBw0ceb9Sx8ywZQhOsiQGcSO5zInGhttWOUYQYlvV/yYMJOacQ129Xs3mP3+oZQ==
+
 gensync@^1.0.0-beta.1:
   version "1.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.1.tgz#58f4361ff987e5ff6e1e7a210827aa371eaac269"
@@ -5647,6 +5652,11 @@ react-spring@^8.0.27:
   dependencies:
     "@babel/runtime" "^7.3.1"
     prop-types "^15.5.8"
+
+react-use-fuzzy@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-use-fuzzy/-/react-use-fuzzy-1.0.4.tgz#8697aec1ca6d858721d93dca334044787ce6fa0b"
+  integrity sha512-eAxNa67Av7h6WNnJ7Bnqn3qmMb/AdBDpPHGRatv8Dg1is4WpEjJA5Cah4nZncH7w5lHeAD77WduHDZRYdke2Lg==
 
 react@^16.13.1:
   version "16.13.1"
