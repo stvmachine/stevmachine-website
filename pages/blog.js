@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFuzzy } from "react-use-fuzzy";
 import {
   useColorMode,
@@ -17,6 +17,8 @@ import BlogPost from "../components/BlogPost";
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { frontMatter as blogPosts } from "./blog/**/*.mdx";
+import { frontMatter as pyConAuPost } from "./blog/pycon-au-2020.mdx";
+import { frontMatter as websitePost } from "./blog/website.mdx";
 
 const Blog = () => {
   const { colorMode } = useColorMode();
@@ -73,7 +75,7 @@ const Blog = () => {
               </InputRightElement>
             </InputGroup>
           </Flex>
-          {/*{!filteredBlogPosts && (
+          {!keyword && (
             <Flex
               flexDirection="column"
               justifyContent="flex-start"
@@ -81,13 +83,13 @@ const Blog = () => {
               maxWidth="700px"
               mt={8}
             >
-             
               <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
                 Most Popular
               </Heading>
-               Add some highlighted posts 
+              <BlogPost {...pyConAuPost} />
+              <BlogPost {...websitePost} />
             </Flex>
-          )}*/}
+          )}
           <Flex
             flexDirection="column"
             justifyContent="flex-start"
