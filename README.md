@@ -1,6 +1,7 @@
 # My portfolio
 
-First attempt to create my portfolio.
+Running thanks to Vercel platform in: https://stevmachine-website.vercel.app/
+
 
 ## Running Locally
 
