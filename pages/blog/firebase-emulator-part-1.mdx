@@ -1,0 +1,61 @@
+---
+title: "Firebase Emulator Part 1"
+publishedAt: "2020-09-15"
+summary: "Experimenting with Firebase Emulator - The beginning"
+tags:
+  - firebase
+  - firebase-functions
+  - react-firebase-hooks
+  - google
+---
+
+Luckily, in my work from time to time, we try new things. For intents of the blog, i created a new project in my github account, that way i can display code without any issues. There are some important pieces to this project thatuse:
+
+- [Firebase Tools](https://github.com/firebase/firebase-tools)
+- [React Firebase Hooks](https://github.com/csfrequency/react-firebase-hooks)
+
+To use firebase emulator. Basically, you need to run it in a different session and it communicates with your app through web requests. So, for your project there is not difference between firebase running production and the emulation.
+
+```js:firebase.json
+{
+  hosting: {
+    "rewrites": [
+      {
+          "source": "/registerUserWithInviteCode",
+          "function": "registerUserWithInviteCode"
+      }
+    ]
+  }
+}
+```
+
+Then, later is possible to add this API to firebase through `/functions/registerUserWithInviteCode.js` and consume the API in demand.
+
+```js
+async (inviteCode) => {
+  return api("/registerUserWithInviteCode", {
+    method: "POST",
+    headers: { Authorization: await authUser.getIdToken() },
+    body: JSON.stringify({ inviteCode }),
+  });
+},
+  [authUser];
+```
+
+## Import/Export Feature
+
+The firestore emulator per default doesn't persist the database. So, it's important to export manually when the session is going to end. It's kinda funky but it requires two sessions, one consuming the API against the other.
+
+```bash:session 1
+firebase emulators:start
+```
+
+```bash:session 2
+firebase emulators:export --force ./saved-data
+```
+
+In later ocassions, we are going to have a stored database, so we need to tell firebase to start over that folder (e.g.: `saved-data`).
+
+```bash
+firebase emulators:start --import=./saved-data
+```
