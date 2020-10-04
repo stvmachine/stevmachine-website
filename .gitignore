@@ -3,3 +3,8 @@ node_modules/
 
 # Ignore next-mdx-enhanced cache directory
 .mdx-data
+
+# Ignore .env
+.env
+service-account.json
+.vercel
