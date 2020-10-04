@@ -6,3 +6,4 @@ node_modules/
 
 # Ignore .env
 .env
+service-account.json
