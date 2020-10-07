@@ -10,6 +10,7 @@ import {
 import { parseISO, format } from "date-fns";
 
 import BlogContainer from "../components/BlogContainer";
+import ViewCounter from "../components/ViewCounter";
 import resumeData from "../constants/resumeData";
 
 export default (frontMatter) => {
@@ -68,6 +69,8 @@ export default (frontMatter) => {
               </Flex>
               <Text fontSize="sm" color="gray.500" minWidth="100px" mt={[2, 0]}>
                 {frontMatter.readingTime.text}
+                {` • `}
+                <ViewCounter id={slug} />
               </Text>
             </Flex>
           </Flex>
