@@ -1,0 +1,174 @@
+---
+title: "Starting with Ruby on Rails [v6]- Part 1"
+publishedAt: "2020-10-30"
+summary: "From v3 to v6. Let's see how much is different."
+tags:
+  - rails
+  - ruby
+  - ror
+  - framework
+  - v6
+---
+
+The last time that I had done something with RoR was more than five years ago. Let's see what it's different. I'm currently following this great [tutorial](learn-enough). The first part of this serie is focus on requirements and how to start locally a project on ruby on rails.
+
+## Pre-requisites (iOS)
+
+**1. Install xcode**
+
+```bash
+xcode-select --install
+```
+
+**2. Install brew**
+
+```bash
+/bin/bash -c "$(curl -fsSL https://www.learnenough.com/homebrew.sh)"
+```
+
+**3. Instal rbenv**
+
+To handle easily multiple environments, we are going to use `rbenv`.
+
+```bash
+brew install rbenv
+```
+
+**3.1 Add rbenv to the PATH**
+
+Load rbenv automatically by appending the following to `~/.bash_profile`:
+
+```bash
+eval "$(rbenv init -)"
+```
+
+Later on, you can activate inmediately rbenv:
+
+```bash
+source ~/.bash_profile
+```
+
+**3.2 Install target version**
+
+For version 6 of Ruby on Rails is recommended `ruby>=2.6`.
+
+```bash
+rbenv install 2.6.6
+rbenv rehash        # Installs shims for all Ruby executables known to rbenv
+rbenv global 2.6.6  # Set global version
+```
+
+**3.3 (Optional) Configuring to skip the installation of Ruby documentation.**
+
+```bash
+\$ echo "gem: --no-document" >> ~/.gemrc
+```
+
+With that configuration, any uses of gem install `<gem name>` to install Ruby gems will automatically be svelte, streamlined, and documentation-free.
+
+**4. Install yarn**
+
+Internally Ruby on Rails requires yarn.
+
+```bash
+brew install yarn
+```
+
+**\*5. Install heroku (optional)**
+This step is optional. But, it gives a good glimpse of how easy is to deploy to production and it's good to take notice about differences between environments. Especifically, due the default database is sqlite.
+
+```bash
+brew tap heroku/brew && brew install heroku
+```
+
+## Install Ruby on Rails
+
+```bash
+gem install rails -v 6.0.3.4
+```
+
+That would generate a `Gemfile`. We have some fixed versions for `ruby` and `rails`, so it should have at least these dependencies:
+
+```ruby
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby "2.6.6"
+gem "rails", "6.0.3.4"
+```
+
+## Start a new project
+
+It's possible to create a new project specifying a specific rails version:
+
+```bash
+rails _6.0.3.4_ new project_name
+```
+
+This command will generate the following file structure:
+
+| File/Directory   | Purpose                                                                             |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| **app/**         | Core application (app) code, including models, views, controllers, and helpers      |
+| **app/assets**   | Applications assets such as Cascading Style Sheets (CSS) and images                 |
+| **bin/**         | Binary executable files                                                             |
+| **config/**      | Application configuration                                                           |
+| **db/**          | Database files                                                                      |
+| **doc/**         | Documentation for the application                                                   |
+| **lib/**         | Library modules                                                                     |
+| **log/**         | Application log files                                                               |
+| **public/**      | Data accessible to the public (e.g., via web browsers), such as error pages         |
+| **bin/rails**    | A program for generating code, opening console sessions, or starting a local server |
+| **test/**        | Application tests                                                                   |
+| **tmp/**         | Temporary files                                                                     |
+| **README.md**    | A brief description of the application                                              |
+| **Gemfile**      | Gem requirements for this app                                                       |
+| **Gemfile.lock** | A list of gems used to ensure that all copies of the app use the same gem versions  |
+| **config.ru**    | A configuration file for Rack middleware                                            |
+| **.gitignore**   | Patterns for files that should be ignored by Git                                    |
+
+## Run server
+
+Then, the only missing part is hit the command to run the server: `rails server`.
+
+![](/images/blog/ror-v6/yay.png)
+
+## Run the project on Heroku
+
+Ruby on Rails and Heroku are buddies and it is easy to use them together but it is necessary to modify the gem `sqlite3` due Heroku doesn't support SQLite database:
+
+```ruby:Gemfile
+group :production do
+  gem 'pg', '1.2.3'
+end
+
+group :development, :test do
+  // other gems
+  gem 'sqlite3', '1.4.2'
+end
+```
+
+Now, it's recommended to install just the necessary gems to each environment, in development we need:
+
+```bash
+bundle install --without production
+```
+
+Let's create the project in Heroku
+
+```bash
+heroku create
+```
+
+And let's push the project to keroku:
+
+```bash
+git push heroku master
+```
+
+**Resources:**
+
+- [Learn Enough - Dev Environment Tutorial](dev-environment-tutorial)
+
+[learn-enough]: https://www.learnenough.com
+[dev-environment-tutorial]: https://www.learnenough.com/dev-environment-tutorial#sec-native_os_setup
