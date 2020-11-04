@@ -1,0 +1,343 @@
+---
+title: "Starting with Ruby on Rails [v6]- Part 2"
+publishedAt: "2020-10-30"
+summary: "Part 2 of the serie of starting with Ruby on Rails[v6]"
+tags:
+  - rails
+  - ruby
+  - ror
+  - framework
+  - v6
+---
+
+import ProsCard from "../../components/ProsCard";
+import ConsCard from "../../components/ConsCard";
+
+As a continuation of the [Starting with Ruby on Rails v6](/blog/ror-v6-part-1), we are going to keep using `Learn Enough` material.
+
+We are going to use `scaffolding`, that way we can have a palpable sense of what Ruby on Rails can offer, but later we are going to cover, step by step what is happening behind the hood. At each stage of developing, we will write small, bite-sized pieces of code—simple enough to understand. The cumulative effect will be a deeper, more flexible knowledge of Rails, giving you a good background for writing nearly any type of web application.
+
+> **Warning**: Following the scaffolding approach risks turning you into a virtuoso script generator with little (and brittle) actual knowledge of Rails.
+
+## 1. Let's plan the dummy application
+
+### 1.1 Objetive
+
+Create a dummy application with users and micro-posts (similar to Twitter).
+
+### 1.2 Setting up
+
+We are going to create a new app called `toy_app`
+
+```bash
+$ rails _6.0.3.4_ new toy_app
+$ cd toy_app/
+```
+
+With the next fixed dependencies:
+
+```ruby:Gemfile
+source "https://rubygems.org"
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
+ruby "2.6.6"
+gem "rails", "6.0.3.4"
+gem "puma", "4.3.6"
+gem "sass-rails", "6.0.0"
+gem "webpacker", "4.2.2"
+gem "turbolinks", "5.2.1"
+gem "jbuilder", "2.10.0"
+gem "bootsnap", "1.4.6", require: false
+
+group :development, :test do
+  gem "sqlite3", "1.4.2"
+  gem "byebug", "11.1.3", platforms: [:mri, :mingw, :x64_mingw]
+end
+
+group :development do
+  gem "web-console", "4.0.2"
+  gem "listen", "3.2.1"
+  gem "spring", "2.1.1"
+  gem "spring-watcher-listen", "2.0.1"
+end
+
+group :test do
+  gem "capybara", "3.32.2"
+  gem "selenium-webdriver", "3.142.7"
+  gem "webdrivers", "4.3.0"
+end
+
+group :production do
+  gem "pg", "1.2.3"
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+# Uncomment the following line if you're running Rails
+# on a native Windows system:
+# gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+```
+
+### 1.3 Planning the models
+
+We are going to need users. We are going to keep it simple.
+
+**Users**
+
+| Property  | Type    |
+| --------- | ------- |
+| **id**    | integer |
+| **name**  | string  |
+| **email** | string  |
+
+**Posts**
+
+The posts has only an id and a content field. Also, each post is associated with a particular user (`user_id`).
+
+| Property    | Type    |
+| ----------- | ------- |
+| **id**      | integer |
+| **content** | string  |
+| **user_id** | string  |
+
+## 2. Let's scaffold some resources!
+
+### 2.1 User
+
+The syntax to `scaffold` our `Users` model with some optional parameters for the data model’s attributes:
+
+```bash
+rails generate scaffold User name:string email:string
+```
+
+By including `name:string` and `email:string`, we have arranged for the User model to have the desirable structure (Note that there is no need to include a parameter for _id_; it is created automatically by Rails for use as the primary key in the database.)
+
+To proceed with the application, we first need to migrate the database using `rails db:migrate`.
+
+```ruby
+$ rails db:migrate
+== CreateUsers: migrating ======================================
+-- create_table(:users)
+   -> 0.0027s
+== CreateUsers: migrated (0.0036s) =============================
+```
+
+The effect of last command is to update the database with our new users data model.
+
+### 2.1.1 Users routes
+
+The scaffolding process create a basic CRUD with the following routes:
+
+| URL               | Action  | Purpose                     |
+| ----------------- | ------- | --------------------------- |
+| **/users**        | `index` | page to list all users      |
+| **/users/1**      | `show`  | page to show user with id 1 |
+| **/users/new**    | `new`   | page to make a new user     |
+| **/users/1/edit** | `edit`  | page to edit user with id 1 |
+
+### 2.1.2 Users Controller
+
+A controller contains a collection of related actions, and the pages from [2.1.1](#211-users-routes) correspond to actions in the Users controller. The Users controller in schematic form.
+
+```ruby:app/controllers/users_controller.rb
+class UsersController < ApplicationController
+
+  def index
+  end
+
+  def show
+  end
+
+  def new
+  end
+
+  def edit
+  end
+
+  def create
+  end
+
+  def update
+  end
+
+  def destroy
+  end
+end
+```
+
+### 2.1.3 MVC in action
+
+![](/images/blog/ror-v6-part-2/mvc_detailed.png)
+
+Here is a summary of the steps shown in above figure:
+
+1. The browser issues a request for the `/users` URL.
+1. Rails routes `/user`s to the index action in the Users controller.
+1. The index action asks the User model to retrieve all users (_User.all_).
+1. The User model pulls all the users from the database.
+1. The User model returns the list of users to the controller.
+1. The controller captures the users in the `@users` variable, which is passed to the index view.
+1. The view uses embedded Ruby to render the page as HTML.
+1. The controller passes the HTML back to the browser
+
+You might notice that there are more actions than there are pages; the _index_, _show_, _new_, and _edit_ actions all correspond to pages from [Section 2.1.1](#211-users-routes), but there are additional _create_, _update_, and _destroy_ actions as well. These actions don’t typically render pages (although they can); instead, their main purpose is to modify information about users in the database.
+
+| HTTP request | URL               | Action    | Purpose                     |
+| ------------ | ----------------- | --------- | --------------------------- |
+| GET          | **/users**        | `index`   | page to list all users      |
+| GET          | **/users/1**      | `show`    | page to show user with id 1 |
+| GET          | **/users/new**    | `new`     | page to make a new user     |
+| POST         | **/users**        | `create`  | create a new user           |
+| GET          | **/users/1/edit** | `edit`    | page to edit user with id 1 |
+| PATCH        | **/users/1**      | `update`  | update user with id 1       |
+| DELETE       | **/users/1**      | `destroy` | delete user with id 1       |
+
+Just to examine the relationship between the Users Controller and the User Model, let’s focus on the `index` action.
+
+```ruby:app/controllers/users_controller.rb
+class UsersController < ApplicationController
+  .
+  .
+  .
+  def index
+    @users = User.all
+  end
+  .
+  .
+  .
+end
+```
+
+This _index_ action has the line `@users = User.all` which asks the _User_ model to retrieve a list of all the users from the database and then places them in the variable `@users`. Once the `@users` variable is defined, the controller calls the view. Variables that start with the `@sign`, called instance variables, are automatically available in the views; in this case, the `index.html.erb`.
+
+```ruby:app/views/users/index.html.erb
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete,
+                         data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path %>
+```
+
+The view converts its contents to HTML, which is then returned by the controller to the browser for display.
+
+### 2.2. Microposts
+
+Any micropost worthy of the name should have some means of enforcing the length of the post. Implementing this constraint in Rails is easy with validations; to accept microposts with at most 140 characters, we use a length validation.
+
+```ruby:app/models/micropost.rb
+class Micropost < ApplicationRecord
+  validates :content, length: { maximum: 140 }
+end
+```
+
+### 2.3 A user _has_many_ microposts
+
+One of the most powerful features of Rails is the ability to form associations between different data models. In the case of our User model, each user potentially has many posts. We can express this in code by updating the User and Post models.
+
+```ruby:app/models/user.rb
+class User < ApplicationRecord
+  has_many :microposts
+end
+```
+
+```ruby:app/models/post.rb
+class Micropost < ApplicationRecord
+  belongs_to :user
+  validates :content, length: { maximum: 140 }
+end
+```
+
+There is built-in association with **belongs_to**, the model/controller automatically looks for the `<TABLE_NAME>_id` that is defined for that relationship, in our case, that means `User` and `user_id`.
+
+### 2.4 Using Rails console
+
+We are far from have a fully functional app but we can still create some users and microposts. Also, we can interact directly with our database using rails commands:
+
+```ruby
+$ rails console
+>> first_user = User.first
+   (0.5ms)  SELECT sqlite_version(*)
+  User Load (0.2ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC
+  LIMIT ?  [["LIMIT", 1]]
+ => #<User id: 1, name: "Esteban Campos", email: "campos.esteban@gmail.com",
+ created_at: "2020-10-08 09:39:14", updated_at: "2020-10-08 09:41:24">
+>> first_user.microposts
+  Micropost Load (3.2ms)  SELECT "microposts".* FROM "microposts" WHERE
+  "microposts"."user_id" = ? LIMIT ?  [["user_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Micropost id: 1, content:
+ "First micropost!", user_id: 1, created_at: "2020-10-08 10:04:13", updated_at:
+ "2020-10-08 10:04:13">, #<Micropost id: 2, content: "Second micropost",
+ user_id: 1, created_at: "2020-10-08 09:40:14", updated_at: "2020-10-08
+ 10:04:30">]>
+>> micropost = first_user.microposts.first
+  Micropost Load (0.2ms)  SELECT "microposts".* FROM "microposts" WHERE
+  "microposts"."user_id" = ? ORDER BY "microposts"."id" ASC LIMIT ?
+  [["user_id", 1], ["LIMIT", 1]]
+ => #<Micropost id: 1, content: "First micropost!", user_id: 1, created_at:
+ "2020-10-08 10:04:13", updated_at: "2020-10-08 10:04:13">
+>> micropost.user
+ => #<User id: 1, name: "Esteban Campos", email: "campos.esteban@gmail.com",
+ created_at: "2020-10-08 09:40:14", updated_at: "2020-10-08 09:41:24"
+>> exit
+```
+
+In the above example, we queried for the first user: `User.first` and the value for that query was stored in `first_user`. Also, we could retrieve all the microposts related to that user, just calling `first_user.microposts`. This show the power of rails and how automatically can guess relationships between models. Later, we tried with `first_user.microposts.first` that returns the first _micropost_ and we retrieved the user that belongs to that entry calling `first_user.micropost.first.user`.
+
+## 3. Conclusion
+
+We’ve come now to the end of the high-level overview of a Rails application. The app described here has several strengths and a host of weaknesses.
+
+<ProsCard
+  title="low code"
+  pros={[
+    "High-level overview of Rails",
+    "Introduction to MVC",
+    "First taste of the REST architecture",
+    "Beginning data modeling",
+    "A live, database-backed web application in production",
+  ]}
+/>
+
+<ConsCard
+  title="low code"
+  cons={[
+    "No automatic user/micropost association",
+    "No notion of “following” or “followed”",
+    "No micropost feed",
+    "No meaningful tests",
+  ]}
+/>
+
+### 3.1 What we learned until now
+
+- _scaffolding_ automatically creates code to model data and interact with it through the web.
+- _Scaffolding_ is good for getting started quickly but is bad for understanding.
+- Rails uses the _Model-View-Controller_ (MVC) pattern for structuring web applications.
+- As interpreted by Rails, the _REST_ architecture includes a standard set of URLs and controller actions for interacting with data models.
+- Rails supports data validations to place constraints on the values of data model attributes.
+- Rails comes with built-in functions for defining associations between different data models.
+- We can interact with Rails applications at the command line using the Rails console.
