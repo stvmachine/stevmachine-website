@@ -10,6 +10,9 @@ tags:
   - v6
 ---
 
+import ProsCard from "../../components/ProsCard";
+import ConsCard from "../../components/ConsCard";
+
 As a continuation of the [Starting with Ruby on Rails v6](/blog/ror-v6-part-1), we are going to keep using `Learn Enough` material.
 
 We are going to use `scaffolding`, that way we can have a palpable sense of what Ruby on Rails can offer, but later we are going to cover, step by step what is happening behind the hood. At each stage of developing, we will write small, bite-sized pieces of code—simple enough to understand. The cumulative effect will be a deeper, more flexible knowledge of Rails, giving you a good background for writing nearly any type of web application.
@@ -165,7 +168,7 @@ end
 
 ![](/images/blog/ror-v6-part-2/mvc_detailed.png)
 
-Here is a summary of the steps shown in Figure 2.11:
+Here is a summary of the steps shown in above figure:
 
 1. The browser issues a request for the `/users` URL.
 1. Rails routes `/user`s to the index action in the Users controller.
@@ -240,3 +243,101 @@ This _index_ action has the line `@users = User.all` which asks the _User_ model
 ```
 
 The view converts its contents to HTML, which is then returned by the controller to the browser for display.
+
+### 2.2. Microposts
+
+Any micropost worthy of the name should have some means of enforcing the length of the post. Implementing this constraint in Rails is easy with validations; to accept microposts with at most 140 characters, we use a length validation.
+
+```ruby:app/models/micropost.rb
+class Micropost < ApplicationRecord
+  validates :content, length: { maximum: 140 }
+end
+```
+
+### 2.3 A user _has_many_ microposts
+
+One of the most powerful features of Rails is the ability to form associations between different data models. In the case of our User model, each user potentially has many posts. We can express this in code by updating the User and Post models.
+
+```ruby:app/models/user.rb
+class User < ApplicationRecord
+  has_many :microposts
+end
+```
+
+```ruby:app/models/post.rb
+class Micropost < ApplicationRecord
+  belongs_to :user
+  validates :content, length: { maximum: 140 }
+end
+```
+
+There is built-in association with **belongs_to**, the model/controller automatically looks for the `<TABLE_NAME>_id` that is defined for that relationship, in our case, that means `User` and `user_id`.
+
+### 2.4 Using Rails console
+
+We are far from have a fully functional app but we can still create some users and microposts. Also, we can interact directly with our database using rails commands:
+
+```ruby
+$ rails console
+>> first_user = User.first
+   (0.5ms)  SELECT sqlite_version(*)
+  User Load (0.2ms)  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC
+  LIMIT ?  [["LIMIT", 1]]
+ => #<User id: 1, name: "Esteban Campos", email: "campos.esteban@gmail.com",
+ created_at: "2020-10-08 09:39:14", updated_at: "2020-10-08 09:41:24">
+>> first_user.microposts
+  Micropost Load (3.2ms)  SELECT "microposts".* FROM "microposts" WHERE
+  "microposts"."user_id" = ? LIMIT ?  [["user_id", 1], ["LIMIT", 11]]
+ => #<ActiveRecord::Associations::CollectionProxy [#<Micropost id: 1, content:
+ "First micropost!", user_id: 1, created_at: "2020-10-08 10:04:13", updated_at:
+ "2020-10-08 10:04:13">, #<Micropost id: 2, content: "Second micropost",
+ user_id: 1, created_at: "2020-10-08 09:40:14", updated_at: "2020-10-08
+ 10:04:30">]>
+>> micropost = first_user.microposts.first
+  Micropost Load (0.2ms)  SELECT "microposts".* FROM "microposts" WHERE
+  "microposts"."user_id" = ? ORDER BY "microposts"."id" ASC LIMIT ?
+  [["user_id", 1], ["LIMIT", 1]]
+ => #<Micropost id: 1, content: "First micropost!", user_id: 1, created_at:
+ "2020-10-08 10:04:13", updated_at: "2020-10-08 10:04:13">
+>> micropost.user
+ => #<User id: 1, name: "Esteban Campos", email: "campos.esteban@gmail.com",
+ created_at: "2020-10-08 09:40:14", updated_at: "2020-10-08 09:41:24"
+>> exit
+```
+
+In the above example, we queried for the first user: `User.first` and the value for that query was stored in `first_user`. Also, we could retrieve all the microposts related to that user, just calling `first_user.microposts`. This show the power of rails and how automatically can guess relationships between models. Later, we tried with `first_user.microposts.first` that returns the first _micropost_ and we retrieved the user that belongs to that entry calling `first_user.micropost.first.user`.
+
+## 3. Conclusion
+
+We’ve come now to the end of the high-level overview of a Rails application. The app described here has several strengths and a host of weaknesses.
+
+<ProsCard
+  title="low code"
+  pros={[
+    "High-level overview of Rails",
+    "Introduction to MVC",
+    "First taste of the REST architecture",
+    "Beginning data modeling",
+    "A live, database-backed web application in production",
+  ]}
+/>
+
+<ConsCard
+  title="low code"
+  cons={[
+    "No automatic user/micropost association",
+    "No notion of “following” or “followed”",
+    "No micropost feed",
+    "No meaningful tests",
+  ]}
+/>
+
+### 3.1 What we learned until now
+
+- _scaffolding_ automatically creates code to model data and interact with it through the web.
+- _Scaffolding_ is good for getting started quickly but is bad for understanding.
+- Rails uses the _Model-View-Controller_ (MVC) pattern for structuring web applications.
+- As interpreted by Rails, the _REST_ architecture includes a standard set of URLs and controller actions for interacting with data models.
+- Rails supports data validations to place constraints on the values of data model attributes.
+- Rails comes with built-in functions for defining associations between different data models.
+- We can interact with Rails applications at the command line using the Rails console.
