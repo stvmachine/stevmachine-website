@@ -15,6 +15,8 @@ import ConsCard from "../../components/ConsCard";
 
 As a continuation of the [Starting with Ruby on Rails v6](/blog/ror-v6-part-1), we are going to keep using [Learn Enough][learn-enough] tutorial.
 
+In this post, we’ll develop a demo application to show off some of the power of Rails. The purpose is to get a high-level overview of Ruby on Rails programming (and web development in general) by rapidly generating an application using scaffold generators, which create a large amount of functionality automatically. As discussed in Box 2.1, the rest of the book will take the opposite approach, developing a full sample application incrementally and explaining each new concept as it arises, but for a quick overview (and some instant gratification) there is no substitute for scaffolding. The resulting app will allow us to interact with it through its URLs, giving us insight into the structure of a Rails application, including a first example of the REST architecture favored by Rails.
+
 We are going to use `scaffolding`, that way we can have a palpable sense of what Ruby on Rails can offer, but later we are going to cover, step by step what is happening behind the hood. At each stage of developing, we will write small, bite-sized pieces of code—simple enough to understand. The cumulative effect will be a deeper, more flexible knowledge of Rails, giving you a good background for writing nearly any type of web application.
 
 > **Warning**: Following the scaffolding approach risks turning you into a virtuoso script generator with little (and brittle) actual knowledge of Rails.
@@ -41,7 +43,7 @@ We are going to use `scaffolding`, that way we can have a palpable sense of what
 
 ### 1.1 Objective
 
-Create a dummy application with users and micro-posts (similar to Twitter).
+As with the forthcoming sample application, the app will consist of users and their associated microposts (thus constituting a minimalist Twitter-style app).
 
 ### 1.2 Setting up
 
