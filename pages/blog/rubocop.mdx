@@ -1,0 +1,136 @@
+---
+title: "Rubocop"
+publishedAt: "2020-11-05"
+summary: "Ruby linting"
+tags:
+  - ruby
+  - linting
+  - rubocop
+---
+
+![](/images/blog/rubocop/rubocop-logo.png)
+
+RuboCop is a Ruby code style checker (linter) and formatter based on the community-driven [Ruby Style Guide](https://rubystyle.guide/).
+
+RuboCop is extremely flexible and most aspects of its behavior can be tweaked via various configuration options. In practice RuboCop supports pretty much every (reasonably popular) coding style that you can think of.
+
+Apart from reporting problems in your code, RuboCop can also automatically fix some of the problems for you.
+
+## Installation
+
+Adding the gems to the Gemfile.
+
+```ruby:Gemfile
+group :development, :test do
+  gem 'rubocop'
+  gem 'rubocop-rails'
+  gem 'rubocop-rspec'
+  gem 'rubocop-performance'  # or gem 'rubocop-minitest'
+end
+```
+
+## Configuration
+
+Now that all the gems are installed, let us prepare our custom RuboCop configuration file, called `.rubocop.yml`.
+
+It is responsible for two things:
+
+1. Importing installed extensions
+1. Defining which cops we do and do not want to enforce
+
+By default, it uses the predefined RuboCop configuration with no other extensions installed, as it is designed to work with any Ruby language codebase. For that reason, it's necessary to add the extra configurations:
+
+```yml:.rubocop.yml
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec # or rubocop-minitest
+```
+
+Now, we are going to exclude some of the directories while analyzing the codebase.
+
+```yml:.rubocop.yml
+AllCops:
+  Exclude:
+    - "db/**/*"
+    - "script/**/*"
+    - "bin/**/*"
+    - "node_modules/**/*"
+    - "vendor/**/*"
+```
+
+Next, let us cut some additional slack while working with RuboCop. Those are the sane RuboCop rules to use with Ruby on Rails project.
+
+Below the previous configuration, add the following.
+
+```yml:.rubocop.yml
+Metrics/LineLength:
+  Max: 100
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - spec/**/*
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+```
+
+Most of those are pretty self-descriptive, but let's go through them quickly:
+
+- Line length cop - that's the one you might want to change to your liking - it enforces a maximum amount of characters per single line of the code
+- Block length cop is told to ignore the config and spec directories, as those blocks of code tend to grow like mad, and we don't want to discourage our contributors to write fewer tests, right?
+- Ambiguous block association is turned off for the tests directory, as encouraged by the RuboCop HeadQuarters rockstar, bbatsov
+- Documentation cop is turned off, as there are better ways to document the Ruby on Rails code
+
+## Usage
+
+To check if the code pass the rules:
+
+```bash
+bundle exec rubocop
+```
+
+To fix all RuboCop violations that are marked as auto-fixable in the default configuration file:
+
+```bash
+bundle exec rubocop --safe-auto-correct
+```
+
+There's also a big chance that you work on some much older Ruby on Rails codebase, and the quick-fix presented above might not be that effective, nor the best idea - some stuff might actually break.
+
+Thankfully to the awesome RuboCop maintainers, there's a solution for legacy code implementations, the --auto-gen-config command-line flag.
+
+In the root directory of your legacy Ruby on Rails project after installing all the gems and creating the configuration file, run the following.
+
+```bash
+bundle exec rubocop --auto-gen-config
+```
+
+It does two things:
+
+1. Analyzes the codebase for RuboCop violations, writing the exclusions into the .rubocop_todo.yml file,
+1. Updates the .rubocop.yml file with an import of the exclusions.
+
+## About the cops
+
+In RuboCop lingo the various checks performed on the code are called cops. Each cop is responsible for detecting one particular offense. RuboCop Rails has only one Rails department.
+
+Some of the Rails cops have configuration options, allowing them to enforce different coding conventions.
+
+Rails cops check for Rails best practices and coding conventions. Many of the them are based on the [Rails Style Guide][rails-style-guide].
+
+## Resources
+
+- [Ruby Style Guide][ruby-style-guide]
+- [Rails Style Guide][rails-style-guide]
+- [Rubocop Rails Cops][rubocop-rails-cops]
+- [Ruby on Rails project RuboCop setup with RSpec](https://hixonrails.com/ruby-on-rails-tutorials/ruby-on-rails-project-rubocop-setup-with-rspec/)
+
+[rubocop-rails-cops]: https://docs.rubocop.org/rubocop-rails/cops.html
+[ruby-style-guide]: https://rubystyle.guide/
+[rails-style-guide]: https://rails.rubystyle.guide/
