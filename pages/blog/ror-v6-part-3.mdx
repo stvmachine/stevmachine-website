@@ -1,0 +1,310 @@
+---
+title: "Starting with Ruby on Rails [v6]- Part 3"
+publishedAt: "2020-11-06"
+summary: "Part 3: Getting started with testing"
+tags:
+  - rails
+  - ruby
+  - ror
+  - framework
+  - test
+  - TDD
+  - rspec
+  - v6
+---
+
+As a continuation of the [Starting with Ruby on Rails v6](/blog/ror-v6-part-2), we are going to keep using [Learn Enough][learn-enough] tutorial. In this post, we’ll be working mainly in the `app/controllers` and `app/views` directories.
+
+## Table of Contents
+
+- [Generated static pages](#generated-static-pages)
+- [Undoing things](#undoing-things)
+- [Getting started with testing](#getting-started-with-testing)
+- [Conclusion](#conclusion)
+- [Resources](#resources)
+
+## Generated Static Pages
+
+To get started with static pages, we’ll first generate a controller using Rails generator that was being used behind the hood with `scaffolding`. Since we’ll be making a controller to handle static pages, we’ll call it the Static Pages controller. We’ll also plan to make actions for a _Home_, _Help_ and _About_ page, designated by the lower-case action names _home_, _help_, and _about_. The generate script takes an optional list of actions, so we’ll include actions for the Home and Help pages directly on the command line, while intentionally leaving off the action for the About page so that we can see how to add it later.
+
+```ruby
+$ rails generate controller StaticPages home help
+    create  app/controllers/static_pages_controller.rb
+       route  get 'static_pages/home'
+              get 'static_pages/help'
+    invoke  erb
+    create    app/views/static_pages
+    create    app/views/static_pages/home.html.erb
+    create    app/views/static_pages/help.html.erb
+    invoke  test_unit
+    create    test/controllers/static_pages_controller_test.rb
+    invoke  helper
+    create    app/helpers/static_pages_helper.rb
+    invoke    test_unit
+    invoke  assets
+    invoke    scss
+    create      app/assets/stylesheets/static_pages.scss
+```
+
+This command will generate some routes:
+
+```ruby:config/routes.rb
+Rails.application.routes.draw do
+  get  'static_pages/home'
+  get  'static_pages/help'
+end
+```
+
+Here the rule:
+
+```bash
+get 'static_pages/home'
+```
+
+maps requests for the URL `/static_pages/home` to the `home` action in the `Static Pages controller`. Even if the action looks like it does nothing, due his inherantance of `ApplicationController` renders a page with the same name. As, we can see if not always necessary to use REST.
+
+```ruby:app/controllers/static_pages_controller.rb
+class StaticPagesController < ApplicationController
+  def home; end
+
+  def help; end
+end
+```
+
+## Undoing things
+
+In rails there are commands to undo all the operations and remove all the files generated for other commands. Let's take the next examples:
+
+**Undo generated controller**
+
+```ruby
+  $ rails generate controller StaticPages home help
+  $ rails destroy  controller StaticPages home help
+```
+
+**Undo generated model**
+
+```ruby
+  $ rails generate model User name:string email:string
+  $ rails destroy model User
+```
+
+**Undo migrations**
+
+1. To migrate
+
+```ruby
+rails db:migrate
+```
+
+2. To rollback a migration.
+
+```ruby
+rails db:rollback
+```
+
+3. To go all the way back to the beginning, we can use
+
+```ruby
+rails db:migrate VERSION=0
+```
+
+> Substituting any other number for 0 migrates to that version number, where the version numbers come from listing the migrations sequentially.
+
+## Getting started with testing
+
+There are multiple testing tools that can be aborded. The main ones are controller tests, model tests and integration tests. Integration tests are especially powerful, as they allow us to simulate the actions of a user interacting with our application using a web browser. Integration tests will eventually be our primary testing technique, but controller tests give us an easier place to start.
+
+### When to test
+
+When deciding when and how to test, it’s helpful to understand why to test. In my view, writing automated tests has three main benefits:
+
+- Tests protect against regressions, where a functioning feature stops working for some reason.
+- Tests allow code to be refactored (i.e., changing its form without changing its function) with greater confidence.
+- Tests act as a client for the application code, thereby helping determine its design and its interface with other parts of the system.
+
+Although none of the above benefits require that tests be written first, there are many circumstances where test-driven development (TDD) is a valuable tool to have in your kit. Deciding when and how to test depends in part on how comfortable you are writing tests; many developers find that, as they get better at writing tests, they are more inclined to write them first. It also depends on how difficult the test is relative to the application code, how precisely the desired features are known, and how likely the feature is to break in the future.
+
+In this context, it’s helpful to have a set of guidelines on when we should test first (or test at all). Here are some suggestions based on my own experience:
+
+- When a test is especially short or simple compared to the application code it tests, lean toward writing the test first.
+- When the desired behavior isn’t yet crystal clear, lean toward writing the application code first, then write a test to codify the result.
+- Because security is a top priority, err on the side of writing tests of the security model first.
+- Whenever a bug is found, write a test to reproduce it and protect against regressions, then write the application code to fix it.
+- Lean against writing tests for code (such as detailed HTML structure) likely to change in the future.
+- Write tests before refactoring code, focusing on testing error-prone code that’s especially likely to break.
+
+In practice, the guidelines above mean that we’ll usually write controller and model tests first and integration tests (which test functionality across models, views, and controllers) second. And when we’re writing application code that isn’t particularly brittle or error-prone, or is likely to change (as is often the case with views), we’ll often skip testing altogether.
+
+### The first test
+
+Rails already generate a test when we use the command `rails generate <CONTROLLER_NAME>`. So, we are going to check the test generated for our **Static Pages Controller**.
+
+```ruby:test/controllers/static_pages_controller_test.rb
+require 'test_helper'
+
+class StaticPagesControllerTest < ActionDispatch::IntegrationTest
+  test 'should get home' do
+    get static_pages_home_url
+    assert_response :success
+  end
+
+  test 'should get help' do
+    get static_pages_help_url
+    assert_response :success
+  end
+end
+```
+
+We can see that there are two tests, one for each controller action (_home_ and _help_). Each test simply gets a URL and verifies (via an assertion) that the result is a success. Here the use of get indicates that our tests expect the _Home_ and _Help_ pages to be ordinary web pages, accessed using a GET request. The response `:success` is an abstract representation of the underlying HTTP status code (in this case, 200 OK).
+
+To begin our testing cycle, we need to run our test suite to verify that the tests currently pass. We can do this with the rails command as follows:
+
+```ruby
+$ rails db:migrate     # Necessary on some systems
+$ rails test
+2 tests, 2 assertions, 0 failures, 0 errors, 0 skips
+```
+
+### Fail fast
+
+Let's make fail the test:
+
+```ruby:test/controllers/static_pages_controller_test.rb
+class StaticPagesControllerTest < ActionDispatch::IntegrationTest
+  # other code
+  test "should get about" do
+    get static_pages_about_url
+    assert_response :success
+  end
+end
+```
+
+Due, the page doesn't exists yet, this test should fail:
+
+```ruby
+$ rails test
+3 tests, 2 assertions, 0 failures, 1 errors, 0 skips
+```
+
+The error message here says that the Rails code for the About page URL is undefined, which is a hint that we need to add a line to the routes file.
+
+```ruby:config/routes.rb
+Rails.application.routes.draw do
+  # other code
+  get 'static_pages/about'
+end
+```
+
+The addition of this routes will automatically creates a helper called `static_pages_about_url`. The is going to keep failing due we are missing:
+
+- The controller action:
+
+```ruby:controllers/static_pages_controller.rb
+class StaticPagesController < ApplicationController
+  # other code
+  def about; end
+end
+```
+
+- The view: On this case, we need to create the page because it was not created before:
+
+```bash
+touch app/views/static_pages/about.html.erb
+```
+
+Now, finally the test should pass:
+
+```bash
+$ rails test
+3 tests, 3 assertions, 0 failures, 0 errors, 0 skips
+```
+
+## A more dynamical test
+
+We want to assert the title of the pages, so we are going to use `assert_select`.
+
+```ruby:test/controllers/static_pages_controller_test.rb
+class StaticPagesControllerTest < ActionDispatch::IntegrationTest
+  test 'should get home' do
+    get static_pages_home_url
+    assert_response :success
+    assert_select "title", "Home | Ruby on Rails Tutorial Sample App"
+  end
+
+  test 'should get help' do
+    get static_pages_help_url
+    assert_response :success
+    assert_select "title", "Help | Ruby on Rails Tutorial Sample App"
+  end
+
+  test "should get about" do
+    get static_pages_about_url
+    assert_response :success
+    assert_select "title", "About | Ruby on Rails Tutorial Sample App"
+  end
+end
+```
+
+This test is going to fail, because actually the pages doesn't include that info:
+
+```bash
+$ rails test
+3 tests, 6 assertions, 3 failures, 0 errors, 0 skips
+```
+
+To make the process the most smoothly possible, we are going to modify the `application.html.erb` that serves as layout of all the pages to add a dynamic variable `:title`.
+
+> The extension `.erb` means Embedded Ruby (ERb)
+
+```html:app/views/layouts/application.html.erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
+    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= stylesheet_link_tag
+    'application', media: 'all', 'data-turbolinks-track': 'reload' %> <%=
+    javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+```
+
+The content inside of the tags `<title />` includes `<%= yield(:title) %>` that is embeded ruby code that is going to evaluate the variable `:title`. To make this works, we need that each view initializes that variable:
+
+```html:app/views/static_pages/home.html.erb
+<% provide(:title, "Home") %>
+<h1>Sample App</h1>
+<p>
+  This is the home page for the
+  <a href="https://www.railstutorial.org/">Ruby on Rails Tutorial</a>
+  sample application.
+</p>
+```
+
+If we do a similar process for _about_ and the _help_ page then the test would succeed:
+
+```bash
+$ rails test
+3 runs, 6 assertions, 0 failures, 0 errors, 0 skips
+```
+
+## Conclusion
+
+- The rails script generates a new controller with `rails generate controller ControllerName <optional action names>`.
+- New routes are defined in the file `config/routes.rb`.
+- Rails views can contain static HTML or embedded Ruby (ERb).
+- Automated testing allows us to write test suites that drive the development of new features, allow for confident refactoring, and catch regressions.
+- Rails layouts allow the use of a common template for pages in our application, thereby eliminating duplication.
+
+## Resources
+
+- [Learn Enough - Static Pages](learn-enough-static-pages)
+- [RSpec][rspec]
+
+[learn-enough]: https://www.learnenough.com
+[learn-enough-static-pages]: https://www.learnenough.com/ruby-on-rails-6th-edition-tutorial/static_pages
+[rspec]: https://rspec.info/
