@@ -24,7 +24,7 @@ As a continuation of the [Starting with Ruby on Rails v6](/blog/ror-v6-part-2), 
 
 ## Generated Static Pages
 
-To get started with static pages, we’ll first generate a controller using Rails generator that was being used behind the hood with `scaffolding`. Since we’ll be making a controller to handle static pages, we’ll call it the Static Pages controller. We’ll also plan to make actions for a _Home_, _Help_ and _About_ page, designated by the lower-case action names _home_, _help_, and _about_. The generate script takes an optional list of actions, so we’ll include actions for the Home and Help pages directly on the command line, while intentionally leaving off the action for the About page so that we can see how to add it later.
+To get started with static pages, we’ll first generate a controller using Rails generator that was being used behind the hood with `scaffolding`. Since we’ll be making a controller to handle static pages, we’ll call it the _Static Pages controller_. We’ll also plan to make actions for a _Home_, _Help_ and _About_ page, designated by the lower-case action names _home_, _help_, and _about_. The generate script takes an optional list of actions, so we’ll include actions for the Home and Help pages directly on the command line, while intentionally leaving off the action for the About page so that we can see how to add it later.
 
 ```ruby
 $ rails generate controller StaticPages home help
@@ -60,7 +60,7 @@ Here the rule:
 get 'static_pages/home'
 ```
 
-maps requests for the URL `/static_pages/home` to the `home` action in the `Static Pages controller`. Even if the action looks like it does nothing, due his inherantance of `ApplicationController` renders a page with the same name. As, we can see if not always necessary to use REST.
+maps requests for the URL `/static_pages/home` to the `home` action in the **Static Pages controller**. Even if the action doesn't look like is doing something, due his inherantance of **ApplicationController** is rendering the default page that has the same name as the action.
 
 ```ruby:app/controllers/static_pages_controller.rb
 class StaticPagesController < ApplicationController
@@ -167,7 +167,7 @@ $ rails test
 
 ### Fail fast
 
-Let's make fail the test:
+Let's add a new test for the route for the _About_ page.
 
 ```ruby:test/controllers/static_pages_controller_test.rb
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
@@ -195,7 +195,7 @@ Rails.application.routes.draw do
 end
 ```
 
-The addition of this routes will automatically creates a helper called `static_pages_about_url`. The is going to keep failing due we are missing:
+The addition of these routes will automatically create a helper called `static_pages_about_url`. The is going to keep failing due we are missing:
 
 - The controller action:
 
@@ -245,7 +245,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 end
 ```
 
-This test is going to fail, because actually the pages doesn't include that info:
+This test is going to fail, due actually the pages don't include that info:
 
 ```bash
 $ rails test
@@ -254,16 +254,12 @@ $ rails test
 
 To make the process the most smoothly possible, we are going to modify the `application.html.erb` that serves as layout of all the pages to add a dynamic variable `:title`.
 
-> The extension `.erb` means Embedded Ruby (ERb)
-
 ```html:app/views/layouts/application.html.erb
 <!DOCTYPE html>
 <html>
   <head>
     <title><%= yield(:title) %> | Ruby on Rails Tutorial Sample App</title>
-    <%= csrf_meta_tags %> <%= csp_meta_tag %> <%= stylesheet_link_tag
-    'application', media: 'all', 'data-turbolinks-track': 'reload' %> <%=
-    javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    {/* other tags */}
   </head>
 
   <body>
@@ -272,7 +268,13 @@ To make the process the most smoothly possible, we are going to modify the `appl
 </html>
 ```
 
-The content inside of the tags `<title />` includes `<%= yield(:title) %>` that is embeded ruby code that is going to evaluate the variable `:title`. To make this works, we need that each view initializes that variable:
+The content inside of the tags `<title></title>` includes this notation:
+
+```ruby
+<%= yield(:title) %>
+```
+
+That is ruby code embeded in the html. Actually, that is what it means the extension `.erb`; _Embedded Ruby_. The line itself is just going to display whatever is stored in the object `:title`. To make this works, we need that each view initializes that variable using the notation `<% provide(:title, "<TITLE_PAGE>") %>`:
 
 ```html:app/views/static_pages/home.html.erb
 <% provide(:title, "Home") %>
