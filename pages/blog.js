@@ -17,7 +17,8 @@ import BlogPost from "../components/BlogPost";
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { frontMatter as blogPosts } from "./blog/**/*.mdx";
-import { frontMatter as pyConAuPost } from "./blog/pycon-au-2020.mdx";
+import { frontMatter as conventionalComments } from "./blog/conventional-comments.mdx";
+import { frontMatter as rorV6Part1 } from "./blog/ror-v6-part-1.mdx";
 import { frontMatter as websitePost } from "./blog/website.mdx";
 
 const Blog = () => {
@@ -28,7 +29,7 @@ const Blog = () => {
   };
 
   const { result, keyword, search } = useFuzzy(blogPosts, {
-    keys: ["title", "tags"],
+    keys: ["title", "summary", "tags"],
   });
 
   const filteredBlogPosts = result
@@ -86,7 +87,8 @@ const Blog = () => {
               <Heading letterSpacing="tight" mb={4} size="xl" fontWeight={700}>
                 Most Popular
               </Heading>
-              <BlogPost {...pyConAuPost} />
+              <BlogPost {...rorV6Part1} />
+              <BlogPost {...conventionalComments} />
               <BlogPost {...websitePost} />
             </Flex>
           )}

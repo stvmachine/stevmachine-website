@@ -1,0 +1,243 @@
+---
+title: "Ruby Basics"
+publishedAt: "2020-11-09"
+summary: "Checking some ruby basic concepts"
+tags:
+  - ruby
+  - v2.6
+---
+
+## Objects
+
+An object can be understable as entity that stores an internal state and has methods that allows to interact with them and between them.
+
+```ruby
+class User
+    def initialize(age)
+        @age = age
+    end
+    def can_vote?
+        @age > 18
+    end
+end
+```
+
+The method `initialize` is called by default when we initializes an instance:
+
+```ruby
+ruby> john = User.new(48)
+#<User:0x00007fcc0867b0c0 @age=48>
+ruby> john.can_vote?
+=> true
+```
+
+In this case `john` has 48 years and he can vote.
+
+## Add multiple methods
+
+If an object is already defined, to re-defined the object with more methods is just going to extend the actual definition of the object. If the method is the same that one already defined, in that case is going to replaced:
+
+```ruby
+# First definition of User
+class User
+    def initialize(age)
+        @age = age
+    end
+end
+
+# Adding a new method to User
+class User
+    def can_vote?
+        @age > 18
+    end
+end
+```
+
+Let's create a new user like the last example, the result should be the same:
+
+```ruby
+ruby> john = User.new(48)
+#<User:0x00007fcc0867bef3 @age=48>
+ruby> john.can_vote?
+=> true
+```
+
+## Methods
+
+A method is named by convention in `snake_case` format and they always returns something even if the word `return` is not used, for convention the returned value is always the last line.
+
+```ruby
+def this_return_a_number
+    3
+end
+
+def this_return_a_number_with_return
+    return 3
+end
+```
+
+```ruby
+# without return
+ruby> this_returns_a_number
+=> 3
+
+# with return
+ruby> this_return_a_number_with_return
+=> 3
+```
+
+### Using Optional Arguments
+
+```ruby
+def greet(name, formal=true, shout=false)
+    greeting = if informal then "hi" else "hello" end
+    message = "#{greeting} #{name}"
+    if shout
+        message.upcase
+    else
+        message
+    end
+end
+```
+
+```ruby
+ruby> greet("Jake the dog", false, true)
+=> "HELLO JAKE THE DOG"
+```
+
+But this notation is not obvious of what the arguments means, that forces to check the docs or the definition of the method.
+
+### Named parameters
+
+A more clever way to declare the parameters is **named parameters**. The notation uses colon `<VARIABLE_NAME>:` e.g.:
+
+```ruby
+def greet(name, formal: true, shout: false)
+    greeting = if informal then "hi" else "hello" end
+    message = "#{greeting} #{name}"
+    if shout
+        message.upcase
+    else
+        message
+    end
+end
+```
+
+So, this notation is more clear:
+
+```ruby
+ruby> greet("Jake the dog", formal: false, shout: true)
+=> "HELLO JAKE THE DOG"
+```
+
+Let's try more examples:
+
+```ruby
+ruby> merge([1,2,3], [4,5,6])
+```
+
+In this case is not clear which one is the array that is going to be merge into the other one. So, a more "dev-friendly" solution could be:
+
+```ruby
+ruby> merge( from: [1,2,3], to: [4,5,6])
+```
+
+Another example, let's assume that exists `setup_user` and it requires a long list of parameters. Situations like this one is more understable and readable if we name all the parameters.
+
+```ruby
+def setup_user("john", "John", 1001, true, "/home/john", "users" )
+
+setup_user(login: "john",
+    name: "John",
+    uid: 1001,
+    generate_password: true,
+    homedir: "/home/john",
+    group: "users")
+
+```
+
+## Duck Typing 🦆
+
+> If if walks like a duck
+> and quacks like a duck
+> it probably is a duck
+
+Ruby doesn't really care about classess like other languages (C, Typescript).
+
+Let's say we want to get the name of an object, if the object has the User type then we can be sure that it's going to have the method name, but in Ruby normally you just asks directly if the object has the method; _if it quack?_ not _if it is duck?_.
+
+```ruby
+def print_info(obj)
+    if obj.respond_to?(:name) # if it quack?
+        obj.name
+    else
+        obj.to_s
+    end
+end
+
+# This option is not usually used
+def print_info_alternative(obj)
+    if obj.class == 'User' # if it is duck?
+        obj.name
+    else
+        obj.to_s
+end
+```
+
+## Attributes
+
+To define attributes in classes is necessary to specify a method to read, otherwise, the property is hidden.
+
+In the next example:
+
+| Property | Reader method | Writer method |
+| -------- | ------------- | ------------- |
+| @age     | age           | age           |
+
+```ruby
+class User
+    def initialize(age)
+        @age = age
+    end
+
+    def age
+        @age
+
+    def name(name)
+        @name= name
+    def name
+        @name
+end
+```
+
+There is a shortcut to define properties that can be readable or writable or both:
+
+```ruby
+# option 1
+class User
+    attr_reader :name, :age,
+    attr_writer :name
+end
+
+# option 2
+class User
+    attr_accessor :name
+    attr_reader :age
+end
+
+```
+
+## Conclusion
+
+In this post we learned:
+
+- An object is an entity that stores an internal state and communicates with other objects through methods.
+- To differentiate _methods_ from _objects_ there is a convention to name **methods** in `snake_case` and **objects** in `CamelCase`.
+- Is a good practice uses **named parameters** when the methods uses optional parameters or it needs too many parameters as input.
+- The _attributes_ of an object are _methods_ that allows to read the internal values.
+- There are shortcuts to describe the attributes: `attr_reader`, `attr_writer` and `attr_accesor`.
+- We still doesn't cover inheritance of classes and the difference with modules (Soon)
+
+## Resources
+
+- [Pluralsight: Ruby Beyond the Basics by John Cinnamond](https://app.pluralsight.com/library/courses/ruby-beyond-the-basics/table-of-contents)
