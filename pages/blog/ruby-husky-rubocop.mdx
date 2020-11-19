@@ -1,0 +1,93 @@
+---
+title: "Setup of husky and rubocop"
+publishedAt: "2020-19-06"
+summary: "Setup of githooks with husky and linting ruby with rubocop"
+tags:
+  - ruby
+  - husky
+  - lint
+  - rubocop
+---
+
+Husky improves your commits and more 🐶woof!
+
+You can use it to lint your commit messages, run tests, lint code, etc... when you commit or push. Husky supports all Git hooks.
+
+## Installation
+
+1. Install husky and pinst (optional)
+
+```bash
+# yarn
+yarn add husky@next --dev
+yarn add pinst --dev    # if your package is not private
+```
+
+2. Enable Git hooks
+
+```bash
+npx husky install
+yarn husky install
+```
+
+3. To automatically have Git hooks enabled after install, edit package.json
+
+```bash:package.json
+{
+  "private": false,
+  "scripts": {
+    "postinstall": "husky install",
+    "prepublish": "pinst --disable",
+    "postpublish": "pinst --enable"
+  }
+}
+```
+
+## Add hooks
+
+Let's add a pre-commit file:
+
+```bash
+npx husky add pre-commit
+```
+
+That will create `.husky/pre-commit` file. Due, we are working with **ruby** and **rubocop**, let's add a `pre-commit` that lint issues.
+
+```bash
+#!/bin/sh
+. "$(dirname $0)/_/husky.sh"
+
+# Check for ruby style errors
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+NC='\033[0m'
+
+# Get only the staged files
+RB_FILES="$(git diff --cached --name-only | grep "\\.rb$" | tr '\n' ' ')"
+
+echo "${green}[Ruby Style][Info]: Checking Ruby Style${NC}"
+
+if [ -n "$RB_FILES" ]
+then
+  echo "${green}[Ruby Style][Info]: ${RB_FILES}${NC}"
+
+  if [ ! -f '.rubocop.yml' ]; then
+    echo "${yellow}[Ruby Style][Warning]: No .rubocop.yml config file.${NC}"
+  fi
+
+  # Run rubocop on the staged ruby files
+  rubocop ${RB_FILES}
+
+  if [ $? -ne 0 ]; then
+    echo "${red}[Ruby Style][Error]: Fix the issues and commit again${NC}"
+    exit 1
+  fi
+else
+  echo "${green}[Ruby Style][Info]: No ruby files to check${NC}"
+fi
+```
+
+## Resources
+
+- [Husky](https://typicode.github.io/husky/#/)
