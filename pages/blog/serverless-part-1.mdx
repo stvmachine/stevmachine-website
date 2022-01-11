@@ -133,3 +133,63 @@ curl -X POST https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/candidat
 ```
 {"message":"Go Serverless v1.0! Your function executed successfully!", "input":{...}}
 ```
+
+
+## Step 3: Saving data to DynamoDB
+
+We are going to add two tables: `candidate` and `candidate_email` to DynamoDB. To do that we need to update `serverless.yml` adding the section *environment* and *iamRoleStatements*.
+
+```yml
+	
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    CANDIDATE_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    CANDIDATE_EMAIL_TABLE: "candidate-email-${opt:stage, self:provider.stage}"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource: "*"
+```
+
+Next, we'll create a resource that will create DynamoDB table as shown below.
+
+```yml
+resources:
+  Resources:
+    CandidatesDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: "id"
+            AttributeType: "S"   
+        KeySchema:
+          -
+            AttributeName: "id"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification:
+          StreamViewType: "NEW_AND_OLD_IMAGES"
+        TableName: ${self:provider.environment.CANDIDATE_TABLE}
+```
+
+Now, you can deploy the function as shown below.
+
+```bash
+serverless deploy --verbose
+```
+
+And we can create a new candidate running:
+
+```bash
+curl -H "Content-Type: application/json" -X POST -d '{"fullname":"Esteban Campos","email": "campos.esteban@gmail.com", "experience":6}' https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
+```
