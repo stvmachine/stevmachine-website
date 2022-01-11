@@ -193,3 +193,75 @@ And we can create a new candidate running:
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"fullname":"Esteban Campos","email": "campos.esteban@gmail.com", "experience":6}' https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
 ```
+
+
+## Step 4: List all the candidates
+
+Let's add a new function to our `serverless.yml`.
+
+```yaml
+  listCandidates:
+    handler: api/candidate.list
+    memorySize: 128
+    description: List all candidates
+    events:
+      - http: 
+          path: candidates
+          method: get  
+```
+
+We also need to add the implementation in the API:
+```js
+module.exports.list = (event, context, callback) => {
+  var params = {
+    TableName: process.env.CANDIDATE_TABLE,
+    ProjectionExpression: "id, fullname, email",
+  };
+
+  console.log("Scanning Candidate table.");
+  const onScan = (err, data) => {
+    if (err) {
+      console.log(
+        "Scan failed to load data. Error JSON:",
+        JSON.stringify(err, null, 2)
+      );
+      callback(err);
+    } else {
+      console.log("Scan succeeded.");
+      return callback(null, {
+        statusCode: 200,
+        body: JSON.stringify({
+          candidates: data.Items,
+        }),
+      });
+    }
+  };
+
+  dynamoDb.scan(params, onScan);
+};
+```
+
+
+And then we are able to use the function:
+
+```bash
+curl -H "Content-Type: application/json" -X GET https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
+```
+
+```
+{"candidates":[{"email":"campos.esteban@gmail.com","id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","fullname":"Esteban Campos"}              
+```
+
+
+## Step 5: Get Candidate Details by ID
+
+Define a new function in serverless.yml as shown below.
+
+```yaml
+  candidateDetails:
+    handler: api/candidate.get
+    events:
+      - http:
+          path: candidates/{id}
+          method: get
+```
