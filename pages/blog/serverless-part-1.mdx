@@ -24,44 +24,17 @@ npm install serverless -g
 
 2. Configure your [AWS credentials](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/).
 
-3. _(Optional)_ Setup Dynamodb locally
-
-My preferred way to use DynamoDB is through _docker-compose_. For that, we would need to create a `docker-compose.yml` in the root of the project:
-
-```yaml
-version: "3.5"
-
-services:
-  dynamo:
-    container_name: local-dynamodb
-    image: amazon/dynamodb-local
-    networks:
-      - local-dynamodb
-    ports:
-      - "8000:8000"
-    volumes:
-      - dynamodata:/home/dynamodblocal
-    working_dir: /home/dynamodblocal
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
-
-networks:
-  local-dynamodb:
-    name: local-dynamodb
-
-volumes:
-  dynamodata: {}
-```
-
-> Take the use of local dynamodb with a grain of salt due it doesn't have the same performance and it doesn't include all the features than its counterpart through AWS. So, just use it as a starting point and be aware of possible bugs or inconsistencies.
-> For more ways to setup dynamodb and more information in general you can take a look here: https://dynobase.dev/run-dynamodb-locally/#docker-compose
-
 ## Step 1: Let's create a Node.js serverless project
 
+We want to create a simple service that allows us to upload user information. 
+
+Let's start creating the project.
+
 ```
-$ serverless create --template aws-nodejs --path candidate-service --name candidate
+$ serverless create --template aws-nodejs --path user-service --name user
 ```
 
-This will create the directory `candidate-service` with the following structure:
+This will create the directory `user-service` with the following structure:
 
 ```
 .
@@ -81,10 +54,10 @@ Let's look at each of these three files one by one.
 
 ## Step 2: Create a REST resource
 
-Let's update the `serverless.yml` to handle POST to `/candidates`:
+Let's update the `serverless.yml` to handle POST to `/users`:
 
 ```yml
-service: candidate-service
+service: user-service
 
 frameworkVersion: "2"
 
@@ -94,16 +67,16 @@ provider:
 
 functions:
   candidateSubmission:
-    handler: api/candidate.submit
+    handler: api/user.submit
     memorySize: 128
-    description: Submit candidate information and starts interview process.
+    description: Submit user information and starts interview process.
     events:
       - http:
-          path: candidates
+          path: users
           method: post
 ```
 
-Then, we refactor a bit the file structure and we rename `handler.js` to `api/candidate.js`. Inside of this file, we define our functions, in this case `candidate.submit`:
+Then, we refactor a bit the file structure and we rename `handler.js` to `api/user.js`. Inside of this file, we define our functions, in this case `user.submit`:
 
 ```js
 "use strict";
@@ -136,24 +109,24 @@ Serverless: Stack create finished...
 Serverless: Ensuring that deployment bucket exists
 Serverless: Uploading CloudFormation file to S3...
 Serverless: Uploading artifacts...
-Serverless: Uploading service candidate.zip file to S3 (587 B)...
+Serverless: Uploading service user.zip file to S3 (587 B)...
 Serverless: Validating template...
 Serverless: Updating Stack...
 Serverless: Checking Stack update progress...
 ..............................
 Serverless: Stack update finished...
 Service Information
-service: candidate
+service: user
 stage: dev
 region: us-east-1
-stack: candidate-dev
+stack: user-dev
 resources: 11
 api keys:
   None
 endpoints:
-  POST - https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/candidates
+  POST - https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/users
 functions:
-  candidateSubmission: candidate-dev-candidateSubmission
+  candidateSubmission: user-dev-candidateSubmission
 layers:
   None
 ```
@@ -161,22 +134,22 @@ layers:
 Now, POST operation of your service is available. You can use tools like cURL to make a POST request.
 
 ```bash
-$curl -X POST https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/candidates
+$curl -X POST https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/users
 
 {"message":"Go Serverless v1.0! Your function executed successfully!", "input":{...}}
 ```
 
 ## Step 3: Saving data to DynamoDB
 
-We are going to add two tables: `candidate` and `candidate_email` to DynamoDB. To do that we need to update `serverless.yml` adding the section _environment_ and _iamRoleStatements_.
+We are going to add two tables: `user` and `candidate_email` to DynamoDB. To do that we need to update `serverless.yml` adding the section _environment_ and _iamRoleStatements_.
 
 ```yml
 provider:
   name: aws
   runtime: nodejs12.x
   environment:
-    CANDIDATE_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    CANDIDATE_EMAIL_TABLE: "candidate-email-${opt:stage, self:provider.stage}"
+    USER_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+    USER_EMAIL_TABLE: "user-email-${opt:stage, self:provider.stage}"
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -192,7 +165,7 @@ Next, we'll create a resource that will create DynamoDB table as shown below.
 ```yml
 resources:
   Resources:
-    CandidatesDynamoDbTable:
+    UsersDynamoDbTable:
       Type: "AWS::DynamoDB::Table"
       DeletionPolicy: Retain
       Properties:
@@ -207,7 +180,7 @@ resources:
           WriteCapacityUnits: 1
         StreamSpecification:
           StreamViewType: "NEW_AND_OLD_IMAGES"
-        TableName: ${self:provider.environment.CANDIDATE_TABLE}
+        TableName: ${self:provider.environment.USER_TABLE}
 ```
 
 Now, you can deploy the function as shown below.
@@ -216,26 +189,26 @@ Now, you can deploy the function as shown below.
 serverless deploy --verbose
 ```
 
-And we can create a new candidate running:
+And we can create a new user running:
 
 ```bash
 curl -H "Content-Type: application/json" -X POST -d '{"fullname":"Esteban Campos","email": "campos.esteban@gmail.com", "experience":6}'
 
-https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
+https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/users
 ```
 
-## Step 4: List all the candidates
+## Step 4: List all the users
 
 Let's add a new function to our `serverless.yml`.
 
 ```yaml
-listCandidates:
-  handler: api/candidate.list
+listUsers:
+  handler: api/user.list
   memorySize: 128
-  description: List all candidates
+  description: List all users
   events:
     - http:
-        path: candidates
+        path: users
         method: get
 ```
 
@@ -244,11 +217,11 @@ We also need to add the implementation in the API:
 ```js
 module.exports.list = (event, context, callback) => {
   var params = {
-    TableName: process.env.CANDIDATE_TABLE,
+    TableName: process.env.USER_TABLE,
     ProjectionExpression: "id, fullname, email",
   };
 
-  console.log("Scanning Candidate table.");
+  console.log("Scanning User table.");
   const onScan = (err, data) => {
     if (err) {
       console.log(
@@ -261,7 +234,7 @@ module.exports.list = (event, context, callback) => {
       return callback(null, {
         statusCode: 200,
         body: JSON.stringify({
-          candidates: data.Items,
+          users: data.Items,
         }),
       });
     }
@@ -274,30 +247,30 @@ module.exports.list = (event, context, callback) => {
 And then we are able to use the function using cURL:
 
 ```bash
-$curl -H "Content-Type: application/json" -X GET https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
+$curl -H "Content-Type: application/json" -X GET https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/users
 
-{"candidates":[{"email":"campos.esteban@gmail.com","id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","fullname":"Esteban Campos"}
+{"users":[{"email":"campos.esteban@gmail.com","id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","fullname":"Esteban Campos"}
 ```
 
-## Step 5: Get Candidate Details by ID
+## Step 5: Get User Details by ID
 
 Define a new function in serverless.yml as shown below.
 
 ```yaml
 candidateDetails:
-  handler: api/candidate.get
+  handler: api/user.get
   events:
     - http:
-        path: candidates/{id}
+        path: users/{id}
         method: get
 ```
 
-Define a new function in api/candidate.js
+Define a new function in api/user.js
 
 ```js
 module.exports.get = (event, context, callback) => {
   const params = {
-    TableName: process.env.CANDIDATE_TABLE,
+    TableName: process.env.USER_TABLE,
     Key: {
       id: event.pathParameters.id,
     },
@@ -315,7 +288,7 @@ module.exports.get = (event, context, callback) => {
     })
     .catch((error) => {
       console.error(error);
-      callback(new Error("Couldn't fetch candidate."));
+      callback(new Error("Couldn't fetch user."));
       return;
     });
 };
@@ -324,12 +297,13 @@ module.exports.get = (event, context, callback) => {
 And we can test the function as well:
 
 ```bash
-$curl -H "Content-Type: application/json" -X GET   https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates/c21c4c80-7299-11ec-86f3-234be33cf5b5
+$curl -H "Content-Type: application/json" -X GET   https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/users/c21c4c80-7299-11ec-86f3-234be33cf5b5
 
 {"experience":6,"updatedAt":1641876525384,"id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","email":"campos.esteban@gmail.com","fullname":"Esteban Campos","submittedAt":1641876525384}
 ```
 
 ## Resources
 
+- [Serverless Framework Documentation](https://www.serverless.com/framework/docs)
 - [Building a REST API in Node.js with AWS Lambda, API Gateway, DynamoDB, and Serverless Framework](https://www.serverless.com/blog/node-rest-api-with-serverless-lambda-and-dynamodb)
-- [How to run DynamoDB Local and Offline - Complete Guide](https://dynobase.dev/run-dynamodb-locally/#docker-compose)
+- [Serverless DynamoDB Local](https://www.serverless.com/plugins/serverless-dynamodb-local)
