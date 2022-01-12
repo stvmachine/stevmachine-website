@@ -1,7 +1,7 @@
 ---
 title: "Starting with Serverless- Part 1"
-publishedAt: "2021-XX-XX"
-summary: "Part 1: Installation and a start a new project"
+publishedAt: "2021-01-12"
+summary: "Installation and a start a new project"
 tags:
   - serverless
   - cloud
@@ -9,17 +9,51 @@ tags:
 
 ## Table of Contents
 
-- [Pre-requisites](#pre-requisites-ios)
+- [Pre-requisites](#pre-requisites)
 - [Start a new project](#start-a-new-project)
 - [Run server](#run-server)
-- [Shortcuts](#shortcuts)
 - [Resources](#resources)
 
 ## Pre-requisites
 
+1. Install serverless
+
 ```bash
 npm install serverless -g
 ```
+
+2. Configure your [AWS credentials](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/).
+
+3. _(Optional)_ Setup Dynamodb locally
+
+My preferred way to use DynamoDB is through _docker-compose_. For that, we would need to create a `docker-compose.yml` in the root of the project:
+
+```yaml
+version: "3.5"
+
+services:
+  dynamo:
+    container_name: local-dynamodb
+    image: amazon/dynamodb-local
+    networks:
+      - local-dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodata:/home/dynamodblocal
+    working_dir: /home/dynamodblocal
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
+
+networks:
+  local-dynamodb:
+    name: local-dynamodb
+
+volumes:
+  dynamodata: {}
+```
+
+> Take the use of local dynamodb with a grain of salt due it doesn't have the same performance and it doesn't include all the features than its counterpart through AWS. So, just use it as a starting point and be aware of possible bugs or inconsistencies.
+> For more ways to setup dynamodb and more information in general you can take a look here: https://dynobase.dev/run-dynamodb-locally/#docker-compose
 
 ## Step 1: Let's create a Node.js serverless project
 
@@ -127,20 +161,16 @@ layers:
 Now, POST operation of your service is available. You can use tools like cURL to make a POST request.
 
 ```bash
-curl -X POST https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/candidates
-```
+$curl -X POST https://3hlhmtm7cf.execute-api.us-east-1.amazonaws.com/dev/candidates
 
-```
 {"message":"Go Serverless v1.0! Your function executed successfully!", "input":{...}}
 ```
 
-
 ## Step 3: Saving data to DynamoDB
 
-We are going to add two tables: `candidate` and `candidate_email` to DynamoDB. To do that we need to update `serverless.yml` adding the section *environment* and *iamRoleStatements*.
+We are going to add two tables: `candidate` and `candidate_email` to DynamoDB. To do that we need to update `serverless.yml` adding the section _environment_ and _iamRoleStatements_.
 
 ```yml
-	
 provider:
   name: aws
   runtime: nodejs12.x
@@ -163,16 +193,14 @@ Next, we'll create a resource that will create DynamoDB table as shown below.
 resources:
   Resources:
     CandidatesDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
+      Type: "AWS::DynamoDB::Table"
       DeletionPolicy: Retain
       Properties:
         AttributeDefinitions:
-          -
-            AttributeName: "id"
-            AttributeType: "S"   
+          - AttributeName: "id"
+            AttributeType: "S"
         KeySchema:
-          -
-            AttributeName: "id"
+          - AttributeName: "id"
             KeyType: "HASH"
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -191,26 +219,28 @@ serverless deploy --verbose
 And we can create a new candidate running:
 
 ```bash
-curl -H "Content-Type: application/json" -X POST -d '{"fullname":"Esteban Campos","email": "campos.esteban@gmail.com", "experience":6}' https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
-```
+curl -H "Content-Type: application/json" -X POST -d '{"fullname":"Esteban Campos","email": "campos.esteban@gmail.com", "experience":6}'
 
+https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
+```
 
 ## Step 4: List all the candidates
 
 Let's add a new function to our `serverless.yml`.
 
 ```yaml
-  listCandidates:
-    handler: api/candidate.list
-    memorySize: 128
-    description: List all candidates
-    events:
-      - http: 
-          path: candidates
-          method: get  
+listCandidates:
+  handler: api/candidate.list
+  memorySize: 128
+  description: List all candidates
+  events:
+    - http:
+        path: candidates
+        method: get
 ```
 
 We also need to add the implementation in the API:
+
 ```js
 module.exports.list = (event, context, callback) => {
   var params = {
@@ -241,27 +271,65 @@ module.exports.list = (event, context, callback) => {
 };
 ```
 
-
-And then we are able to use the function:
+And then we are able to use the function using cURL:
 
 ```bash
-curl -H "Content-Type: application/json" -X GET https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
-```
+$curl -H "Content-Type: application/json" -X GET https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates
 
+{"candidates":[{"email":"campos.esteban@gmail.com","id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","fullname":"Esteban Campos"}
 ```
-{"candidates":[{"email":"campos.esteban@gmail.com","id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","fullname":"Esteban Campos"}              
-```
-
 
 ## Step 5: Get Candidate Details by ID
 
 Define a new function in serverless.yml as shown below.
 
 ```yaml
-  candidateDetails:
-    handler: api/candidate.get
-    events:
-      - http:
-          path: candidates/{id}
-          method: get
+candidateDetails:
+  handler: api/candidate.get
+  events:
+    - http:
+        path: candidates/{id}
+        method: get
 ```
+
+Define a new function in api/candidate.js
+
+```js
+module.exports.get = (event, context, callback) => {
+  const params = {
+    TableName: process.env.CANDIDATE_TABLE,
+    Key: {
+      id: event.pathParameters.id,
+    },
+  };
+
+  dynamoDb
+    .get(params)
+    .promise()
+    .then((result) => {
+      const response = {
+        statusCode: 200,
+        body: JSON.stringify(result.Item),
+      };
+      callback(null, response);
+    })
+    .catch((error) => {
+      console.error(error);
+      callback(new Error("Couldn't fetch candidate."));
+      return;
+    });
+};
+```
+
+And we can test the function as well:
+
+```bash
+$curl -H "Content-Type: application/json" -X GET   https://il2r2hckl5.execute-api.us-east-1.amazonaws.com/dev/candidates/c21c4c80-7299-11ec-86f3-234be33cf5b5
+
+{"experience":6,"updatedAt":1641876525384,"id":"c21c4c80-7299-11ec-86f3-234be33cf5b5","email":"campos.esteban@gmail.com","fullname":"Esteban Campos","submittedAt":1641876525384}
+```
+
+## Resources
+
+- [Building a REST API in Node.js with AWS Lambda, API Gateway, DynamoDB, and Serverless Framework](https://www.serverless.com/blog/node-rest-api-with-serverless-lambda-and-dynamodb)
+- [How to run DynamoDB Local and Offline - Complete Guide](https://dynobase.dev/run-dynamodb-locally/#docker-compose)
