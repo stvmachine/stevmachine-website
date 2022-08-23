@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui";
+import { useRef, useState, useLayoutEffect } from "react";
 import {
   Wrapper,
   Banner,
@@ -18,6 +19,17 @@ const Header = ({
     social,
   },
 }) => {
+  const targetRef = useRef();
+  const [height, setHeight] = useState({});
+
+  useLayoutEffect(() => {
+    if (targetRef.current) {
+      setHeight({
+        height: window.innerHeight + "px",
+      });
+    }
+  }, []);
+
   const networks = social.map(
     (network) =>
       network.url && (
@@ -37,7 +49,7 @@ const Header = ({
   };
 
   return (
-    <Wrapper id="home">
+    <Wrapper id="home" ref={targetRef} style={height}>
       <Nav />
 
       <Banner>

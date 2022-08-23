@@ -51,20 +51,21 @@ export const BannerText = styled.div`
     color: #fff;
     letter-spacing: -2px;
     margin: 0 auto 18px auto;
-    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.85);
   }
 
   h3 {
     font: 18px/1.9em "librebaskerville-regular", serif;
-    color: #a8a8a8;
     margin: 0 auto;
     width: 70%;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.8);
+    color: #fff;
   }
 
   h3 span,
   h3 a {
-    color: #fff;
+    color: #a8a8a8;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.9);
   }
 
   hr {
