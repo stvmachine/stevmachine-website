@@ -1,0 +1,120 @@
+---
+title: "Sort Algorithms Part 1: A Dive into Bubble Sort and Quicksort"
+publishedAt: "2023-09-19"
+summary: "Understanding and comparing two fundamental sorting algorithms: Bubble Sort and Quicksort."
+tags:
+  - algorithm
+  - C++
+  - sorting
+---
+
+Sorting algorithms are a key part of many software systems, helping to organize data efficiently. In this post, we'll take a detailed look at two common algorithms: **Bubble Sort** and **Quicksort**.
+
+## Bubble Sort: The Simplest Sorting Algorithm
+
+Bubble Sort is a simple comparison-based algorithm. While it's not the most efficient, it serves as a great introduction to sorting due to its simplicity. The basic idea is to repeatedly step through the list and swap adjacent elements if they are in the wrong order.
+
+```c++
+void bubbleSort(vector<int>& arr)
+    {
+        int i, j;
+        bool swapped;
+        for (i = 0; i < arr.size() - 1; i++) {
+            swapped = false;
+            for (j = 0; j < arr.size() - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j+1];
+                    arr[j+1] = arr[j];
+                    arr[j] = temp;
+                    swapped = true;
+                }
+            }
+
+            // If no two elements were swapped
+            // by inner loop, then break
+            if (swapped == false)
+                break;
+        }
+    }
+```
+
+### Time Complexity
+
+- **Best Case**: O(n) when the array is already sorted.
+- **Worst Case**: O(n²) for a reversed array.
+- **Average Case**: O(n²), making it inefficient for large datasets.
+
+
+## Quicksort
+
+Quicksort is a divide-and-conquer algorithm that works by selecting a pivot and partitioning the array around it. Quicksort's average-case performance is much better than Bubble Sort, making it a go-to sorting algorithm in practice.
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+int partition(vector<int>& arr, int low, int high) {
+  
+    // Choose the pivot
+    int pivot = arr[high];
+  
+    // Index of smaller element and indicates 
+    // the right position of pivot found so far
+    int i = low - 1;
+
+    // Traverse arr[;ow..high] and move all smaller
+    // elements on left side. Elements from low to 
+    // i are smaller after every iteration
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    
+    // Move pivot after smaller elements and
+    // return its position
+    swap(arr[i + 1], arr[high]);  
+    return i + 1;
+}
+
+// The QuickSort function implementation
+void quickSort(vector<int>& arr, int low, int high) {
+  
+    if (low < high) {
+      
+        // pi is the partition return index of pivot
+        int pi = partition(arr, low, high);
+
+        // Recursion calls for smaller elements
+        // and greater or equals elements
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int main() {
+    vector<int> arr = {10, 7, 8, 9, 1, 5};
+    int n = arr.size();
+    quickSort(arr, 0, n - 1);
+    cout << "Sorted Array\n";
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    return 0;
+}
+
+```
+
+### Time Complexity
+
+- **Best Case**: O(n log n), achieved when the pivot is chosen effectively.
+- **Worst Case**: O(n²), but this is rare and happens when the smallest or largest element is consistently chosen as the pivot.
+- **Average Case**: O(n log n), making it much faster than Bubble Sort for large arrays.
+
+
+### Conclusion
+
+Both sorting algorithms serve different purposes. While **Bubble Sort** is easier to understand and implement, **Quicksort** is more efficient for practical purposes. In future posts, we will explore other algorithms like Merge Sort and Heap Sort to see how they compare.
+
+Stay tuned for Part 2!
