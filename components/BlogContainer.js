@@ -7,7 +7,7 @@ import {
   Box,
   Link,
   IconButton,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import resumeData from "../constants/resumeData";
 const { social, email } = resumeData.main;

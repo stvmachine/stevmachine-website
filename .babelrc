@@ -1,4 +1,17 @@
 {
-  "presets": ["next/babel"],
-  "plugins": ["import-glob-array"]
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-react": {
+          "importSource": "theme-ui",
+          "runtime": "automatic",
+          "throwIfNamespace": false
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "import-glob-array"
+  ]
 }

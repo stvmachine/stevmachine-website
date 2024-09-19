@@ -1,4 +1,3 @@
-/** @jsx jsx */
 import {
   Box,
   AspectRatioBox,
@@ -11,8 +10,7 @@ import {
   Text,
   Divider,
   useColorMode,
-} from "@chakra-ui/core";
-import { jsx } from "@emotion/core";
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 
 const Table = (props) => (

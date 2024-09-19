@@ -1,8 +1,7 @@
-/** @jsx jsx */
-import { Styled } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import styled from "@emotion/styled";
 
-export const Info = styled(Styled.p)`
+export const Info = styled(Themed.p)`
   font: 16px/24px "librebaskerville-italic", serif;
   color: #6e7881;
   margin-bottom: 18px;
@@ -14,7 +13,7 @@ export const Info = styled(Styled.p)`
   }
 `;
 
-export const Date = styled(Styled.em)`
+export const Date = styled(Themed.em)`
   font: 15px/24px "opensans-regular", sans-serif;
   margin-top: 6px;
 `;

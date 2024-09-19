@@ -1,5 +1,5 @@
-/** @jsx jsx */
-import { jsx, Image, Styled, Grid, Flex } from "theme-ui";
+import { Image, Grid } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import {
   PortfolioSection,
   PortfolioItem,
@@ -16,7 +16,7 @@ const Projects = ({ projects }) =>
     return (
       <PortfolioItem key={project.title} sx={{ mb: [36, null, 40] }}>
         <ItemWrap>
-          <Styled.a
+          <Themed.a
             target="_blank"
             href={project.url}
             title={project.title}
@@ -25,14 +25,14 @@ const Projects = ({ projects }) =>
             <Image src={projectImage} variant="portfolio" />
             <div className="overlay">
               <PortfolioItemMeta>
-                <Styled.h5>{project.title}</Styled.h5>
-                <Styled.p>{project.category}</Styled.p>
+                <Themed.h5>{project.title}</Themed.h5>
+                <Themed.p>{project.category}</Themed.p>
               </PortfolioItemMeta>
             </div>
             <div className="link-icon">
               <i className="fa fa-link"></i>
             </div>
-          </Styled.a>
+          </Themed.a>
         </ItemWrap>
       </PortfolioItem>
     );
@@ -41,7 +41,7 @@ const Projects = ({ projects }) =>
 const Portfolio = ({ data: { projects } }) => (
   <PortfolioSection id="portfolio">
     <Row>
-      <Styled.h1
+      <Themed.h1
         sx={{
           font: '15px/24px "opensans-semibold", sans-serif',
           textTransform: "uppercase",
@@ -52,7 +52,7 @@ const Portfolio = ({ data: { projects } }) => (
         }}
       >
         Check Out Some of My Works.
-      </Styled.h1>
+      </Themed.h1>
       <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
         <Projects projects={projects} />
       </Grid>

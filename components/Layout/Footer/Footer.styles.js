@@ -1,4 +1,4 @@
-import { css } from "@emotion/core";
+import { css } from "@emotion/css";
 
 export const FooterStyles = css`
   padding-top: 48px;

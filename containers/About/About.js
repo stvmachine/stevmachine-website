@@ -1,9 +1,9 @@
-/** @jsx jsx */
-import { jsx, Avatar, Box, Button, Flex, Link, Styled } from "theme-ui";
+import { Avatar, Box, Button, Flex, Link } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import Row from "../../components/Row";
 
 const H2 = ({ children }) => (
-  <Styled.h2
+  <Themed.h2
     sx={{
       font: '22px/30px "opensans-bold", sans-serif',
       color: "#fff",
@@ -11,7 +11,7 @@ const H2 = ({ children }) => (
     }}
   >
     {children}
-  </Styled.h2>
+  </Themed.h2>
 );
 
 const About = ({
@@ -53,19 +53,19 @@ const About = ({
         >
           <H2>About Me</H2>
 
-          <Styled.p>{bio}</Styled.p>
+          <Themed.p>{bio}</Themed.p>
 
-          <Styled.p>
+          <Themed.p>
             You can follow my{" "}
             <Link href="/blog" target="_blank">
               blog
             </Link>
             .
-          </Styled.p>
+          </Themed.p>
           <Flex sx={{ alignItems: "flex-start" }}>
             <Box>
               <H2>Contact Details</H2>
-              <Styled.p>
+              <Themed.p>
                 <span>{name}</span>
                 <br />
                 <span>
@@ -83,7 +83,7 @@ const About = ({
                 >
                   {email}
                 </Link>
-              </Styled.p>
+              </Themed.p>
             </Box>
             <Box sx={{ pl: 6 }}>
               <Button href={resumeDownload}>

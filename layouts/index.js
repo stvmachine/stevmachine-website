@@ -6,7 +6,7 @@ import {
   Flex,
   Stack,
   Avatar,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 import { parseISO, format } from "date-fns";
 
 import BlogContainer from "../components/BlogContainer";

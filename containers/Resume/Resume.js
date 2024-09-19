@@ -1,10 +1,10 @@
-/** @jsx jsx */
-import { jsx, Grid, Card, Text, Image, Styled, Flex, Box } from "theme-ui";
+import { Grid, Card, Text, Image, Flex, Box } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import { Info, Date } from "./Resume.styles";
 import Row from "../../components/Row";
 
 const ResumeH1 = ({ children, sx, ...props }) => (
-  <Styled.h1
+  <Themed.h1
     sx={{
       mt: 0,
       pr: [null, null, "20%"],
@@ -19,11 +19,11 @@ const ResumeH1 = ({ children, sx, ...props }) => (
     {...props}
   >
     {children}
-  </Styled.h1>
+  </Themed.h1>
 );
 
 const ResumeH3 = ({ children, sx, ...props }) => (
-  <Styled.h3
+  <Themed.h3
     sx={{
       mt: 0,
       font: '25px/30px "opensans-bold", sans-serif',
@@ -33,7 +33,7 @@ const ResumeH3 = ({ children, sx, ...props }) => (
     {...props}
   >
     {children}
-  </Styled.h3>
+  </Themed.h3>
 );
 
 const SubSection = ({ title, children }) => (
@@ -89,7 +89,7 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
             <Date>{education.graduated}</Date>
           </Info>
           {education.description && (
-            <Styled.p>{education.description}</Styled.p>
+            <Themed.p>{education.description}</Themed.p>
           )}
         </Flex>
       ))}
@@ -107,7 +107,7 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
             {work.title}
             <span>&bull;</span> <Date>{work.years}</Date>
           </Info>
-          <Styled.p>{work.description}</Styled.p>
+          <Themed.p>{work.description}</Themed.p>
         </Flex>
       ))}
     </SubSection>

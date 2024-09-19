@@ -183,12 +183,6 @@ export default {
           "https://apps.apple.com/us/app/good-on-you-ethical-fashion/id1044017998",
       },
       {
-        title: "Tugeda Platform",
-        category: "Mobile version of Good On You",
-        image: "tugeda-website.png",
-        url: "https://tugeda.space/",
-      },
-      {
         title: "My portfolio & Blog",
         category: "Done with React, NextJS and MDX",
         image: "myportfolio.png",

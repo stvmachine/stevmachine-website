@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Avatar, Text, Box, useColorMode, Flex } from "@chakra-ui/core";
+import { Avatar, Text, Box, useColorMode, Flex } from "@chakra-ui/react";
 
 const CommitCard = ({
   username,

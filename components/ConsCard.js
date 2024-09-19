@@ -6,7 +6,7 @@ import {
   Text,
   Box,
   useColorMode,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 const ConsCard = ({ title, cons }) => {
   const { colorMode } = useColorMode();

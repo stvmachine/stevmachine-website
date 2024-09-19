@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import { useRef, useState, useLayoutEffect } from "react";
 import {
   Wrapper,
@@ -34,9 +33,9 @@ const Header = ({
     (network) =>
       network.url && (
         <li key={network.name}>
-          <Styled.a href={network.url} target="_blank">
+          <Themed.a href={network.url} target="_blank">
             <i className={network.className}></i>
-          </Styled.a>
+          </Themed.a>
         </li>
       )
   );
@@ -54,20 +53,20 @@ const Header = ({
 
       <Banner>
         <BannerText>
-          <Styled.h1 className="responsive-headline">I'm {name}.</Styled.h1>
-          <Styled.h3>
+          <Themed.h1 className="responsive-headline">I'm {name}.</Themed.h1>
+          <Themed.h3>
             I'm a {city} based <span>{occupation}</span> {description}.
-          </Styled.h3>
-          <Styled.hr />
+          </Themed.h3>
+          <Themed.hr />
           <SocialList>{networks}</SocialList>
         </BannerText>
       </Banner>
 
-      <Styled.p>
+      <Themed.p>
         <ScrollDown onClick={goToAbout}>
           <i className="icon-down-circle"></i>
         </ScrollDown>
-      </Styled.p>
+      </Themed.p>
     </Wrapper>
   );
 };

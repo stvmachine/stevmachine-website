@@ -1,4 +1,4 @@
-import { Styled } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import styled from "@emotion/styled";
 
 export const NavWrap = styled.nav`
@@ -47,7 +47,7 @@ export const NavWrap = styled.nav`
   }
 `;
 
-export const MobileMenuBtn = styled(Styled.a)`
+export const MobileMenuBtn = styled(Themed.a)`
   display: none;
 
   @media only screen and (max-width: 767px) {

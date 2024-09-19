@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx, Styled } from "theme-ui";
+import { Themed } from "@theme-ui/mdx";
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
 
@@ -127,7 +126,7 @@ const Nav = () => {
 
         <li>
           <NextLink href="/blog" passHref>
-            <Styled.a variant="menuItem">Blog</Styled.a>
+            <Themed.a variant="menuItem">Blog</Themed.a>
           </NextLink>
         </li>
       </NavMenu>
