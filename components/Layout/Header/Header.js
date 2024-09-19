@@ -1,5 +1,5 @@
 import { Themed } from "@theme-ui/mdx";
-import { useRef, useState, useLayoutEffect } from "react";
+import { useRef, useState } from "react";
 import {
   Wrapper,
   Banner,
@@ -8,6 +8,7 @@ import {
   ScrollDown,
 } from "./Header.styles";
 import Nav from "./Nav";
+import { useIsomorphicLayoutEffect } from "../../../lib/hooks";
 
 const Header = ({
   data: {
@@ -21,7 +22,7 @@ const Header = ({
   const targetRef = useRef();
   const [height, setHeight] = useState({});
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (targetRef.current) {
       setHeight({
         height: window.innerHeight + "px",

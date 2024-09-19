@@ -1,22 +1,17 @@
 export default {
   main: {
     name: "Esteban Campos",
-    occupation: "Frontend Developer",
+    occupation: "Software Engineer",
     description:
-      ", currently employed at Common Code where I work as frontend and hybrid mobile developer.",
+      ", currently employed at Ackama where I work as a software engineer specializing in JS/TS and mobile development",
     image: "profilepic.jpg",
     bio:
-      "I am usually labeled as a frontend and mobile developer, although I fully agree that I'm good at that, I am continually improving my dev skills in other areas (right now I am learning Rust and Machine Learning). I am interested in board games, choirs and my dog Balu.",
+      "I am a software engineer at Ackama with a focus on JS/TS and mobile development. My background in software engineering spans various areas, including C++, Python, and Ruby. I am looking to cover fullstack development and continually expanding my expertise. I also have a keen interest in board games, choirs, and my dog Balu.",
     contactmessage:
       "Here is where you should write your message to readers to have them get in contact with you.",
     email: "campos.esteban@gmail.com",
     phone: "+61 0401745732",
-    address: {
-      street: "470 St Kilda Rd",
-      city: "Melbourne",
-      state: "Victoria",
-      zip: "3004",
-    },
+    address: "Melbourne, Australia",
     website: "https://stevmachine-website.vercel.app/",
     resumedownload: "https://stevmachine-website.vercel.app/",
     social: [
@@ -75,7 +70,7 @@ export default {
     work: [
       {
         company: "Common Code",
-        title: "Frontend Developer",
+        title: "Software Engineer",
         years: "July 2018 - Present",
         description:
           "Common Code is a collective of smart and passionate people, who are concerned with adopting good work practices and contributing to the dev community. I regularly participate as a mentor and atendee in the meetups and events that the company organizes such as MelbDjango, DjangoGirls and NodeGirls. The main stack is Django, React, and React Native.",
@@ -89,7 +84,7 @@ export default {
       },
       {
         company: "Idea Uno",
-        title: "Senior Frontend Developer",
+        title: "Senior Software Engineer",
         years: "Jun 2016 - Nov 2017",
         description:
           "I used multiple hats. Usually took the lead on mobile hybrid projects and educated the team on Angular/Ionic/React/React Native. Great experience that until today makes me spread my love for Ruby On Rails.",

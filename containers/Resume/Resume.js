@@ -115,7 +115,7 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
     <SubSection title="Favorites Tech">
       <Grid width={[128, null, 192]}>
         {favoriteTechs.map((tech) => (
-          <Card>
+          <Card key={`tech-${tech.name}`}>
             <Image src={`/images/techs/${tech.image}`} variant="resumeTech" />
             <Text sx={{ fontWeight: "bold" }}>{tech.name}</Text>
           </Card>
@@ -126,7 +126,7 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
     <SubSection title="Favorites Languages">
       <Grid width={[128, null, 192]}>
         {languages.map((language) => (
-          <Card>
+          <Card key={`lang-${language.name}`}>
             <Image
               src={`/images/languages/${language.image}`}
               variant="resumeTech"

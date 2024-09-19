@@ -22,7 +22,7 @@ const About = ({
     email,
     resumeDownload,
     image,
-    address: { street, city, state, zip },
+    address,
   },
 }) => (
   <Box
@@ -69,9 +69,7 @@ const About = ({
                 <span>{name}</span>
                 <br />
                 <span>
-                  {street}
-                  <br />
-                  {city} {state}, {zip}
+                  {address}
                 </span>
                 <br />
                 <span>{phone}</span>

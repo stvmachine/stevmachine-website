@@ -27,7 +27,7 @@ const MenuItem = ({ itemName, active }) => {
       <Themed.a
         href={`#${itemName}`}
         onClick={handleClick}
-        ariaLabel={`${itemName}`}
+        aria-label={`${itemName}`}
         variant="menuItem"
       >
         {itemName}

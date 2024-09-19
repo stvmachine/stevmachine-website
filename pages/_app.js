@@ -1,20 +1,19 @@
 import React from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
+import { ThemeUIProvider } from "theme-ui";
 // import { MDXProvider } from "@mdx-js/react";
+import { injectGlobal } from "@emotion/css";
 // import MDXComponents from "../components/MDXComponents";
-
-import { ThemeProvider as ThemeProviderThemeUI } from "theme-ui";
-import {
-  ThemeProvider as ThemeProviderChakraUI,
-  CSSReset,
-  ColorModeProvider,
-  useColorMode,
-} from "@chakra-ui/react";
-import { css, injectGlobal } from "@emotion/css";
+// import {
+//   ThemeProvider as ThemeProviderChakraUI,
+//   CSSReset,
+//   ColorModeProvider,
+//   useColorMode,
+// } from "@chakra-ui/react";
 
 // import { prismLightTheme, prismDarkTheme } from "../styles/prism";
-import theme from "../styles/theme";
 // import blogTheme from "../styles/blogTheme";
+import theme from "../styles/theme";
 import resetStyles from "../styles/reset";
 import defaultStyles from "../styles/default";
 
@@ -51,7 +50,11 @@ import defaultStyles from "../styles/default";
 // };
 
 const App = ({ Component, pageProps }) => {
-  const router = useRouter();
+  // const router = useRouter();
+  injectGlobal(`
+    ${resetStyles}
+    ${defaultStyles}
+  `);
 
   return (
     <>
@@ -68,19 +71,11 @@ const App = ({ Component, pageProps }) => {
       //     </ThemeProviderChakraUI>
       //   </>
       // ) : 
-      (
-        ()=> {
-          injectGlobal(`
-                ${resetStyles}
-                ${defaultStyles}
-              `);
-            return  <>
-            <ThemeProviderThemeUI theme={theme}>
+      (<>
+            <ThemeUIProvider theme={theme}>
               <Component {...pageProps} />
-            </ThemeProviderThemeUI>
+            </ThemeUIProvider>
           </>
-        }
-       
       )}
     </>
   );
