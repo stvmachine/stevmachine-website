@@ -10,10 +10,10 @@ import {
   InputGroup,
   InputRightElement,
   Icon,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
-import BlogContainer from "../components/BlogContainer";
-import BlogPost from "../components/BlogPost";
+import BlogContainer from "../../components/BlogContainer";
+import BlogPost from "../../components/BlogPost";
 
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import { frontMatter as blogPosts } from "./blog/**/*.mdx";
