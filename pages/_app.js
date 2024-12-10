@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-
+import dynamic from "next/dynamic";
 // import BlogLayout from "../containers/Blog";
 import DefaultLayout from "../containers/Main";
 
@@ -24,4 +24,6 @@ const App = ({ Component, pageProps }) => {
   );
 };
 
-export default App;
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false,
+});
