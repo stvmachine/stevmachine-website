@@ -1,6 +1,9 @@
 import { theme as chakraTheme } from "@chakra-ui/react";
 
 const theme = {
+  config: {
+    initialColorMode: "light",
+  },
   colors: {
     ...chakraTheme.colors,
     link: "#11abb0",

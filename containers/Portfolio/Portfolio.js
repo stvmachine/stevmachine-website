@@ -1,11 +1,5 @@
-import { Image, Grid } from "theme-ui";
-import { Themed } from "@theme-ui/mdx";
-import {
-  PortfolioSection,
-  PortfolioItem,
-  PortfolioItemMeta,
-  ItemWrap,
-} from "./Portfolio.styles";
+import { Image, Grid, Box, Text, Heading } from "@chakra-ui/react";
+import { PortfolioSection, PortfolioItem, PortfolioItemMeta, ItemWrap } from "./Portfolio.styles";
 import Row from "../../components/Row";
 
 const Projects = ({ projects }) =>
@@ -14,25 +8,61 @@ const Projects = ({ projects }) =>
     const projectImage = "/images/portfolio/" + project.image;
 
     return (
-      <PortfolioItem key={project.title} sx={{ mb: [36, null, 40] }}>
+      <PortfolioItem key={project.title} mb={[36, null, 40]}>
         <ItemWrap>
-          <Themed.a
+          <Box
+            as="a"
             target="_blank"
             href={project.url}
             title={project.title}
-            sx={{ textAlign: "center" }}
+            display="block"
+            textAlign="center"
+            position="relative"
           >
-            <Image src={projectImage} variant="portfolio" />
-            <div className="overlay">
+            <Image
+              src={projectImage}
+              alt={project.title}
+              borderRadius="lg"
+              objectFit="cover"
+              w="100%"
+              h="auto"
+            />
+            <Box
+              className="overlay"
+              position="absolute"
+              top="0"
+              left="0"
+              w="100%"
+              h="100%"
+              bg="rgba(0, 0, 0, 0.5)"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              opacity="0"
+              _hover={{ opacity: 1 }}
+              transition="opacity 0.3s"
+            >
               <PortfolioItemMeta>
-                <Themed.h5>{project.title}</Themed.h5>
-                <Themed.p>{project.category}</Themed.p>
+                <Heading as="h5" size="md" color="white">
+                  {project.title}
+                </Heading>
+                <Text color="white" fontSize="sm">
+                  {project.category}
+                </Text>
               </PortfolioItemMeta>
-            </div>
-            <div className="link-icon">
+            </Box>
+            <Box
+              className="link-icon"
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              color="white"
+              fontSize="24px"
+            >
               <i className="fa fa-link"></i>
-            </div>
-          </Themed.a>
+            </Box>
+          </Box>
         </ItemWrap>
       </PortfolioItem>
     );
@@ -41,19 +71,24 @@ const Projects = ({ projects }) =>
 const Portfolio = ({ data: { projects } }) => (
   <PortfolioSection id="portfolio">
     <Row>
-      <Themed.h1
-        sx={{
-          font: '15px/24px "opensans-semibold", sans-serif',
-          textTransform: "uppercase",
-          letterSpacing: "1px",
-          textAlign: "center",
-          mb: 48,
-          color: "#95a3a3",
-        }}
+      <Heading
+        as="h1"
+        fontSize="15px"
+        lineHeight="24px"
+        fontWeight="semibold"
+        textTransform="uppercase"
+        letterSpacing="1px"
+        textAlign="center"
+        mb={48}
+        color="#95a3a3"
       >
         Check Out Some of My Works.
-      </Themed.h1>
-      <Grid sx={{ display: "flex", flexWrap: "wrap" }}>
+      </Heading>
+      <Grid
+        templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+        gap={6}
+        mb={12}
+      >
         <Projects projects={projects} />
       </Grid>
     </Row>

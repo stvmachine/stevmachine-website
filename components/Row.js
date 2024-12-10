@@ -1,14 +1,12 @@
-import { Box } from "theme-ui";
+import { Box } from "@chakra-ui/react";
 
 const Row = ({ children, sx, ...props }) => (
   <Box
-    sx={{
-      width: ["auto", "460px", "96%"],
-      maxWidth: "1020px",
-      margin: [null, "0 auto"],
-      p: [null, 0],
-      ...sx,
-    }}
+    sx={sx}
+    w={["auto", "460px", "96%"]}
+    maxW="1020px"
+    m={[null, "0 auto"]}
+    p={[null, 0]}
     {...props}
   >
     {children}

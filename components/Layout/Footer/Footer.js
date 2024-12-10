@@ -1,16 +1,15 @@
-import { Themed } from "@theme-ui/mdx";
-import { FooterStyles } from "./Footer.styles";
+import { Box, Link, List, ListItem, Icon } from "@chakra-ui/react";
 import Row from "../../Row";
 
 const Networks = ({ networks }) =>
   networks.map(
     (network) =>
       network.url && (
-        <li key={network.name}>
-          <Themed.a href={network.url}>
-            <i className={network.className}></i>
-          </Themed.a>
-        </li>
+        <ListItem key={network.name}>
+          <Link href={network.url} isExternal>
+            <Icon as={network.className} boxSize="1.5rem" />
+          </Link>
+        </ListItem>
       )
   );
 
@@ -19,33 +18,34 @@ const Footer = ({ data: { social } }) => {
     e.preventDefault();
     document
       .getElementById("home")
-      .scrollIntoView({ behaviour: "smooth", block: "start" });
+      .scrollIntoView({ behavior: "smooth", block: "start" });
   };
-  return (
-    <footer css={FooterStyles}>
-      <Row>
-        <div>
-          <ul className="social-links">
-            <Networks networks={social} />
-          </ul>
 
-          <ul className="copyright">
-            <li>&copy; Copyright 2020 Esteban Campos</li>
-            <li>
+  return (
+    <Box as="footer" bg="gray.800" color="white" py={4} px={8}>
+      <Row>
+        <Box>
+          <List display="flex" className="social-links" gap={4}>
+            <Networks networks={social} />
+          </List>
+
+          <List className="copyright" mt={4}>
+            <ListItem>&copy; Copyright 2020 Esteban Campos</ListItem>
+            <ListItem>
               Design by{" "}
-              <Themed.a title="Styleshout" href="http://www.styleshout.com/">
+              <Link title="Styleshout" href="http://www.styleshout.com/" isExternal>
                 Styleshout
-              </Themed.a>
-            </li>
-          </ul>
-        </div>
-        <div id="go-top">
-          <Themed.a title="Back to Top" onClick={goToHome}>
-            <i className="icon-up-open"></i>
-          </Themed.a>
-        </div>
+              </Link>
+            </ListItem>
+          </List>
+        </Box>
+        <Box id="go-top" mt={4}>
+          <Link title="Back to Top" onClick={goToHome}>
+            <Icon className="icon-up-open" boxSize="1.5rem" />
+          </Link>
+        </Box>
       </Row>
-    </footer>
+    </Box>
   );
 };
 

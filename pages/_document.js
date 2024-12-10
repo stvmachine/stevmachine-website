@@ -1,7 +1,8 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import { InitializeColorMode } from "theme-ui";
+import { ColorModeScript } from "@chakra-ui/react";
+import theme from "../styles/theme";
 
-export default class extends Document {
+export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
@@ -9,12 +10,12 @@ export default class extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="stylesheet" href="/css/onlyFonts.css" />
         </Head>
         <body>
-          <InitializeColorMode />
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <NextScript />
         </body>

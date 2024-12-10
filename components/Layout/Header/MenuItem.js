@@ -1,4 +1,4 @@
-import { Themed } from "@theme-ui/mdx";
+import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 
 const MenuItem = ({ itemName, active }) => {
@@ -24,14 +24,14 @@ const MenuItem = ({ itemName, active }) => {
 
   return (
     <li className={active ? "current" : ""}>
-      <Themed.a
+      <styled.a
         href={`#${itemName}`}
         onClick={handleClick}
         aria-label={`${itemName}`}
         variant="menuItem"
       >
         {itemName}
-      </Themed.a>
+      </styled.a>
     </li>
   );
 };

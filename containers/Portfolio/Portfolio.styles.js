@@ -1,106 +1,83 @@
-import styled from "@emotion/styled";
-import { Card } from "theme-ui";
+import { Box, Card, Image, Text, Heading } from "@chakra-ui/react";
 
-export const PortfolioSection = styled.section`
-  background: #ebeeee;
-  padding-top: 90px;
-  padding-bottom: 60px;
-`;
+export const PortfolioSection = (props) => (
+  <Box
+    as="section"
+    bg="#ebeeee"
+    pt="90px"
+    pb="60px"
+    {...props}
+  />
+);
 
-export const PortfolioItem = styled(Card)`
-  flex: 1 1 200px;
+export const PortfolioItem = ({ children, ...props }) => (
+  <Box
+    as={Card}
+    flex="1 1 200px"
+    _hover={{
+      '.overlay': { opacity: 1 },
+      '.link-icon': { opacity: 1 },
+    }}
+    {...props}
+  >
+    {children}
+  </Box>
+);
 
-  &:hover .overlay {
-    opacity: 1;
-    -moz-opacity: 1;
-    filter: alpha(opacity=100);
-  }
+export const PortfolioItemMeta = (props) => (
+  <Box p="18px" {...props}>
+    <Heading as="h5" fontSize="14px" fontWeight="bold" color="white">
+      {props.children}
+    </Heading>
+    <Text fontSize="12px" color="#c6c7c7" mb="0">
+      {props.children}
+    </Text>
+  </Box>
+);
 
-  &:hover .link-icon {
-    opacity: 1;
-    -moz-opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  @media only screen and (min-width: 1024px) {
-    flex: 1 1 250px;
-  }
-`;
-
-export const PortfolioItemMeta = styled.div`
-  padding: 18px;
-
-  h5 {
-    font: 14px/21px "opensans-bold", sans-serif;
-    color: #fff;
-  }
-
-  p {
-    font: 12px/18px "opensans-light", sans-serif;
-    color: #c6c7c7;
-    margin-bottom: 0;
-  }
-`;
-
-export const ItemWrap = styled.div`
-  background: #fff;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  justify-content: center;
-
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-
-  /* overlay */
-  .overlay {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-    -moz-opacity: 0;
-    filter: alpha(opacity=0);
-
-    -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity 0.3s ease-in-out;
-    transition: opacity 0.3s ease-in-out;
-
-    background: url(../images/overlay-bg.png) repeat;
-  }
-
-  .link-icon {
-    display: block;
-    color: #fff;
-    height: 30px;
-    width: 30px;
-    font-size: 18px;
-    line-height: 30px;
-    text-align: center;
-
-    opacity: 0;
-    -moz-opacity: 0;
-    filter: alpha(opacity=0);
-
-    -webkit-transition: opacity 0.3s ease-in-out;
-    -moz-transition: opacity 0.3s ease-in-out;
-    -o-transition: opacity 0.3s ease-in-out;
-    transition: opacity 0.3s ease-in-out;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -15px;
-    margin-top: -15px;
-  }
-
-  img {
-    vertical-align: bottom;
-  }
-`;
+export const ItemWrap = ({ children, ...props }) => (
+  <Box
+    bg="white"
+    overflow="hidden"
+    position="relative"
+    display="flex"
+    justifyContent="center"
+    transition="all 0.3s ease-in-out"
+    _hover={{
+      '.overlay': { opacity: 1 },
+      '.link-icon': { opacity: 1 },
+    }}
+    {...props}
+  >
+    {children}
+    <Box
+      className="overlay"
+      position="absolute"
+      top="0"
+      left="0"
+      w="100%"
+      h="100%"
+      bg="url('../images/overlay-bg.png') repeat"
+      opacity="0"
+      transition="opacity 0.3s ease-in-out"
+    />
+    <Box
+      className="link-icon"
+      position="absolute"
+      top="50%"
+      left="50%"
+      transform="translate(-50%, -50%)"
+      bg="transparent"
+      color="white"
+      fontSize="18px"
+      lineHeight="30px"
+      height="30px"
+      width="30px"
+      textAlign="center"
+      opacity="0"
+      transition="opacity 0.3s ease-in-out"
+    >
+      <i className="fa fa-link"></i>
+    </Box>
+  </Box>
+);

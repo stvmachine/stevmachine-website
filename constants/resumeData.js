@@ -6,14 +6,14 @@ export default {
       ", currently employed at Ackama where I work as a software engineer specializing in JS/TS and mobile development",
     image: "profilepic.jpg",
     bio:
-      "I am a software engineer at Ackama with a focus on JS/TS and mobile development. My background in software engineering spans various areas, including C++, Python, and Ruby. I am looking to cover fullstack development and continually expanding my expertise. I also have a keen interest in board games, choirs, and my dog Balu.",
+      "I am a software engineer at Ackama with a focus on JS/TS, mobile development; and backend technologies as Python and Ruby. I also have a keen interest in board games, choirs, and my dog Balu.",
     contactmessage:
       "Here is where you should write your message to readers to have them get in contact with you.",
     email: "campos.esteban@gmail.com",
     phone: "+61 0401745732",
     address: "Melbourne, Australia",
-    website: "https://stevmachine-website.vercel.app/",
-    resumedownload: "https://stevmachine-website.vercel.app/",
+    website: "https://stevmachine.me",
+    resumedownload: "https://stevmachine.me/resume-download",
     social: [
       {
         name: "facebook",

@@ -1,91 +1,84 @@
-import { Avatar, Box, Button, Flex, Link } from "theme-ui";
-import { Themed } from "@theme-ui/mdx";
+import { Box, Flex, Avatar, Button, Link, Text, Heading } from "@chakra-ui/react";
 import Row from "../../components/Row";
 
-const H2 = ({ children }) => (
-  <Themed.h2
-    sx={{
-      font: '22px/30px "opensans-bold", sans-serif',
-      color: "#fff",
-      marginBottom: "12px",
-    }}
-  >
-    {children}
-  </Themed.h2>
-);
-
 const About = ({
-  data: {
-    name,
-    bio,
-    phone,
-    email,
-    resumeDownload,
-    image,
-    address,
-  },
+  data: { name, bio, phone, email, resumeDownload, image, address },
 }) => (
   <Box
-    id="about"
-    sx={{
-      background: "#2b2b2b",
-      pt: "96px",
-      pb: "66px",
-      overflow: "hidden",
-      color: "#7a7a7a",
-    }}
     as="section"
+    id="about"
+    bg="#2b2b2b"
+    pt="96px"
+    pb="66px"
+    overflow="hidden"
+    color="#7a7a7a"
   >
     <Row>
-      <Flex sx={{ mx: "auto", justifyContent: "center" }}>
-        <Box
-          sx={{
-            width: [0, "25%"],
-          }}
-        >
-          <Avatar src={`/images/${image}`} />
+      <Flex justify="center" mx="auto">
+        <Box width={["100%", "25%"]}>
+          <Avatar src={`/images/${image}`} size="2xl" />
         </Box>
-        <Box
-          sx={{
-            width: "75%",
-            pr: "5%",
-          }}
-        >
-          <H2>About Me</H2>
+        <Box width="75%" pr="5%">
+          <Heading
+            as="h2"
+            fontSize="22px"
+            lineHeight="30px"
+            fontWeight="bold"
+            color="#fff"
+            mb="12px"
+          >
+            About Me
+          </Heading>
 
-          <Themed.p>{bio}</Themed.p>
+          <Text mb="16px">{bio}</Text>
 
-          <Themed.p>
+          <Text mb="16px">
             You can follow my{" "}
-            <Link href="/blog" target="_blank">
+            <Link href="/blog" color="#11abb0" isExternal>
               blog
             </Link>
             .
-          </Themed.p>
-          <Flex sx={{ alignItems: "flex-start" }}>
+          </Text>
+
+          <Flex align="flex-start" gap="2rem">
             <Box>
-              <H2>Contact Details</H2>
-              <Themed.p>
+              <Heading
+                as="h2"
+                fontSize="22px"
+                lineHeight="30px"
+                fontWeight="bold"
+                color="#fff"
+                mb="12px"
+              >
+                Contact Details
+              </Heading>
+              <Text>
                 <span>{name}</span>
                 <br />
-                <span>
-                  {address}
-                </span>
+                <span>{address}</span>
                 <br />
                 <span>{phone}</span>
                 <br />
                 <Link
-                  variant="underline"
-                  target="_blank"
                   href={`mailto:${email}`}
+                  color="#11abb0"
+                  textDecoration="underline"
+                  isExternal
                 >
                   {email}
                 </Link>
-              </Themed.p>
+              </Text>
             </Box>
-            <Box sx={{ pl: 6 }}>
-              <Button href={resumeDownload}>
-                <i className="fa fa-download"></i> Download Resume
+            <Box>
+              <Button
+                as="a"
+                href={resumeDownload}
+                leftIcon={<i className="fa fa-download"></i>}
+                bg="#11abb0"
+                color="white"
+                _hover={{ bg: "#0e939c" }}
+              >
+                Download Resume
               </Button>
             </Box>
           </Flex>

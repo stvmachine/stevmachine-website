@@ -1,4 +1,3 @@
-import { Themed } from "@theme-ui/mdx";
 import styled from "@emotion/styled";
 import Row from "../../Row";
 
@@ -168,7 +167,7 @@ export const SocialList = styled.ul`
   }
 `;
 
-export const ScrollDown = styled(Themed.a)`
+export const ScrollDown = styled(styled.a)`
   position: absolute;
   bottom: 30px;
   left: 50%;

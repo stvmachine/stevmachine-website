@@ -1,12 +1,15 @@
-import { Themed } from "@theme-ui/mdx";
 import { useRef, useState } from "react";
 import {
-  Wrapper,
-  Banner,
-  BannerText,
-  SocialList,
-  ScrollDown,
-} from "./Header.styles";
+  Box,
+  Text,
+  Heading,
+  Link,
+  Icon,
+  List,
+  ListItem,
+  Divider,
+  Button,
+} from "@chakra-ui/react";
 import Nav from "./Nav";
 import { useIsomorphicLayoutEffect } from "../../../lib/hooks";
 
@@ -25,7 +28,7 @@ const Header = ({
   useIsomorphicLayoutEffect(() => {
     if (targetRef.current) {
       setHeight({
-        height: window.innerHeight + "px",
+        height: `${window.innerHeight}px`,
       });
     }
   }, []);
@@ -33,11 +36,11 @@ const Header = ({
   const networks = social.map(
     (network) =>
       network.url && (
-        <li key={network.name}>
-          <Themed.a href={network.url} target="_blank">
-            <i className={network.className}></i>
-          </Themed.a>
-        </li>
+        <ListItem key={network.name}>
+          <Link href={network.url} isExternal>
+            <Icon as={network.className} boxSize="1.5rem" />
+          </Link>
+        </ListItem>
       )
   );
 
@@ -45,30 +48,37 @@ const Header = ({
     e.preventDefault();
     document
       .getElementById("about")
-      .scrollIntoView({ behaviour: "smooth", block: "start" });
+      .scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <Wrapper id="home" ref={targetRef} style={height}>
+    <Box id="home" ref={targetRef} style={height} bg="gray.800" color="white">
       <Nav />
 
-      <Banner>
-        <BannerText>
-          <Themed.h1 className="responsive-headline">I'm {name}.</Themed.h1>
-          <Themed.h3>
-            I'm a {city} based <span>{occupation}</span> {description}.
-          </Themed.h3>
-          <Themed.hr />
-          <SocialList>{networks}</SocialList>
-        </BannerText>
-      </Banner>
+      <Box textAlign="center" py={10}>
+        <Heading as="h1" size="2xl" mb={4}>
+          I'm {name}.
+        </Heading>
+        <Text fontSize="lg" mb={4}>
+          I'm a {city}-based <Text as="span" fontWeight="bold">{occupation}</Text> {description}.
+        </Text>
+        <Divider borderColor="gray.600" my={4} />
+        <List display="flex" justifyContent="center" gap={4}>
+          {networks}
+        </List>
+      </Box>
 
-      <Themed.p>
-        <ScrollDown onClick={goToAbout}>
-          <i className="icon-down-circle"></i>
-        </ScrollDown>
-      </Themed.p>
-    </Wrapper>
+      <Box textAlign="center" mt={8}>
+        <Button
+          variant="ghost"
+          onClick={goToAbout}
+          colorScheme="teal"
+          rightIcon={<Icon as="icon-down-circle" />}
+        >
+          Scroll Down
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

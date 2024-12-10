@@ -1,15 +1,16 @@
-import { Grid, Card, Text, Image, Flex, Box } from "theme-ui";
-import { Themed } from "@theme-ui/mdx";
+import { Grid, Box, Flex, Text, Image, Heading } from "@chakra-ui/react";
 import { Info, Date } from "./Resume.styles";
 import Row from "../../components/Row";
 
 const ResumeH1 = ({ children, sx, ...props }) => (
-  <Themed.h1
+  <Heading
+    as="h1"
     sx={{
       mt: 0,
       pr: [null, null, "20%"],
       lineHeight: "36px",
-      font: '18px/24px "opensans-bold", sans-serif',
+      fontSize: "18px",
+      fontWeight: "bold",
       textTransform: "uppercase",
       letterSpacing: ["3px", "1px"],
       textAlign: ["center", null, "inherit"],
@@ -19,21 +20,23 @@ const ResumeH1 = ({ children, sx, ...props }) => (
     {...props}
   >
     {children}
-  </Themed.h1>
+  </Heading>
 );
 
 const ResumeH3 = ({ children, sx, ...props }) => (
-  <Themed.h3
+  <Heading
+    as="h3"
     sx={{
       mt: 0,
-      font: '25px/30px "opensans-bold", sans-serif',
+      fontSize: "25px",
+      fontWeight: "bold",
       textAlign: ["center", null, "inherit"],
       ...sx,
     }}
     {...props}
   >
     {children}
-  </Themed.h3>
+  </Heading>
 );
 
 const SubSection = ({ title, children }) => (
@@ -89,7 +92,7 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
             <Date>{education.graduated}</Date>
           </Info>
           {education.description && (
-            <Themed.p>{education.description}</Themed.p>
+            <Text>{education.description}</Text>
           )}
         </Flex>
       ))}
@@ -107,32 +110,32 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
             {work.title}
             <span>&bull;</span> <Date>{work.years}</Date>
           </Info>
-          <Themed.p>{work.description}</Themed.p>
+          <Text>{work.description}</Text>
         </Flex>
       ))}
     </SubSection>
 
     <SubSection title="Favorites Tech">
-      <Grid width={[128, null, 192]}>
+      <Grid templateColumns="repeat(auto-fill, minmax(128px, 1fr))" gap={4}>
         {favoriteTechs.map((tech) => (
-          <Card key={`tech-${tech.name}`}>
-            <Image src={`/images/techs/${tech.image}`} variant="resumeTech" />
-            <Text sx={{ fontWeight: "bold" }}>{tech.name}</Text>
-          </Card>
+          <Box key={`tech-${tech.name}`} border="1px" borderColor="gray.200" p={4} textAlign="center">
+            <Image src={`/images/techs/${tech.image}`} alt={tech.name} />
+            <Text fontWeight="bold">{tech.name}</Text>
+          </Box>
         ))}
       </Grid>
     </SubSection>
 
     <SubSection title="Favorites Languages">
-      <Grid width={[128, null, 192]}>
+      <Grid templateColumns="repeat(auto-fill, minmax(128px, 1fr))" gap={4}>
         {languages.map((language) => (
-          <Card key={`lang-${language.name}`}>
+          <Box key={`lang-${language.name}`} border="1px" borderColor="gray.200" p={4} textAlign="center">
             <Image
               src={`/images/languages/${language.image}`}
-              variant="resumeTech"
+              alt={language.name}
             />
-            <Text sx={{ fontWeight: "bold" }}>{language.name}</Text>
-          </Card>
+            <Text fontWeight="bold">{language.name}</Text>
+          </Box>
         ))}
       </Grid>
     </SubSection>

@@ -1,4 +1,4 @@
-import { Themed } from "@theme-ui/mdx";
+import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 import NextLink from "next/link";
 
@@ -126,7 +126,7 @@ const Nav = () => {
 
         <li>
           <NextLink href="/blog" passHref>
-            <Themed.a variant="menuItem">Blog</Themed.a>
+            <styled.a variant="menuItem">Blog</styled.a>
           </NextLink>
         </li>
       </NavMenu>

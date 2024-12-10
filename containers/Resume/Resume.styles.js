@@ -1,8 +1,9 @@
-import { Themed } from "@theme-ui/mdx";
-import styled from "@emotion/styled";
+import { Text, styled } from "@chakra-ui/react";
 
-export const Info = styled(Themed.p)`
-  font: 16px/24px "librebaskerville-italic", serif;
+export const Info = styled(Text)`
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "Libre Baskerville", serif;
   color: #6e7881;
   margin-bottom: 18px;
   margin-top: 9px;
@@ -13,7 +14,9 @@ export const Info = styled(Themed.p)`
   }
 `;
 
-export const Date = styled(Themed.em)`
-  font: 15px/24px "opensans-regular", sans-serif;
+export const Date = styled(Text)`
+  font-size: 15px;
+  line-height: 24px;
+  font-family: "Open Sans", sans-serif;
   margin-top: 6px;
 `;
