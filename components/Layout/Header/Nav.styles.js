@@ -46,7 +46,7 @@ export const NavWrap = styled.nav`
   }
 `;
 
-export const MobileMenuBtn = styled(styled.a)`
+export const MobileMenuBtn = styled.a`
   display: none;
 
   @media only screen and (max-width: 767px) {

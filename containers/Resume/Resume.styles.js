@@ -1,4 +1,5 @@
-import { Text, styled } from "@chakra-ui/react";
+import styled from "@emotion/styled";
+import { Text } from "@chakra-ui/react";
 
 export const Info = styled(Text)`
   font-size: 16px;

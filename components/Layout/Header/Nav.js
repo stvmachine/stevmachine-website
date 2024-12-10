@@ -1,5 +1,5 @@
-import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
+import { Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 import { NavWrap, MobileMenuBtn, NavMenu } from "./Nav.styles";
@@ -126,7 +126,7 @@ const Nav = () => {
 
         <li>
           <NextLink href="/blog" passHref>
-            <styled.a variant="menuItem">Blog</styled.a>
+            <Link variant="menuItem">Blog</Link>
           </NextLink>
         </li>
       </NavMenu>

@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { useState, useEffect } from "react";
 
 const MenuItem = ({ itemName, active }) => {
@@ -24,14 +23,13 @@ const MenuItem = ({ itemName, active }) => {
 
   return (
     <li className={active ? "current" : ""}>
-      <styled.a
+      <Link
         href={`#${itemName}`}
         onClick={handleClick}
         aria-label={`${itemName}`}
-        variant="menuItem"
       >
         {itemName}
-      </styled.a>
+      </Link>
     </li>
   );
 };

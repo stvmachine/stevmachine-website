@@ -167,7 +167,7 @@ export const SocialList = styled.ul`
   }
 `;
 
-export const ScrollDown = styled(styled.a)`
+export const ScrollDown = styled.a`
   position: absolute;
   bottom: 30px;
   left: 50%;
