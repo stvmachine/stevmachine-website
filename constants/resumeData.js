@@ -1,24 +1,16 @@
 export default {
   main: {
     name: "Esteban Campos",
-    occupation: "Frontend Developer",
+    occupation: "Senior Software Engineer",
     description:
-      ", currently employed at Common Code where I work as frontend and hybrid mobile developer.",
+      ", currently employed at Ackama where I work as Senior Developer.",
     image: "profilepic.jpg",
-    bio:
-      "I am usually labeled as a frontend and mobile developer, although I fully agree that I'm good at that, I am continually improving my dev skills in other areas (right now I am learning Rust and Machine Learning). I am interested in board games, choirs and my dog Balu.",
+    bio: "Senior Software Engineer with 10+ years of experience specializing in TypeScript and mobile development. Proficient in React, React Native, NextJS, Ruby on Rails and Django, with expertise in AWS and Infrastructure as Code tools like Terraform. Skilled in building scalable applications and optimizing workflows in both leadership and team roles.",
     contactmessage:
       "Here is where you should write your message to readers to have them get in contact with you.",
     email: "campos.esteban@gmail.com",
-    phone: "+61 0401745732",
-    address: {
-      street: "470 St Kilda Rd",
-      city: "Melbourne",
-      state: "Victoria",
-      zip: "3004",
-    },
-    website: "https://stevmachine-website.vercel.app/",
-    resumedownload: "https://stevmachine-website.vercel.app/",
+    address: "Melbourne VIC 3165",
+    website: "https://stevmachine.me/",
     social: [
       {
         name: "facebook",
@@ -61,7 +53,7 @@ export default {
     education: [
       {
         school: "Universidad de Santiago de Chile",
-        degree: "Master of Science in engineering",
+        degree: "Master of Science in Engineering",
         graduated: "2014",
         description: "",
       },
@@ -74,39 +66,49 @@ export default {
     ],
     work: [
       {
-        company: "Common Code",
-        title: "Frontend Developer",
+        company: "Ackama",
+        title: "Senior Software Developer",
         years: "July 2018 - Present",
-        description:
-          "Common Code is a collective of smart and passionate people, who are concerned with adopting good work practices and contributing to the dev community. I regularly participate as a mentor and atendee in the meetups and events that the company organizes such as MelbDjango, DjangoGirls and NodeGirls. The main stack is Django, React, and React Native.",
+        description: [
+          "Ackama is an AU-NZ digital agency specialising in government initiatives, energy suppliers, and purpose-driven startups.",
+          "Acted as a technical domain expert in projects, including infrastructure (AWS & third-party services)",
+          "Stack: Javascript/Typescript (React, React Native, Node); Ruby on Rails; Python (Django); AWS.",
+          "Led and mentored junior and mid-level developers, driving technical excellence and team collaboration.",
+          "Notable clients: Kaluza, AESOP, Mindset Health, Nura, Ethical Jobs, Good on You, Agronius and Ynomia.",
+        ],
       },
       {
         company: "Vicsuper",
-        title: "Angular 2/Ionic 2 Developer",
+        title: "Angular 2/ Ionic 2 Developer",
         years: "Jan 2018 - July 2018",
-        description:
-          "I contribuited with the development of their first app. The app allows customers keep track of their super. It was my first experience here in Australia and it was a blast.",
+        description: [
+          "VicSuper (now Aware Super), an Australian superannuation company with over 20 years of experience; launched its first hybrid mobile app for Android and iOS during my tenure.",
+          "I contribuited with the development of their first app. The app allows customers keep track of their super.",
+          "Developed critical features, implemented CI/CD pipeline, and improved security protocols.",
+          "Stack: Javascript/Typescript (Angular 2, Ionic 2); Ruby; Android & iOS platforms.",
+        ],
       },
       {
-        company: "Idea Uno",
-        title: "Senior Frontend Developer",
+        company: "Ideauno",
+        title: "Software Engineer",
         years: "Jun 2016 - Nov 2017",
-        description:
-          "I used multiple hats. Usually took the lead on mobile hybrid projects and educated the team on Angular/Ionic/React/React Native. Great experience that until today makes me spread my love for Ruby On Rails.",
+        description: [
+          "Led mobile hybrid app and web projects, participating in the entire software development lifecycle.",
+          "Mentored colleagues in Angular, Ionic, and Ruby on Rails, and drove a shift in the company tech stack.",
+        ],
       },
       {
         company: "Kunder",
-        title: "Angular/Ionic Developer",
+        title: "Junior Software Engineer",
         years: "March 2016 - June 2016",
         description:
-          "First experience as frontend and mobile developer. It was a really intensive experience due I worked with a family of eight Ionic apps. In my short time, I added features and I did maintenance at least five of them.",
+          "Developed Ionic-Angular apps for the banking industry with a focus on security and Test-Driven Development.",
       },
       {
         company: "Random ERP",
-        title: "Fullstack Developer",
-        years: "March 2015 - March 2016",
-        description:
-          "I was involved in all the levels of the system design and development of a new product. I developed desktop apps based on NodeJS and Angular. ",
+        title: "Junior Software Engineer",
+        years: "Feb 2015 - Feb 2016",
+        description: `Contributed to decision-making, development, reverse engineering, and complex database modeling for ERP solutions.`,
       },
     ],
     favoriteTechs: [
@@ -157,17 +159,16 @@ export default {
   portfolio: {
     projects: [
       {
-        title: "Banco de Chile mobile app",
-        category: "Bank account and transactions managment",
-        image: "bancodechile-mobile.png",
-        url:
-          "https://play.google.com/store/apps/details?id=cl.bancochile.mbanking&hl=es_419",
-      },
-      {
         title: "VicSuper mobile app",
         category: "Keep track of your super from your phone",
         image: "vicsuper-mobile-app.png",
         url: "https://www.vicsuper.com.au/forms-and-resources/mobile-app",
+      },
+      {
+        title: "Banco de Chile mobile app",
+        category: "Bank account and transactions managment",
+        image: "bancodechile-mobile.png",
+        url: "https://play.google.com/store/apps/details?id=cl.bancochile.mbanking&hl=es_419",
       },
       {
         title: "Good on you Brand Directory",
@@ -179,20 +180,13 @@ export default {
         title: "Good on you mobile app",
         category: "Mobile version of Good On You",
         image: "goodonyou-mobile.png",
-        url:
-          "https://apps.apple.com/us/app/good-on-you-ethical-fashion/id1044017998",
-      },
-      {
-        title: "Tugeda Platform",
-        category: "Mobile version of Good On You",
-        image: "tugeda-website.png",
-        url: "https://tugeda.space/",
+        url: "https://apps.apple.com/us/app/good-on-you-ethical-fashion/id1044017998",
       },
       {
         title: "My portfolio & Blog",
         category: "Done with React, NextJS and MDX",
         image: "myportfolio.png",
-        url: "https://stevmachine-website.vercel.app/",
+        url: "https://stevmachine.me/",
       },
     ],
   },

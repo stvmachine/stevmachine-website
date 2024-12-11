@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, Avatar, Box, Button, Flex, Link, Styled } from "theme-ui";
+import NextLink from "next/link";
 import Row from "../../components/Row";
 
 const H2 = ({ children }) => (
@@ -15,15 +16,7 @@ const H2 = ({ children }) => (
 );
 
 const About = ({
-  data: {
-    name,
-    bio,
-    phone,
-    email,
-    resumeDownload,
-    image,
-    address: { street, city, state, zip },
-  },
+  data: { name, bio, email, resumeDownload, image, address },
 }) => (
   <Box
     id="about"
@@ -32,7 +25,7 @@ const About = ({
       pt: "96px",
       pb: "66px",
       overflow: "hidden",
-      color: "#7a7a7a",
+      color: "#cccccc",
     }}
     as="section"
   >
@@ -68,13 +61,7 @@ const About = ({
               <Styled.p>
                 <span>{name}</span>
                 <br />
-                <span>
-                  {street}
-                  <br />
-                  {city} {state}, {zip}
-                </span>
-                <br />
-                <span>{phone}</span>
+                <span>{address}</span>
                 <br />
                 <Link
                   variant="underline"
@@ -86,9 +73,11 @@ const About = ({
               </Styled.p>
             </Box>
             <Box sx={{ pl: 6 }}>
-              <Button href={resumeDownload}>
-                <i className="fa fa-download"></i> Download Resume
-              </Button>
+              <NextLink href="/api/download-resume" passHref>
+                <Button as="a">
+                  <i className="fa fa-download"></i> Download Resume
+                </Button>
+              </NextLink>
             </Box>
           </Flex>
         </Box>

@@ -107,7 +107,17 @@ const Resume = ({ data: { languages, education, work, favoriteTechs } }) => (
             {work.title}
             <span>&bull;</span> <Date>{work.years}</Date>
           </Info>
-          <Styled.p>{work.description}</Styled.p>
+          {Array.isArray(work.description) ? (
+            <ul style={{ listStyle: "inside", padding: 0 }}>
+              {work.description.map((item, idx) => (
+                <li key={`description-${index}-${idx}`} style={{ padding: 4 }}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <Styled.p>{work.description}</Styled.p>
+          )}
         </Flex>
       ))}
     </SubSection>

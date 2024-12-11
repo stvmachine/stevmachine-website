@@ -1,13 +1,12 @@
 # My portfolio
 
-Running thanks to Vercel platform in: https://stevmachine-website.vercel.app/
-
+Running thanks to Vercel platform in: <https://stevmachine.me/>
 
 ## Running Locally
 
 ```bash
-$ yarn
-$ yarn dev
+yarn
+yarn dev
 ```
 
 ## Built Using
