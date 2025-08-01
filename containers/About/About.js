@@ -1,4 +1,5 @@
-import { Box, Flex, Avatar, Button, Link, Text, Heading } from "@chakra-ui/react";
+import { Box, Flex, Button, Link, Text, Heading } from "@chakra-ui/react";
+import { Avatar } from "@radix-ui/themes";
 import Row from "../../components/Row";
 
 const About = ({
@@ -15,8 +16,11 @@ const About = ({
   >
     <Row>
       <Flex justify="center" mx="auto">
-        <Box width={["100%", "25%"]}>
-          <Avatar src={`/images/${image}`} size="2xl" />
+        <Box width="25%">
+          <Avatar
+            src={`/images/${image}`}
+            style={{ width: "200px", height: "200px", borderRadius: "25%" }}
+          />
         </Box>
         <Box width="75%" pr="5%">
           <Heading
@@ -30,15 +34,17 @@ const About = ({
             About Me
           </Heading>
 
-          <Text mb="16px">{bio}</Text>
+          <Text mb="16px" color="#CCCCCC">
+            {bio}
+          </Text>
 
-          <Text mb="16px">
+          {/* <Text mb="16px">
             You can follow my{" "}
             <Link href="/blog" color="#11abb0" isExternal>
               blog
             </Link>
             .
-          </Text>
+          </Text> */}
 
           <Flex align="flex-start" gap="2rem">
             <Box>
@@ -52,7 +58,7 @@ const About = ({
               >
                 Contact Details
               </Heading>
-              <Text>
+              <Text color="#CCCCCC">
                 <span>{name}</span>
                 <br />
                 <span>{address}</span>
@@ -61,7 +67,7 @@ const About = ({
                 <br />
                 <Link
                   href={`mailto:${email}`}
-                  color="#11abb0"
+                  color="#FFFFFF"
                   textDecoration="underline"
                   isExternal
                 >
@@ -69,7 +75,7 @@ const About = ({
                 </Link>
               </Text>
             </Box>
-            <Box>
+            {/* <Box>
               <Button
                 as="a"
                 href={resumeDownload}
@@ -80,7 +86,7 @@ const About = ({
               >
                 Download Resume
               </Button>
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
       </Flex>
