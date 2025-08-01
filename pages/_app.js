@@ -13,13 +13,11 @@ const App = ({ Component, pageProps }) => {
         <BlogLayout>
           <Component {...pageProps} />
         </BlogLayout>
-      ) :  */}
-      (
-        <DefaultLayout>
-          <Component {...pageProps} />
-        </DefaultLayout>
-      )
-      {/* } */}
+      ) :(*/}
+      <DefaultLayout>
+        <Component {...pageProps} />
+      </DefaultLayout>
+      {/*)} */}
     </>
   );
 };

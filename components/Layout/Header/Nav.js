@@ -58,8 +58,10 @@ const Nav = () => {
       window.innerHeight || 0
     );
     for (const key in menuItems) {
-      menuItems[key] =
-        document.getElementById(key).getBoundingClientRect().top + curScroll;
+      if (document.getElementById(key)) {
+        menuItems[key] =
+          document.getElementById(key).getBoundingClientRect().top + curScroll;
+      }
     }
     const bottom = document.body.offsetHeight;
     handleScroll();
@@ -124,11 +126,11 @@ const Nav = () => {
           />
         ))}
 
-        <li>
+        {/* <li>
           <NextLink href="/blog" passHref>
             <Link variant="menuItem">Blog</Link>
           </NextLink>
-        </li>
+        </li> */}
       </NavMenu>
     </NavWrap>
   );

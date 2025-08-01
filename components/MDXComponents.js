@@ -1,16 +1,14 @@
 import {
   Box,
-  AspectRatioBox,
-  Callout,
   Code,
   Heading,
   Kbd,
   Link,
-  PseudoBox,
   Text,
   Divider,
   useColorMode,
 } from "@chakra-ui/react";
+import { Callout, AspectRatio } from "@radix-ui/themes";
 import NextLink from "next/link";
 
 const Table = (props) => (
@@ -71,6 +69,16 @@ const CustomLink = (props) => {
   return <Link color={color[colorMode]} isExternal {...props} />;
 };
 
+const StyledCallout = styled(Callout)`
+  margin-top: 1rem;
+  width: 98%;
+  background: ${({ theme, bgColor }) => bgColor || theme.colors.blue[50]};
+  > *:first-of-type": {
+    margin-top: 0;
+    margin-left: 8;
+  }
+`;
+
 const Quote = (props) => {
   const { colorMode } = useColorMode();
   const bgColor = {
@@ -78,22 +86,7 @@ const Quote = (props) => {
     dark: "blue.900",
   };
 
-  return (
-    <Callout
-      mt={4}
-      w="98%"
-      bg={bgColor[colorMode]}
-      variant="left-accent"
-      status="info"
-      css={{
-        "> *:first-of-type": {
-          marginTop: 0,
-          marginLeft: 8,
-        },
-      }}
-      {...props}
-    />
-  );
+  return <StyledCallout bgColor={bgColor[colorMode]} {...props} />;
 };
 
 const DocsHeading = (props) => (
@@ -120,7 +113,7 @@ const DocsHeading = (props) => (
     <Box pointerEvents="auto">
       {props.children}
       {props.id && (
-        <PseudoBox
+        <Box
           aria-label="anchor"
           as="a"
           color="blue.500"
@@ -135,7 +128,7 @@ const DocsHeading = (props) => (
           href={`#${props.id}`}
         >
           #
-        </PseudoBox>
+        </Box>
       )}
     </Box>
   </Heading>
@@ -152,9 +145,9 @@ const Hr = () => {
 };
 
 const CustomVideo = ({ url }) => (
-  <AspectRatioBox ratio={16 / 9} maxW="700px" w="100%">
+  <AspectRatio.Root ratio={16 / 9} style={{ width: "100%", maxWidth: "700px" }}>
     <Box as="iframe" src={url} allowFullScreen />
-  </AspectRatioBox>
+  </AspectRatio.Root>
 );
 
 const MDXComponents = {
